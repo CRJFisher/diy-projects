@@ -5,8 +5,8 @@ This weekend you build the freestanding timber frame -- six posts, all rails, cr
 | Measurement | Value |
 |---|---|
 | Total width | 1300 mm |
-| Total depth | 844 mm |
-| Internal depth | 750 mm (food caddy clearance) |
+| Total depth | 750 mm |
+| Internal depth | 650 mm (food caddy clearance) |
 | Front height | 1597 mm |
 | Back height | 1647 mm |
 | Roof slope (back-to-front) | 50 mm fall |
@@ -24,12 +24,12 @@ All frame cuts use **50 x 47 mm pressure-treated softwood** (from B&Q). Posts fr
 | 3 | 1647 mm `[CUT:POST_BL,POST_BR,POST_BC]` | Back posts (2 corners + 1 right-section back) |
 | 2 | 1597 mm `[CUT:POST_FL,POST_FR]` | Front corner posts (left + right) |
 | 1 | 1503 mm `[CUT:POST_FC]` | Front centre post (sits between top & bottom rails; 1597 - 2 x 47) |
-| 4 | 1300 mm `[CUT:RAIL_BACK_TOP,RAIL_BACK_BOT,RAIL_BACK_MID,RAIL_FRONT_TOP]` | Full-width rails (2 top, 1 back bottom, 1 back mid-rail at 775 mm) |
+| 4 | 1206 mm `[CUT:RAIL_BACK_TOP,RAIL_BACK_BOT,RAIL_BACK_MID,RAIL_FRONT_TOP]` | Full-width rails (2 top, 1 back bottom, 1 back mid-rail at 775 mm; 1300 minus 2 x 47 mm posts) |
 | 1 | 423 mm `[CUT:RAIL_FRONT_BOT_R]` | Front bottom rail -- right section only (centre post inside face to right corner post inside face; 470 section minus 47 centre post depth) |
-| 5 | 750 mm `[CUT:RAIL_DEPTH_TL,RAIL_DEPTH_TR,RAIL_DEPTH_BL,RAIL_DEPTH_BR,RAIL_DEPTH_TC]` | Depth rails (4 corner connections + 1 centre divider top) |
-| 2 | 750 mm `[CUT:RAIL_MID_LEFT,RAIL_DEPTH_MC]` | Mid-rails (left wall + centre divider, at 775 mm) |
+| 5 | 650 mm `[CUT:RAIL_DEPTH_TL,RAIL_DEPTH_TR,RAIL_DEPTH_BL,RAIL_DEPTH_BR,RAIL_DEPTH_TC]` | Depth rails (4 corner connections + 1 centre divider top) |
+| 2 | 650 mm `[CUT:RAIL_MID_LEFT,RAIL_DEPTH_MC]` | Mid-rails (left wall + centre divider, at 775 mm) |
 | 2 | ~1100 mm `[CUT:BRACE_BACK_1,BRACE_BACK_2]` | Back panel X-braces -- **15x38mm user-supplied** (45° both ends) |
-| 2 | ~1060 mm `[CUT:BRACE_LEFT_1,BRACE_LEFT_2]` | Left panel X-braces -- **15x38mm user-supplied** (45° both ends) |
+| 2 | ~1000 mm `[CUT:BRACE_LEFT_1,BRACE_LEFT_2]` | Left panel X-braces -- **15x38mm user-supplied** (45° both ends; ~980 + ~1010, avg ~1000) |
 
 **Fixings:** ~40x 75 mm galv screws (joints), ~16x 65 mm (braces). Roughly 56 total.
 
@@ -48,11 +48,11 @@ Build this frame flat on sawhorses (or a flat floor), then stand it up later. Re
 ### Assembly
 
 1. Lay all three 1647 mm `[CUT:POST_BL,POST_BR,POST_BC]` back posts flat, 50 mm face up: left corner post, centre-back post (780 mm from left), right corner post (1300 mm from left). The left-to-centre gap is ~780 mm; centre-to-right is ~470 mm
-2. Butt a 1300 mm `[CUT:RAIL_BACK_TOP]` rail between the outer post tops, flush with the top ends. The rail passes over the centre-back post and is face-screwed to it -- the centre post is full height (1647 mm) and sits behind the rails, so the rails rest on its face. Pre-drill two pilot holes per joint, drive 2x 75 mm screws per side (6 screws total for this rail)
+2. Butt a 1206 mm `[CUT:RAIL_BACK_TOP]` rail between the outer post tops, flush with the top ends. The rail passes over the centre-back post and is face-screwed to it -- the centre post is full height (1647 mm) and sits behind the rails, so the rails rest on its face. Pre-drill two pilot holes per joint, drive 2x 75 mm screws per side (6 screws total for this rail)
 3. Repeat at the bottom. Check 90 deg with a framing square before driving screws -- tap the rail sideways to correct any racking
 4. Mark all three posts at 775 mm up from the bottom rail. Fix the mid-height rail at this mark, spanning all three posts, same method (2x pilot holes, 2x 75 mm screws per side)
 
-> **Centre-back post joint method:** The centre-back post runs the full 1647 mm height. All three horizontal rails are continuous 1300 mm pieces that pass in front of (over) the centre post and are face-screwed through the rail into the post. This is stronger than cutting the rails into sections because continuous rails act as beams, and face-screwing into the post (rather than end-grain screwing) gives a solid joint.
+> **Centre-back post joint method:** The centre-back post runs the full 1647 mm height. All three horizontal rails are continuous 1206 mm pieces that pass in front of (over) the centre post and are face-screwed through the rail into the post. This is stronger than cutting the rails into sections because continuous rails act as beams, and face-screwing into the post (rather than end-grain screwing) gives a solid joint.
 
 > **Tip:** A flat surface matters more than a raised one -- the frame must lie flat so it does not twist during assembly.
 
@@ -88,14 +88,14 @@ The front frame is 1597 mm tall (50 mm shorter than the back to create roof slop
 - **No X-braces** -- the left section is a door opening and the right section is too narrow for meaningful bracing
 - **No full-width mid-height rail** -- the left wall and right-section front get mid-rails (Step 5) but the right side wall does not (shelves will provide lateral bracing)
 - **Front bottom rail is right section only (423 mm)** -- no bottom rail across the door opening so the wheelie bin can roll in and out freely
-- Top rail remains **1300 mm** (full width)
+- Top rail remains **1206 mm** (full width between posts)
 
 ### Assembly
 
 Build it flat on sawhorses:
 
 1. Lay the two 1597 mm `[CUT:POST_FL,POST_FR]` posts parallel, 1300 mm apart (outside edge to outside edge)
-2. Attach the top rail (1300 mm `[CUT:RAIL_FRONT_TOP]`) with 2x 75 mm screws per end (pilot holes first). **Do not fit a full-width bottom rail** -- the front bottom rail is fitted later in Step 4 as a short piece in the right section only
+2. Attach the top rail (1206 mm `[CUT:RAIL_FRONT_TOP]`) with 2x 75 mm screws per end (pilot holes first). **Do not fit a full-width bottom rail** -- the front bottom rail is fitted later in Step 4 as a short piece in the right section only
 3. Check for square -- clamp a temporary diagonal brace across the frame to hold it square until the bottom rail and centre post are fitted in Step 4
 
 > **Note:** The left section (~780 mm) will become the door opening -- keep it clear of bracing, mid-rails, and bottom rails. The right section (~470 mm) gets its bottom rail when the centre post is installed (Step 4). The centre post (Step 4) completes the front face.
@@ -106,11 +106,11 @@ Build it flat on sawhorses:
 
 ## Step 3: Connect Front & Back with Depth Rails
 
-This is where your 2D frames become a 3D box. **You need a helper.** Refer to the **Cut List** for parts (4x 750 mm depth rails). Each rail gets 2x 75 mm screws per end (16 screws total). Pre-drill all holes.
+This is where your 2D frames become a 3D box. **You need a helper.** Refer to the **Cut List** for parts (4x 650 mm depth rails). Each rail gets 2x 75 mm screws per end (16 screws total). Pre-drill all holes.
 
 ### Assembly
 
-1. Stand the back frame upright, propped or clamped. Position the front frame 844 mm in front (outside-to-outside), facing it -- the 750 mm depth rails bridge the 750 mm gap between inner post faces
+1. Stand the back frame upright, propped or clamped. Position the front frame 750 mm in front (outside-to-outside), facing it -- the 650 mm depth rails bridge the 650 mm gap between inner post faces
 2. Attach the top-left depth rail from left-back post (1647 mm) to left-front post (1597 mm) -- this slope creates the roof pitch. Butt the rail end-grain into the inner face of each post with the rail's **top edge flush with the post top** at each end (1647 mm at the back, 1597 mm at the front). No angled cuts are needed on posts or rails -- the ~3.8 degree slope is slight enough that the square-cut rail end seats cleanly against the post face. 2x 75 mm screws per end
 3. Attach the bottom-left depth rail at ground level, flush with both posts (level). 2x 75 mm screws per end
 4. Repeat on the right side -- top rail (sloped) and bottom rail (level)
@@ -133,8 +133,8 @@ The centre divider splits the bin store into **left** (~780 mm, enclosed with do
 3. **Stand the centre post.** Place the 1503 mm `[CUT:POST_FC]` post vertically at your mark, standing on top of the right-section bottom rail, 50 mm face parallel to the front edge. The post sits between the top rail and the bottom rail -- its bottom end rests on the top face of the bottom rail and its top end butts against the underside of the top rail.
 4. **Fix the base.** Toe-screw 2x 75 mm screws through the post base into the bottom rail, one from each side. Pre-drill.
 5. **Fix the top.** Drive 2x 75 mm screws down through the top rail into the end grain of the centre post. Pre-drill with a 5 mm bit to prevent splitting. This joint is compression-loaded (the roof pushes down), so end-grain screwing is adequate here.
-6. **Fit the top depth rail.** 750 mm `[CUT:RAIL_DEPTH_TC]` rail from centre post top back to the back top rail (slopes slightly: 1597 mm front to 1647 mm back). 2x 75 mm screws at each end.
-7. **Fit the mid-height depth rail.** 750 mm `[CUT:RAIL_DEPTH_MC]` rail from centre post to back frame at 775 mm height. 2x 75 mm screws at each end.
+6. **Fit the top depth rail.** 650 mm `[CUT:RAIL_DEPTH_TC]` rail from centre post top back to the back top rail (slopes slightly: 1597 mm front to 1647 mm back). 2x 75 mm screws at each end.
+7. **Fit the mid-height depth rail.** 650 mm `[CUT:RAIL_DEPTH_MC]` rail from centre post to back frame at 775 mm height. 2x 75 mm screws at each end.
 8. **Remove the temporary diagonal brace** from the front frame (if fitted in Step 2).
 9. **Check plumb.** Spirit level on both faces of the centre post -- adjust until vertical before fully tightening.
 
@@ -154,7 +154,7 @@ Mid-height rails at 775 mm stiffen the frame and provide cladding fixing points.
 
 | Qty | Component | Length | Location |
 |-----|-----------|--------|----------|
-| 1 | Left wall mid-rail | 750 mm | Left-front to left-back post, 775 mm height |
+| 1 | Left wall mid-rail | 650 mm | Left-front to left-back post, 775 mm height |
 
 Fix each rail with 2x 75 mm screws at each end. The right side wall does **not** get a mid-rail -- the shelves (Weekend 4) will act as lateral bracing instead. The right section of the front face (~470 mm wide) has no mid-rail either -- the cladding is nailed directly to the centre post and right corner post, which is sufficient for such a narrow span. Check all mid-rails are level with a spirit level before fully tightening.
 
@@ -164,9 +164,9 @@ Fix each rail with 2x 75 mm screws at each end. The right side wall does **not**
 
 ### Mid-height rail checklist
 
-- [ ] **Back wall mid-rail** -- 1300 mm, across the full back, at 775 mm
-- [ ] **Centre divider mid-rail** -- 750 mm, centre post to back frame, at 775 mm
-- [ ] **Left wall mid-rail** -- 750 mm, left-front post to left-back post, at 775 mm
+- [ ] **Back wall mid-rail** -- 1206 mm, across the full back, at 775 mm
+- [ ] **Centre divider mid-rail** -- 650 mm, centre post to back frame, at 775 mm
+- [ ] **Left wall mid-rail** -- 650 mm, left-front post to left-back post, at 775 mm
 
 ---
 
@@ -216,7 +216,7 @@ See the Cut List above for all timber pieces and dimensions. Posts and rails are
 
 | Material | Qty | Length | Use |
 |----------|-----|--------|-----|
-| 15x38mm timber | 2 of 8 available | 2400 mm | X-braces (2x ~1100mm back + 2x ~1060mm left) |
+| 15x38mm timber | 2 of 8 available | 2400 mm | X-braces (2x ~1100mm back + 2x ~1000mm left) |
 
 The remaining 6 pieces of 15x38mm are spare.
 

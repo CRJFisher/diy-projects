@@ -101,7 +101,7 @@
   <rect x="600" y="108" width="12" height="204" rx="2" fill="#c9a86c" stroke="#8b6914" stroke-width="1.5" transform="rotate(15,606,210)"/>
   <rect x="650" y="108" width="12" height="204" rx="2" fill="#c9a86c" stroke="#8b6914" stroke-width="1.5" transform="rotate(-15,656,210)"/>
   <line x1="580" y1="108" x2="580" y2="312" class="dim-line" marker-start="url(#aL)" marker-end="url(#aR)"/>
-  <text x="574" y="213" text-anchor="middle" class="dim-text" transform="rotate(-90,574,213)">~1060 mm</text>
+  <text x="574" y="213" text-anchor="middle" class="dim-text" transform="rotate(-90,574,213)">~1000 mm</text>
   <text x="640" y="333" text-anchor="middle" class="label">2x left panel</text>
   <text x="640" y="347" text-anchor="middle" class="label">diagonal braces</text>
   <text x="640" y="361" text-anchor="middle" class="label">(cut 45deg ends)</text>
@@ -113,13 +113,13 @@
   <text x="60" y="862" class="sub">Posts:</text>
   <text x="150" y="862" class="label">3x 1647 mm + 2x 1597 mm + 1x 1503 mm = 6 posts</text>
   <text x="60" y="882" class="sub">Long rails:</text>
-  <text x="150" y="882" class="label">4x 1300 mm (2 top + 1 back bottom + 1 back mid-rail)</text>
+  <text x="150" y="882" class="label">4x 1206 mm (2 top + 1 back bottom + 1 back mid-rail)</text>
   <text x="60" y="902" class="sub">Depth rails:</text>
-  <text x="150" y="902" class="label">7x 750 mm (4 side rails + centre top + 2 mid-rails)</text>
+  <text x="150" y="902" class="label">7x 650 mm (4 side rails + centre top + 2 mid-rails)</text>
   <text x="60" y="922" class="sub">Short rail:</text>
   <text x="150" y="922" class="label">1x 423 mm (right front bottom rail)</text>
   <text x="430" y="862" class="sub">Braces:</text>
-  <text x="510" y="862" class="label">2x ~1100 + 2x ~1060 (15x38mm, user-supplied)</text>
+  <text x="510" y="862" class="label">2x ~1100 + 2x ~1000 (15x38mm, user-supplied)</text>
   <text x="430" y="882" class="sub">Fixings:</text>
   <text x="510" y="882" class="label">~40x 75 mm screws (frame joints)</text>
   <text x="510" y="898" class="label">~16x 65 mm screws (brace ends)</text>

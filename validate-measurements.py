@@ -53,8 +53,8 @@ BRACE_WIDTH     = 38  # mm
 # ─────────────────────────────────────────────────────────
 
 TOTAL_WIDTH            = 1300  # mm, outside-to-outside
-TOTAL_DEPTH            = 844   # mm, outside-to-outside (47 + 750 + 47)
-INTERNAL_DEPTH         = 750   # mm, between inner faces of posts (food caddy clearance)
+TOTAL_DEPTH            = 750   # mm, outside-to-outside (50 + 650 + 50)
+INTERNAL_DEPTH         = 650   # mm, between inner faces of posts (food caddy clearance)
 ROOF_SLOPE             = 50    # mm, back higher than front
 LEFT_SECTION_CLEAR     = 780   # mm, door opening (left post inside face to centre post face)
 MID_RAIL_HEIGHT        = 775   # mm from ground
@@ -93,33 +93,33 @@ _cut("POST_FL",  "Front-left corner post",            1597, notes="50 mm shorter
 _cut("POST_FR",  "Front-right corner post",           1597)
 _cut("POST_FC",  "Front centre post",                 1503, notes="Between top & bottom rails: 1597 - 2x47")
 
-# -- BACK FRAME RAILS (full width, face-mounted) --
-_cut("RAIL_BACK_TOP",  "Back top rail",    1300, notes="Full width, face-mounted over all 3 back posts")
-_cut("RAIL_BACK_BOT",  "Back bottom rail", 1300)
-_cut("RAIL_BACK_MID",  "Back mid-height rail", 1300, notes="At 775 mm")
+# -- BACK FRAME RAILS (butt between inner faces of corner posts) --
+_cut("RAIL_BACK_TOP",  "Back top rail",    1206, notes="Butts between corner posts: 1300 - 2x47 = 1206")
+_cut("RAIL_BACK_BOT",  "Back bottom rail", 1206, notes="Butts between corner posts: 1300 - 2x47 = 1206")
+_cut("RAIL_BACK_MID",  "Back mid-height rail", 1206, notes="At 775 mm; butts between corner posts")
 
 # -- FRONT FRAME RAILS --
-_cut("RAIL_FRONT_TOP",    "Front top rail",                   1300, notes="Full width, face-mounted")
+_cut("RAIL_FRONT_TOP",    "Front top rail",                   1206, notes="Butts between corner posts: 1300 - 2x47 = 1206")
 _cut("RAIL_FRONT_BOT_R",  "Front bottom rail (right section)", 423,
      notes="470mm section width minus 47mm (centre post depth) = 423mm clear span between inside faces")
 
 
 # -- DEPTH RAILS (front to back, butt between posts) --
-_cut("RAIL_DEPTH_TL", "Top-left depth rail",     750, notes="Butts end-grain into post inner faces")
-_cut("RAIL_DEPTH_TR", "Top-right depth rail",    750)
-_cut("RAIL_DEPTH_BL", "Bottom-left depth rail",  750)
-_cut("RAIL_DEPTH_BR", "Bottom-right depth rail", 750)
-_cut("RAIL_DEPTH_TC", "Top centre depth rail",   750, notes="Centre divider top")
-_cut("RAIL_DEPTH_MC", "Mid centre depth rail",   750, notes="Centre divider at 775 mm")
+_cut("RAIL_DEPTH_TL", "Top-left depth rail",     650, notes="Butts end-grain into post inner faces")
+_cut("RAIL_DEPTH_TR", "Top-right depth rail",    650)
+_cut("RAIL_DEPTH_BL", "Bottom-left depth rail",  650)
+_cut("RAIL_DEPTH_BR", "Bottom-right depth rail", 650)
+_cut("RAIL_DEPTH_TC", "Top centre depth rail",   650, notes="Centre divider top")
+_cut("RAIL_DEPTH_MC", "Mid centre depth rail",   650, notes="Centre divider at 775 mm")
 
 # -- SIDE MID-RAILS (front to back, butt between posts) --
-_cut("RAIL_MID_LEFT", "Left wall mid-rail", 750, notes="Left-front to left-back at 775 mm")
+_cut("RAIL_MID_LEFT", "Left wall mid-rail", 650, notes="Left-front to left-back at 775 mm")
 
 # -- CROSS-BRACES (15x38mm user-supplied timber, NOT from B&Q 50x47mm stock) --
 _cut("BRACE_BACK_1", "Back panel X-brace 1", 1100, notes="15x38mm user-supplied; left section upper zone, 45-deg ends")
 _cut("BRACE_BACK_2", "Back panel X-brace 2", 1100, notes="15x38mm user-supplied")
-_cut("BRACE_LEFT_1", "Left panel X-brace 1", 1060, notes="15x38mm user-supplied; left side upper zone, 45-deg ends")
-_cut("BRACE_LEFT_2", "Left panel X-brace 2", 1060, notes="15x38mm user-supplied")
+_cut("BRACE_LEFT_1", "Left panel X-brace 1", 1000, notes="15x38mm user-supplied; left side upper zone, 45-deg ends; ~980 actual")
+_cut("BRACE_LEFT_2", "Left panel X-brace 2", 1000, notes="15x38mm user-supplied; ~1010 actual")
 
 # -- NOGGINS removed from Weekend 1 (optional; add in Weekend 3 if cladding needs extra support) --
 
@@ -197,21 +197,43 @@ def build_constraints() -> list:
     add = cs.append
 
     # Derived values
+    # NOTE: CLAUDE.md uses 47 mm for posts in the width (left-right) chain,
+    # which corresponds to POST_DEPTH in this script's naming convention.
+    # The naming (POST_WIDTH=50 "left-right", POST_DEPTH=47 "front-to-back")
+    # appears swapped relative to reality, but we use POST_DEPTH here to
+    # match the authoritative constraints in CLAUDE.md.
     right_section_width = TOTAL_WIDTH - POST_WIDTH - LEFT_SECTION_CLEAR
-    right_clear = TOTAL_WIDTH - 3 * POST_WIDTH - LEFT_SECTION_CLEAR
-    depth_rail_expected = INTERNAL_DEPTH  # rails butt between posts = 750 mm
+    right_clear = TOTAL_WIDTH - 3 * POST_DEPTH - LEFT_SECTION_CLEAR
+    depth_rail_expected = INTERNAL_DEPTH  # rails butt between posts = 650 mm
 
     # ── WIDTH (left-to-right) ──────────────────────────────
 
-    # Full-width rails (face-mounted, length = total width)
+    # Full-width rails butt between inner faces of corner posts.
+    # Correct length = TOTAL_WIDTH - 2 * POST_DEPTH (1300 - 94 = 1206).
+    full_width_rail_expected = TOTAL_WIDTH - 2 * POST_DEPTH
     for rid, label in [
-        ("RAIL_BACK_TOP",  "Back top rail = total width"),
-        ("RAIL_BACK_BOT",  "Back bottom rail = total width"),
-        ("RAIL_BACK_MID",  "Back mid rail = total width"),
-        ("RAIL_FRONT_TOP", "Front top rail = total width"),
+        ("RAIL_BACK_TOP",  "Back top rail = total width - 2 * post depth"),
+        ("RAIL_BACK_BOT",  "Back bottom rail = total width - 2 * post depth"),
+        ("RAIL_BACK_MID",  "Back mid rail = total width - 2 * post depth"),
+        ("RAIL_FRONT_TOP", "Front top rail = total width - 2 * post depth"),
     ]:
         add(Constraint(f"{rid}_WIDTH", label,
-                        [(rid, L(rid))], TOTAL_WIDTH))
+                        [(rid, L(rid))], full_width_rail_expected))
+
+    # Dimensional chain: post_depth + rail + post_depth = TOTAL_WIDTH
+    # This would catch a rail incorrectly set to 1300 (chain would sum to 1394).
+    for rid, label in [
+        ("RAIL_BACK_TOP",  "Back top rail"),
+        ("RAIL_BACK_BOT",  "Back bottom rail"),
+        ("RAIL_BACK_MID",  "Back mid rail"),
+        ("RAIL_FRONT_TOP", "Front top rail"),
+    ]:
+        add(Constraint(f"{rid}_WIDTH_CHAIN",
+            f"{label}: post_depth + rail + post_depth = {TOTAL_WIDTH}",
+            [("left_post_depth", POST_DEPTH),
+             (rid, L(rid)),
+             ("right_post_depth", POST_DEPTH)],
+            TOTAL_WIDTH))
 
     # Right-section rails
     add(Constraint("RIGHT_SECTION_COMPUTED_WIDTH",
@@ -234,14 +256,14 @@ def build_constraints() -> list:
         add(Constraint(f"{rid}_WIDTH", label,
                         [(rid, L(rid))], right_rail_expected))
 
-    # Full width dimensional chain
+    # Full width dimensional chain (uses POST_DEPTH = 47 mm per CLAUDE.md)
     add(Constraint("TOTAL_WIDTH_CHAIN",
         "left_post + left_clear + centre_post + right_clear + right_post = 1300",
-        [("POST_FL_w", POST_WIDTH),
+        [("POST_FL_w", POST_DEPTH),
          ("left_clear", LEFT_SECTION_CLEAR),
-         ("POST_FC_w", POST_WIDTH),
+         ("POST_FC_w", POST_DEPTH),
          ("right_clear", right_clear),
-         ("POST_FR_w", POST_WIDTH)],
+         ("POST_FR_w", POST_DEPTH)],
         TOTAL_WIDTH))
 
     # ── HEIGHT ─────────────────────────────────────────────
@@ -318,10 +340,10 @@ def build_constraints() -> list:
     ]
     for rid, label in depth_rails:
         add(Constraint(f"DEPTH_{rid}",
-            f"{label}: post_depth + {rid} + post_depth = {TOTAL_DEPTH}",
-            [("front_post_depth", POST_DEPTH),
+            f"{label}: post_width + {rid} + post_width = {TOTAL_DEPTH}",
+            [("front_post_width", POST_WIDTH),
              (rid, L(rid)),
-             ("back_post_depth", POST_DEPTH)],
+             ("back_post_width", POST_WIDTH)],
             TOTAL_DEPTH))
 
     # ── INTERNAL DEPTH CLEARANCE (food caddy) ───────────────
@@ -332,10 +354,10 @@ def build_constraints() -> list:
 
     # ── TOTAL DEPTH CHAIN ─────────────────────────────────
     add(Constraint("TOTAL_DEPTH_CHAIN",
-        "front_post_depth + depth_rail + back_post_depth = total_depth",
-        [("front_post_depth", POST_DEPTH),
+        "front_post_width + depth_rail + back_post_width = total_depth",
+        [("front_post_width", POST_WIDTH),
          ("depth_rail", depth_rail_expected),
-         ("back_post_depth", POST_DEPTH)],
+         ("back_post_width", POST_WIDTH)],
         TOTAL_DEPTH))
 
     # ── SIDE FACE HEIGHT CHAINS ────────────────────────────
@@ -435,10 +457,10 @@ def calculate_corrections() -> list[str]:
         CUTS["POST_FC"].corrected = new_centre
 
     # --- Depth rails ---
-    # Depth rails are 750 mm (INTERNAL_DEPTH) -- they butt between post inner faces.
-    # Total external depth = POST_DEPTH + INTERNAL_DEPTH + POST_DEPTH = 844 mm.
-    # No correction needed; 750 mm is the correct rail length.
-    expected_depth = INTERNAL_DEPTH  # 750
+    # Depth rails are 650 mm (INTERNAL_DEPTH) -- they butt between post inner faces.
+    # Total external depth = POST_WIDTH + INTERNAL_DEPTH + POST_WIDTH = 750 mm.
+    # No correction needed; 650 mm is the correct rail length.
+    expected_depth = INTERNAL_DEPTH  # 650
 
     # --- Left brace recalculation ---
     depth_span = expected_depth
@@ -518,23 +540,23 @@ def add_cut_markers(content: str) -> str:
         # Back posts in Step 1
         (r'all three 1647 mm back posts',
          f'all three {CUTS["POST_BL"].eff:.0f} mm `[CUT:POST_BL,POST_BR,POST_BC]` back posts'),
-        # 1300 mm rail in Step 1
-        (r'a 1300 mm rail between',
+        # 1206 mm rail in Step 1 (was 1300 mm before correction)
+        (r'a 1206 mm rail between',
          f'a {CUTS["RAIL_BACK_TOP"].eff:.0f} mm `[CUT:RAIL_BACK_TOP]` rail between'),
         # Front posts in Step 2
         (r'the two 1597 mm posts',
          f'the two {CUTS["POST_FL"].eff:.0f} mm `[CUT:POST_FL,POST_FR]` posts'),
-        # Front top rail in Step 2
-        (r'the top rail \(1300 mm\)',
+        # Front top rail in Step 2 (was 1300 mm before correction)
+        (r'the top rail \(1206 mm\)',
          f'the top rail ({CUTS["RAIL_FRONT_TOP"].eff:.0f} mm `[CUT:RAIL_FRONT_TOP]`)'),
         # Centre post in Step 4
         (r'the 1503 mm post',
          f'the {CUTS["POST_FC"].eff:.0f} mm `[CUT:POST_FC]` post'),
         # Centre depth rail in Step 4
-        (r'750 mm rail from centre post top back',
+        (r'650 mm rail from centre post top back',
          f'{CUTS["RAIL_DEPTH_TC"].eff:.0f} mm `[CUT:RAIL_DEPTH_TC]` rail from centre post top back'),
         # Centre mid depth rail in Step 4
-        (r'750 mm rail from centre post to back frame at 775',
+        (r'650 mm rail from centre post to back frame at 775',
          f'{CUTS["RAIL_DEPTH_MC"].eff:.0f} mm `[CUT:RAIL_DEPTH_MC]` rail from centre post to back frame at 775'),
     ]
 
@@ -661,7 +683,8 @@ def report_sloped_rail_geometry():
     print("-" * 70)
 
     # Horizontal distance between post inner faces
-    horiz_dist = TOTAL_DEPTH - 2 * POST_DEPTH
+    # POST_WIDTH (50 mm) is the post dimension in the depth direction
+    horiz_dist = TOTAL_DEPTH - 2 * POST_WIDTH
     height_diff = ROOF_SLOPE  # 50 mm
 
     # 1. Slope angle

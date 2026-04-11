@@ -24,7 +24,7 @@ Generated 2026-04-11. Based on validated dimensions from `validate-measurements.
 | Qty | Length (mm) | Description |
 |-----|-------------|-------------|
 | 2   | ~1100       | Back panel X-braces (45-deg ends) |
-| 2   | ~1060       | Left panel X-braces (45-deg ends) |
+| 2   | ~1000       | Left panel X-braces (45-deg ends) |
 
 > At the crossing point, 15+15 = 30mm total overlap -- less than a single 47mm frame member, so braces do not protrude beyond the frame depth.
 
@@ -129,7 +129,7 @@ These are used exclusively for X-braces. The thin 15mm section means both braces
 | Stick # | Cut 1 | Cut 2 | Waste/Offcut | Notes |
 |---------|-------|-------|--------------|-------|
 | A | ~1100mm (BRACE_BACK_1) | ~1100mm (BRACE_BACK_2) | ~197mm | 1100 + 3 + 1100 = 2203. 197mm offcut. |
-| B | ~1060mm (BRACE_LEFT_1) | ~1060mm (BRACE_LEFT_2) | ~277mm | 1060 + 3 + 1060 = 2123. 277mm offcut. |
+| B | ~1000mm (BRACE_LEFT_1) | ~1000mm (BRACE_LEFT_2) | ~397mm | 1000 + 3 + 1000 = 2003. 397mm offcut. |
 
 **Only 2 of 8 sticks needed. 6 spare sticks remain.**
 
@@ -206,7 +206,7 @@ These are used exclusively for X-braces. The thin 15mm section means both braces
 
 ## Key Findings
 
-1. **50x47mm 2.4m sticks (10 available): 2 SPARE.** Only 8 sticks needed (6 posts + 2 door stiles, each paired with a 750mm rail or 500mm door rail). Moving braces to user-supplied 15x38mm stock freed up 2 sticks that previously held 1300mm rails + 1060mm braces. The spare sticks provide margin for miscuts.
+1. **50x47mm 2.4m sticks (10 available): 2 SPARE.** Only 8 sticks needed (6 posts + 2 door stiles, each paired with a 750mm rail or 500mm door rail). Moving braces to user-supplied 15x38mm stock freed up 2 sticks that previously held 1300mm rails + 1000mm braces. The spare sticks provide margin for miscuts.
 
 2. **50x47mm 1.8m sticks (8 available): 3 surplus.** 5 of 8 needed (4 for 1300mm rails + 1 for door rail). With noggins removed, 3 spare sticks remain -- ample margin for miscuts.
 
