@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 520 560" xmlns="http://www.w3.org/2000/svg" style="max-width:520px; width:100%;">
+  <text x="260" y="28" text-anchor="middle" font-family="sans-serif" font-size="16" font-weight="bold" fill="#2c3e50">Left Side View</text>
+
+  <!-- Ground line -->
+  <line x1="40" y1="460" x2="460" y2="460" stroke="#888" stroke-width="1.5" stroke-dasharray="8,4"/>
+  <text x="250" y="478" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#888">Ground level</text>
+
+  <!--
+    Layout:
+      Front-left post (foreground, shorter) on the LEFT side of the drawing.
+      Back-left post (background, taller) on the RIGHT side.
+      Viewing from the left side, looking right.
+
+      Post heights: front 1597mm, back 1647mm
+      Scale: roughly 1px = 3.8mm  (so 1597mm ~ 420px, 1647mm ~ 433px)
+      Ground at y=460
+      Front post top: y = 460 - 420 = 40
+      Back post top:  y = 460 - 433 = 27
+      Depth: 750mm ~ 197px between post centres
+  -->
+
+  <!-- Front-left post (foreground, shorter, on left) -->
+  <rect x="110" y="40" width="20" height="420" fill="#d4a574" stroke="#a07850" stroke-width="1.5" rx="2"/>
+  <text x="120" y="34" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#2e5090">Front-left post</text>
+
+  <!-- Back-left post (background, taller, on right) -->
+  <rect x="350" y="27" width="20" height="433" fill="#d4a574" stroke="#a07850" stroke-width="1.5" rx="2"/>
+  <text x="360" y="21" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#2e5090">Back-left post</text>
+
+  <!-- Top depth rail (SLOPED) - top edge flush with post tops -->
+  <!-- Front inner face at x=130, back inner face at x=350 -->
+  <!-- Rail top: front y=40, back y=27 -->
+  <!-- Rail bottom: front y=40+13=53, back y=27+13=40  (13px ~ 47mm rail height) -->
+  <polygon points="130,40 350,27 350,40 130,53" fill="#e07020" stroke="#b85a18" stroke-width="1"/>
+
+  <!-- Vertical end-cut annotations on the sloped rail -->
+  <!-- Front end: vertical cut line -->
+  <line x1="130" y1="37" x2="130" y2="56" stroke="#2e5090" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <text x="113" y="62" text-anchor="end" font-family="sans-serif" font-size="8" fill="#2e5090">vertical</text>
+  <text x="113" y="70" text-anchor="end" font-family="sans-serif" font-size="8" fill="#2e5090">end cut</text>
+  <!-- Back end: vertical cut line -->
+  <line x1="350" y1="24" x2="350" y2="43" stroke="#2e5090" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <text x="367" y="20" text-anchor="start" font-family="sans-serif" font-size="8" fill="#2e5090">vertical</text>
+
+  <!-- Top rail label -->
+  <text x="240" y="24" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#e07020">Top depth rail (sloped)</text>
+
+  <!-- Mid-height depth rail at 775mm (level) -->
+  <!-- 775mm from ground: y = 460 - 775/3.8 = 460 - 204 = 256 -->
+  <!-- Rail spans between inner faces: x=130 to x=350 -->
+  <rect x="130" y="256" width="220" height="13" fill="#e07020" stroke="#b85a18" stroke-width="1" rx="1"/>
+  <text x="240" y="252" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#e07020">Mid-rail at 775 mm</text>
+
+  <!-- Bottom depth rail (LEVEL) -->
+  <!-- At ground level, flush with post bottoms: y = 460 - 13 = 447 to y = 460 -->
+  <rect x="130" y="447" width="220" height="13" fill="#e07020" stroke="#b85a18" stroke-width="1" rx="1"/>
+  <text x="240" y="444" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#e07020">Bottom depth rail (level)</text>
+
+  <!-- X-BRACES in upper zone (15x38mm user-supplied timber) -->
+  <!-- Upper zone: top rail bottom edge to mid-rail top edge -->
+  <!-- Front: top rail bottom at y=53, mid-rail top at y=256 -->
+  <!-- Back: top rail bottom at y=40, mid-rail top at y=256 -->
+  <!-- Brace 1: front-top to back-bottom of zone (thinner to reflect 15mm stock) -->
+  <line x1="132" y1="55" x2="348" y2="254" stroke="#c9a86c" stroke-width="2" stroke-linecap="round"/>
+  <!-- Brace 2: front-bottom to back-top of zone -->
+  <line x1="132" y1="254" x2="348" y2="42" stroke="#c9a86c" stroke-width="2" stroke-linecap="round"/>
+  <text x="240" y="155" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#8B4513" font-style="italic">X-braces (15x38mm)</text>
+  <text x="240" y="168" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#8B4513" font-style="italic">30mm overlap at crossing</text>
+
+  <!-- ========== DIMENSION LINES ========== -->
+
+  <!-- Front post height dimension (left side) -->
+  <line x1="70" y1="40" x2="70" y2="460" stroke="#c0392b" stroke-width="1.2"/>
+  <line x1="62" y1="40" x2="78" y2="40" stroke="#c0392b" stroke-width="1.2"/>
+  <line x1="62" y1="460" x2="78" y2="460" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="50" y="255" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#c0392b" transform="rotate(-90,50,255)">1597 mm</text>
+
+  <!-- Back post height dimension (right side) -->
+  <line x1="410" y1="27" x2="410" y2="460" stroke="#c0392b" stroke-width="1.2"/>
+  <line x1="402" y1="27" x2="418" y2="27" stroke="#c0392b" stroke-width="1.2"/>
+  <line x1="402" y1="460" x2="418" y2="460" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="435" y="250" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#c0392b" transform="rotate(-90,435,250)">1647 mm</text>
+
+  <!-- 50mm drop dimension -->
+  <line x1="100" y1="27" x2="100" y2="40" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="350" y1="27" x2="103" y2="27" stroke="#c0392b" stroke-width="0.8" stroke-dasharray="3,2"/>
+  <polygon points="100,28 96,34 104,34" fill="#c0392b"/>
+  <polygon points="100,39 96,33 104,33" fill="#c0392b"/>
+  <text x="86" y="37" text-anchor="end" font-family="sans-serif" font-size="11" fill="#c0392b">50 mm</text>
+  <text x="86" y="47" text-anchor="end" font-family="sans-serif" font-size="11" fill="#c0392b">drop</text>
+
+  <!-- Depth dimension (bottom) -->
+  <line x1="110" y1="490" x2="370" y2="490" stroke="#c0392b" stroke-width="1.2"/>
+  <line x1="110" y1="482" x2="110" y2="498" stroke="#c0392b" stroke-width="1.2"/>
+  <line x1="370" y1="482" x2="370" y2="498" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="240" y="508" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#c0392b">844 mm depth (overall)</text>
+
+  <!-- Rail length annotation -->
+  <text x="240" y="525" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#555" font-style="italic">Depth rails = 750 mm (between post inner faces)</text>
+  <text x="240" y="538" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#555" font-style="italic">Rail ends cut vertical (square to posts, not to rail slope)</text>
+
+  <!-- Slope angle note -->
+  <text x="290" y="80" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#888" font-style="italic">~3.8 deg slope</text>
+</svg>

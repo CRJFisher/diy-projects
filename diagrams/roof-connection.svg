@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 750 600" xmlns="http://www.w3.org/2000/svg" style="max-width:700px; width:100%;">
+  <text x="375" y="28" text-anchor="middle" font-family="sans-serif" font-size="16" font-weight="bold" fill="#2c3e50">Roof Connection Detail &#8212; Front-Right Corner Cutaway</text>
+  <text x="375" y="46" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#888" font-style="italic">How roof battens, plywood, and frame connect</text>
+
+  <!-- EXPLODED ISOMETRIC VIEW -->
+  <!-- Isometric offsets: dx=0.7, dy=0.4 per unit depth -->
+
+  <!-- === LAYER 1: FRONT POST (bottom of stack) === -->
+  <!-- Front post top ~80px tall stub, shown as isometric box -->
+  <g id="front-post">
+    <!-- Front face -->
+    <polygon points="150,380 200,380 200,300 150,300" fill="#d4a574" stroke="#a07850" stroke-width="1.5"/>
+    <!-- Top face -->
+    <polygon points="150,300 200,300 235,280 185,280" fill="#e8c494" stroke="#a07850" stroke-width="1.5"/>
+    <!-- Right face -->
+    <polygon points="200,300 235,280 235,360 200,380" fill="#c09060" stroke="#a07850" stroke-width="1.5"/>
+    <!-- Label -->
+    <text x="175" y="345" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="bold" fill="#fff">POST</text>
+  </g>
+
+  <!-- === DEPTH RAIL (slopes upward going back/right in iso view) === -->
+  <g id="depth-rail">
+    <!-- The rail meets the post, top edge flush with post top at the front end -->
+    <!-- Rail goes from front (left in iso) to back (right in iso), sloping up -->
+    <!-- Front end: top at y=300, bottom at y=330 (30px = rail height) -->
+    <!-- Back end: top at y=265, bottom at y=295, shifted right ~140px for depth -->
+    <!-- Front face (visible end grain at front) -->
+    <polygon points="207,300 207,330 237,310 237,280" fill="#d4a574" stroke="#a07850" stroke-width="1.5"/>
+    <!-- Top face (sloping) -->
+    <polygon points="207,300 237,280 390,215 360,235" fill="#e8c494" stroke="#a07850" stroke-width="1.5"/>
+    <!-- Right face (side of rail) -->
+    <polygon points="237,280 390,215 390,245 237,310" fill="#c09060" stroke="#a07850" stroke-width="1.5"/>
+    <!-- Slope direction arrow on top face -->
+    <line x1="270" y1="270" x2="350" y2="232" stroke="#a07850" stroke-width="1.2" marker-end="url(#arrowBrown)"/>
+    <text x="330" y="260" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#a07850" transform="rotate(-14,330,260)">slopes up to back</text>
+  </g>
+
+  <!-- Arrow marker for slope -->
+  <defs>
+    <marker id="arrowBrown" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0,0 8,3 0,6" fill="#a07850"/>
+    </marker>
+    <marker id="arrowRed" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0,0 8,3 0,6" fill="#c0392b"/>
+    </marker>
+    <marker id="arrowBlue" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0,0 8,3 0,6" fill="#2e5090"/>
+    </marker>
+  </defs>
+
+  <!-- === "FLUSH" annotation === -->
+  <line x1="143" y1="300" x2="245" y2="278" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="118" y="296" text-anchor="end" font-family="sans-serif" font-size="10" font-weight="bold" fill="#c0392b">FLUSH</text>
+  <text x="118" y="308" text-anchor="end" font-family="sans-serif" font-size="9" fill="#c0392b">Rail top = post top</text>
+  <text x="118" y="319" text-anchor="end" font-family="sans-serif" font-size="9" fill="#c0392b">at 1597mm (front)</text>
+
+  <!-- === LAYER 2: ROOF BATTEN (sits on post & rail, runs left-to-right) === -->
+  <!-- Shown floating slightly above to show the exploded view -->
+  <!-- Batten runs perpendicular to the depth rail (left-to-right across width) -->
+  <g id="roof-batten">
+    <!-- Front face -->
+    <polygon points="80,245 320,245 320,230 80,230" fill="#27ae60" stroke="#1e8449" stroke-width="1.5"/>
+    <!-- Top face -->
+    <polygon points="80,230 320,230 350,214 110,214" fill="#2ecc71" stroke="#1e8449" stroke-width="1.5"/>
+    <!-- Right face -->
+    <polygon points="320,230 350,214 350,228 320,245" fill="#219a52" stroke="#1e8449" stroke-width="1.5"/>
+  </g>
+
+  <!-- Batten direction annotation -->
+  <line x1="100" y1="238" x2="300" y2="238" stroke="#1e8449" stroke-width="1.2" marker-end="url(#arrowBlue)"/>
+  <line x1="300" y1="238" x2="100" y2="238" stroke="#1e8449" stroke-width="1.2" marker-end="url(#arrowBlue)"/>
+  <text x="200" y="258" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#1e8449">Batten runs LEFT-TO-RIGHT (perpendicular to slope)</text>
+
+  <!-- === LAYER 3: PLYWOOD (sits on batten) === -->
+  <!-- Shown floating above the batten -->
+  <g id="plywood">
+    <!-- Front face (thin ~ 18mm) -->
+    <polygon points="60,180 340,180 340,172 60,172" fill="#cccccc" stroke="#999" stroke-width="1.5"/>
+    <!-- Top face -->
+    <polygon points="60,172 340,172 400,146 120,146" fill="#dddddd" stroke="#999" stroke-width="1.5"/>
+    <!-- Right face -->
+    <polygon points="340,172 400,146 400,154 340,180" fill="#bbbbbb" stroke="#999" stroke-width="1.5"/>
+  </g>
+
+  <!-- ============================== -->
+  <!-- LABELS with leader lines       -->
+  <!-- ============================== -->
+
+  <!-- Post label -->
+  <line x1="175" y1="385" x2="175" y2="420" stroke="#2e5090" stroke-width="1"/>
+  <text x="175" y="435" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#2e5090">Front Post Top</text>
+  <text x="175" y="449" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#2e5090">50x47mm, cut square at 1597mm</text>
+
+  <!-- Depth rail label -->
+  <line x1="390" y1="245" x2="420" y2="270" stroke="#2e5090" stroke-width="1"/>
+  <text x="425" y="275" text-anchor="start" font-family="sans-serif" font-size="12" font-weight="bold" fill="#2e5090">Depth Rail</text>
+  <text x="425" y="289" text-anchor="start" font-family="sans-serif" font-size="10" fill="#2e5090">50x47mm, slopes back-to-front</text>
+  <text x="425" y="303" text-anchor="start" font-family="sans-serif" font-size="10" fill="#2e5090">1647mm (back) to 1597mm (front)</text>
+
+  <!-- Batten label -->
+  <line x1="340" y1="230" x2="420" y2="220" stroke="#2e5090" stroke-width="1"/>
+  <text x="425" y="210" text-anchor="start" font-family="sans-serif" font-size="12" font-weight="bold" fill="#27ae60">Roof Batten</text>
+  <text x="425" y="224" text-anchor="start" font-family="sans-serif" font-size="10" fill="#27ae60">50x22mm, runs left-to-right</text>
+  <text x="425" y="238" text-anchor="start" font-family="sans-serif" font-size="10" fill="#27ae60">Sits flat on post top + rail top</text>
+
+  <!-- Plywood label -->
+  <line x1="400" y1="150" x2="430" y2="140" stroke="#2e5090" stroke-width="1"/>
+  <text x="435" y="138" text-anchor="start" font-family="sans-serif" font-size="12" font-weight="bold" fill="#666">Plywood Sheathing</text>
+  <text x="435" y="152" text-anchor="start" font-family="sans-serif" font-size="10" fill="#666">18mm, sits on battens</text>
+  <text x="435" y="166" text-anchor="start" font-family="sans-serif" font-size="10" fill="#666">+ felt + shingles on top</text>
+
+  <!-- ============================== -->
+  <!-- EXPLODED VIEW ARROWS           -->
+  <!-- ============================== -->
+
+  <!-- Arrow: post to batten -->
+  <line x1="190" y1="295" x2="190" y2="255" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="4,3"/>
+  <polygon points="190,255 186,263 194,263" fill="#c0392b"/>
+
+  <!-- Arrow: batten to plywood -->
+  <line x1="190" y1="225" x2="190" y2="190" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="4,3"/>
+  <polygon points="190,190 186,198 194,198" fill="#c0392b"/>
+
+  <!-- ============================== -->
+  <!-- STACKING ORDER (right side)    -->
+  <!-- ============================== -->
+  <g id="stacking-order">
+    <text x="550" y="395" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#2c3e50">Stacking Order (bottom to top)</text>
+
+    <rect x="480" y="510" width="140" height="22" fill="#d4a574" stroke="#a07850" stroke-width="1" rx="3"/>
+    <text x="550" y="525" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="bold" fill="#fff">Post / Rail</text>
+
+    <rect x="480" y="480" width="140" height="22" fill="#27ae60" stroke="#1e8449" stroke-width="1" rx="3"/>
+    <text x="550" y="495" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="bold" fill="#fff">Roof Batten (50x22)</text>
+
+    <rect x="480" y="450" width="140" height="22" fill="#ccc" stroke="#999" stroke-width="1" rx="3"/>
+    <text x="550" y="465" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="bold" fill="#444">Plywood (18mm)</text>
+
+    <rect x="480" y="420" width="140" height="22" fill="#555" stroke="#333" stroke-width="1" rx="3"/>
+    <text x="550" y="435" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="bold" fill="#fff">Felt + Shingles</text>
+
+    <!-- Up arrow -->
+    <line x1="465" y1="530" x2="465" y2="415" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrowRed)"/>
+  </g>
+
+  <!-- ============================== -->
+  <!-- KEY INSIGHT box                -->
+  <!-- ============================== -->
+  <rect x="40" y="480" width="390" height="75" fill="#f0f7ff" stroke="#2e5090" stroke-width="1.5" rx="5"/>
+  <text x="55" y="500" font-family="sans-serif" font-size="11" font-weight="bold" fill="#2e5090">KEY INSIGHT</text>
+  <text x="55" y="516" font-family="sans-serif" font-size="10" fill="#2c3e50">Each batten runs left-to-right at ONE height across the full width.</text>
+  <text x="55" y="530" font-family="sans-serif" font-size="10" fill="#2c3e50">Successive battens (front to back) are each slightly higher,</text>
+  <text x="55" y="544" font-family="sans-serif" font-size="10" fill="#2c3e50">naturally forming the sloped roof plane. No angled cuts needed.</text>
+
+  <!-- Colour key -->
+  <text x="40" y="580" font-family="sans-serif" font-size="9" fill="#888">
+    <tspan fill="#d4a574" font-weight="bold">&#9632;</tspan> Timber (50x47mm)
+    <tspan dx="12" fill="#27ae60" font-weight="bold">&#9632;</tspan> Battens (50x22mm)
+    <tspan dx="12" fill="#ccc" font-weight="bold">&#9632;</tspan> Plywood (18mm)
+  </text>
+</svg>

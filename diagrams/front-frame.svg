@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 600 520" xmlns="http://www.w3.org/2000/svg" style="max-width:500px; width:100%;">
+  <text x="300" y="28" text-anchor="middle" font-family="sans-serif" font-size="16" font-weight="bold" fill="#2c3e50">Front Face &#8212; Complete View</text>
+
+  <!-- Door opening shading (left section, extends to ground, no bottom rail) -->
+  <rect x="140" y="76" width="184" height="372" fill="#e8f4e8" fill-opacity="0.4" stroke="none"/>
+
+  <!-- Solid panel shading (right section) -->
+  <rect x="334" y="76" width="136" height="356" fill="#f0e0d0" fill-opacity="0.4" stroke="none"/>
+
+  <!-- Left post -->
+  <rect x="120" y="60" width="20" height="388" fill="#d4a574" stroke="#a07850" stroke-width="1.5" rx="2"/>
+  <!-- Centre post (sits between top and bottom rails, 1503mm) -->
+  <rect x="314" y="76" width="20" height="356" fill="#d4a574" stroke="#a07850" stroke-width="1.5" rx="2"/>
+  <!-- Right post -->
+  <rect x="460" y="60" width="20" height="388" fill="#d4a574" stroke="#a07850" stroke-width="1.5" rx="2"/>
+
+  <!-- Top rail -->
+  <rect x="140" y="60" width="320" height="16" fill="#d4a574" stroke="#a07850" stroke-width="1.5" rx="2"/>
+  <!-- Bottom rail (right section only, no rail across door opening for bin access) -->
+  <rect x="314" y="432" width="146" height="16" fill="#d4a574" stroke="#a07850" stroke-width="1.5" rx="2"/>
+
+  <!-- ===== LABELS ===== -->
+
+  <!-- Post labels -->
+  <text x="105" y="260" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#2e5090" transform="rotate(-90,105,260)">Left post</text>
+  <text x="350" y="190" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#2e5090" transform="rotate(-90,350,190)">Centre post</text>
+  <text x="495" y="260" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#2e5090" transform="rotate(-90,495,260)">Right post</text>
+
+  <!-- Rail labels -->
+  <text x="300" y="54" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#2e5090">Top rail</text>
+  <text x="397" y="428" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#2e5090">Bottom rail</text>
+  <text x="222" y="428" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#27ae60">No bottom rail</text>
+  <text x="222" y="440" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#27ae60">(bin rolls in/out)</text>
+
+  <!-- Door opening label -->
+  <text x="222" y="242" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#27ae60">DOOR</text>
+  <text x="222" y="258" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#27ae60">OPENING</text>
+  <text x="222" y="274" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#27ae60">(~780mm)</text>
+
+  <!-- Solid panel label -->
+  <text x="402" y="340" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#8B6914">Solid</text>
+  <text x="402" y="356" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#8B6914">panel</text>
+  <text x="402" y="370" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#8B6914">(~470mm)</text>
+
+  <!-- ===== DIMENSION LINES ===== -->
+
+  <!-- Dimension: post height (left side) 1597mm -->
+  <line x1="90" y1="60" x2="90" y2="448" stroke="#c0392b" stroke-width="1.2"/>
+  <line x1="82" y1="60" x2="98" y2="60" stroke="#c0392b" stroke-width="1.2"/>
+  <line x1="82" y1="448" x2="98" y2="448" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="85" y="260" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#c0392b" transform="rotate(-90,85,260)">1597mm</text>
+
+  <!-- Dimension: full width (bottom) 1300mm -->
+  <line x1="120" y1="475" x2="480" y2="475" stroke="#c0392b" stroke-width="1.2"/>
+  <line x1="120" y1="467" x2="120" y2="483" stroke="#c0392b" stroke-width="1.2"/>
+  <line x1="480" y1="467" x2="480" y2="483" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="300" y="492" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#c0392b">1300mm</text>
+
+  <!-- Dimension: left section width (top) 780mm -->
+  <line x1="130" y1="42" x2="314" y2="42" stroke="#c0392b" stroke-width="1.2"/>
+  <line x1="130" y1="36" x2="130" y2="48" stroke="#c0392b" stroke-width="1.2"/>
+  <line x1="314" y1="36" x2="314" y2="48" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="222" y="39" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#c0392b">780mm</text>
+
+  <!-- Dimension: right section width (top) 470mm -->
+  <line x1="334" y1="42" x2="460" y2="42" stroke="#c0392b" stroke-width="1.2"/>
+  <line x1="334" y1="36" x2="334" y2="48" stroke="#c0392b" stroke-width="1.2"/>
+  <line x1="460" y1="36" x2="460" y2="48" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="397" y="39" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#c0392b">470mm</text>
+
+  <!-- Dimension: centre post height 1503mm -->
+  <line x1="290" y1="76" x2="290" y2="432" stroke="#8B6914" stroke-width="1" stroke-dasharray="4,2"/>
+  <line x1="282" y1="76" x2="298" y2="76" stroke="#8B6914" stroke-width="1"/>
+  <line x1="282" y1="432" x2="298" y2="432" stroke="#8B6914" stroke-width="1"/>
+  <text x="285" y="260" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#8B6914" transform="rotate(-90,285,260)">1503mm</text>
+
+</svg>

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 980" width="820" height="980" style="max-width:100%;height:auto;">
+  <defs>
+    <marker id="aR" markerWidth="7" markerHeight="5" refX="0" refY="2.5" orient="auto"><path d="M0,0 L7,2.5 L0,5 Z" fill="#c0392b"/></marker>
+    <marker id="aL" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto"><path d="M7,0 L0,2.5 L7,5 Z" fill="#c0392b"/></marker>
+  </defs>
+
+  <style>
+    .timber { fill: #d4a574; stroke: #8b6914; stroke-width: 1.5; }
+    .dim-line { stroke: #c0392b; stroke-width: 1; }
+    .dim-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 11px; fill: #c0392b; font-weight: 600; }
+    .label { font-family: 'Segoe UI', Arial, sans-serif; font-size: 10px; fill: #555; }
+    .heading { font-family: 'Segoe UI', Arial, sans-serif; font-size: 14px; fill: #2e5090; font-weight: 700; }
+    .sub { font-family: 'Segoe UI', Arial, sans-serif; font-size: 11px; fill: #2e5090; font-weight: 600; }
+  </style>
+
+  <rect width="820" height="980" fill="#faf9f6" rx="6"/>
+  <text x="410" y="30" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:18px;font-weight:700;fill:#2e5090;">Weekend 1 -- Cut List: All Timber Pieces</text>
+  <text x="410" y="48" text-anchor="middle" class="label">Frame: 50x47mm (B&amp;Q) | Braces: 15x38mm (user-supplied)</text>
+
+  <!-- POSTS -->
+  <text x="30" y="80" class="heading">POSTS (from 2.4m sticks)</text>
+  <rect x="30" y="95" width="20" height="320" class="timber" rx="2"/>
+  <rect x="60" y="95" width="20" height="320" class="timber" rx="2"/>
+  <line x1="18" y1="95" x2="18" y2="415" class="dim-line" marker-start="url(#aL)" marker-end="url(#aR)"/>
+  <text x="12" y="260" text-anchor="middle" class="dim-text" transform="rotate(-90,12,260)">1647 mm</text>
+  <text x="50" y="435" text-anchor="middle" class="label">2x back corner</text>
+
+  <rect x="110" y="95" width="20" height="310" class="timber" rx="2"/>
+  <rect x="140" y="95" width="20" height="310" class="timber" rx="2"/>
+  <line x1="98" y1="95" x2="98" y2="405" class="dim-line" marker-start="url(#aL)" marker-end="url(#aR)"/>
+  <text x="92" y="255" text-anchor="middle" class="dim-text" transform="rotate(-90,92,255)">1597 mm</text>
+  <text x="140" y="435" text-anchor="middle" class="label">2x front corner</text>
+
+  <rect x="190" y="95" width="20" height="310" class="timber" rx="2"/>
+  <line x1="178" y1="95" x2="178" y2="405" class="dim-line" marker-start="url(#aL)" marker-end="url(#aR)"/>
+  <text x="172" y="255" text-anchor="middle" class="dim-text" transform="rotate(-90,172,255)">1503 mm</text>
+  <text x="200" y="435" text-anchor="middle" class="label">1x centre</text>
+
+  <rect x="240" y="95" width="20" height="320" class="timber" rx="2"/>
+  <line x1="228" y1="95" x2="228" y2="415" class="dim-line" marker-start="url(#aL)" marker-end="url(#aR)"/>
+  <text x="222" y="260" text-anchor="middle" class="dim-text" transform="rotate(-90,222,260)">1647 mm</text>
+  <text x="250" y="435" text-anchor="middle" class="label">1x right back</text>
+
+  <text x="300" y="260" class="sub">6 posts total</text>
+  <text x="300" y="276" class="label">3x 1647mm (back)</text>
+  <text x="300" y="292" class="label">2x 1597mm (front) + 1x 1503mm (centre)</text>
+
+  <!-- HORIZONTAL RAILS -->
+  <text x="30" y="480" class="heading">HORIZONTAL RAILS (from 1.8m sticks)</text>
+
+  <rect x="30" y="500" width="390" height="14" class="timber" rx="2"/>
+  <rect x="30" y="520" width="390" height="14" class="timber" rx="2"/>
+  <rect x="30" y="540" width="390" height="14" class="timber" rx="2"/>
+  <line x1="30" y1="492" x2="420" y2="492" class="dim-line" marker-start="url(#aL)" marker-end="url(#aR)"/>
+  <text x="225" y="489" text-anchor="middle" class="dim-text">1300 mm</text>
+  <text x="435" y="512" class="label">top rail (front)</text>
+  <text x="435" y="532" class="label">top rail (back)</text>
+  <text x="435" y="552" class="label">bottom rail (back)</text>
+
+  <rect x="30" y="568" width="390" height="14" class="timber" rx="2"/>
+  <text x="435" y="580" class="label">back wall mid-rail</text>
+  <text x="650" y="545" class="sub">4x 1300 mm</text>
+
+  <rect x="30" y="620" width="225" height="14" class="timber" rx="2"/>
+  <rect x="30" y="640" width="225" height="14" class="timber" rx="2"/>
+  <rect x="30" y="660" width="225" height="14" class="timber" rx="2"/>
+  <rect x="30" y="680" width="225" height="14" class="timber" rx="2"/>
+  <rect x="30" y="700" width="225" height="14" class="timber" rx="2"/>
+  <rect x="30" y="720" width="225" height="14" class="timber" rx="2"/>
+  <rect x="30" y="740" width="225" height="14" class="timber" rx="2"/>
+  <line x1="30" y1="612" x2="255" y2="612" class="dim-line" marker-start="url(#aL)" marker-end="url(#aR)"/>
+  <text x="142" y="609" text-anchor="middle" class="dim-text">750 mm</text>
+  <text x="270" y="632" class="label">left side top</text>
+  <text x="270" y="652" class="label">left side bottom</text>
+  <text x="270" y="672" class="label">right side top</text>
+  <text x="270" y="692" class="label">right side bottom</text>
+  <text x="270" y="712" class="label">centre divider top</text>
+  <text x="270" y="732" class="label">left wall mid-rail</text>
+  <text x="270" y="752" class="label">centre divider mid-rail</text>
+  <text x="650" y="690" class="sub">7x 750 mm</text>
+
+  <rect x="30" y="768" width="127" height="14" class="timber" rx="2"/>
+  <line x1="30" y1="760" x2="157" y2="760" class="dim-line" marker-start="url(#aL)" marker-end="url(#aR)"/>
+  <text x="93" y="757" text-anchor="middle" class="dim-text">423 mm</text>
+  <text x="172" y="780" class="label">right front bottom rail</text>
+  <text x="650" y="780" class="sub">1x 423 mm</text>
+
+  <!-- CROSS-BRACING (15x38mm user-supplied) -->
+  <text x="450" y="80" class="heading">CROSS-BRACING (15x38mm)</text>
+  <text x="450" y="94" class="label">User-supplied timber, not from B&amp;Q</text>
+
+  <rect x="470" y="108" width="12" height="252" rx="2" fill="#c9a86c" stroke="#8b6914" stroke-width="1.5" transform="rotate(15,476,234)"/>
+  <rect x="520" y="108" width="12" height="252" rx="2" fill="#c9a86c" stroke="#8b6914" stroke-width="1.5" transform="rotate(-15,526,234)"/>
+  <line x1="445" y1="108" x2="445" y2="360" class="dim-line" marker-start="url(#aL)" marker-end="url(#aR)"/>
+  <text x="439" y="238" text-anchor="middle" class="dim-text" transform="rotate(-90,439,238)">~1100 mm</text>
+  <text x="505" y="383" text-anchor="middle" class="label">2x back panel</text>
+  <text x="505" y="397" text-anchor="middle" class="label">diagonal braces</text>
+  <text x="505" y="411" text-anchor="middle" class="label">(cut 45deg ends)</text>
+
+  <rect x="600" y="108" width="12" height="204" rx="2" fill="#c9a86c" stroke="#8b6914" stroke-width="1.5" transform="rotate(15,606,210)"/>
+  <rect x="650" y="108" width="12" height="204" rx="2" fill="#c9a86c" stroke="#8b6914" stroke-width="1.5" transform="rotate(-15,656,210)"/>
+  <line x1="580" y1="108" x2="580" y2="312" class="dim-line" marker-start="url(#aL)" marker-end="url(#aR)"/>
+  <text x="574" y="213" text-anchor="middle" class="dim-text" transform="rotate(-90,574,213)">~1060 mm</text>
+  <text x="640" y="333" text-anchor="middle" class="label">2x left panel</text>
+  <text x="640" y="347" text-anchor="middle" class="label">diagonal braces</text>
+  <text x="640" y="361" text-anchor="middle" class="label">(cut 45deg ends)</text>
+
+  <!-- SUMMARY BOX -->
+  <rect x="30" y="810" width="760" height="150" rx="8" fill="#eef4ff" stroke="#2e5090" stroke-width="1.5"/>
+  <text x="410" y="838" text-anchor="middle" style="font-family:'Segoe UI',Arial,sans-serif;font-size:14px;font-weight:700;fill:#2e5090;">WEEKEND 1 CUT SUMMARY</text>
+
+  <text x="60" y="862" class="sub">Posts:</text>
+  <text x="150" y="862" class="label">3x 1647 mm + 2x 1597 mm + 1x 1503 mm = 6 posts</text>
+  <text x="60" y="882" class="sub">Long rails:</text>
+  <text x="150" y="882" class="label">4x 1300 mm (2 top + 1 back bottom + 1 back mid-rail)</text>
+  <text x="60" y="902" class="sub">Depth rails:</text>
+  <text x="150" y="902" class="label">7x 750 mm (4 side rails + centre top + 2 mid-rails)</text>
+  <text x="60" y="922" class="sub">Short rail:</text>
+  <text x="150" y="922" class="label">1x 423 mm (right front bottom rail)</text>
+  <text x="430" y="862" class="sub">Braces:</text>
+  <text x="510" y="862" class="label">2x ~1100 + 2x ~1060 (15x38mm, user-supplied)</text>
+  <text x="430" y="882" class="sub">Fixings:</text>
+  <text x="510" y="882" class="label">~40x 75 mm screws (frame joints)</text>
+  <text x="510" y="898" class="label">~16x 65 mm screws (brace ends)</text>
+  <text x="430" y="922" class="sub">Noggins:</text>
+  <text x="510" y="922" class="label">Optional -- add in Weekend 3 if needed</text>
+</svg>

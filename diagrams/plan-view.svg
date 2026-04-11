@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 700 500" xmlns="http://www.w3.org/2000/svg" font-family="Arial, Helvetica, sans-serif">
+  <rect x="0" y="0" width="700" height="500" fill="#fafafa" rx="4"/>
+  <text x="350" y="30" text-anchor="middle" font-size="16" font-weight="bold" fill="#333">Plan View (Top-Down) -- After Step 4</text>
+  <text x="350" y="48" text-anchor="middle" font-size="11" fill="#666">Looking straight down onto the frame</text>
+
+  <!-- Rails -->
+  <line x1="110" y1="380" x2="620" y2="380" stroke="#d4a574" stroke-width="6"/>
+  <line x1="110" y1="90" x2="620" y2="90" stroke="#d4a574" stroke-width="6"/>
+  <line x1="110" y1="90" x2="110" y2="380" stroke="#d4a574" stroke-width="6"/>
+  <line x1="620" y1="90" x2="620" y2="380" stroke="#d4a574" stroke-width="6"/>
+  <line x1="416" y1="90" x2="416" y2="380" stroke="#d4a574" stroke-width="5"/>
+
+  <!-- Posts -->
+  <rect x="100" y="370" width="20" height="20" fill="#d4a574" stroke="#8B6914" stroke-width="2"/>
+  <rect x="610" y="370" width="20" height="20" fill="#d4a574" stroke="#8B6914" stroke-width="2"/>
+  <rect x="100" y="80" width="20" height="20" fill="#d4a574" stroke="#8B6914" stroke-width="2"/>
+  <rect x="610" y="80" width="20" height="20" fill="#d4a574" stroke="#8B6914" stroke-width="2"/>
+  <rect x="406" y="370" width="20" height="20" fill="#d4a574" stroke="#8B6914" stroke-width="2"/>
+  <rect x="406" y="80" width="20" height="20" fill="#d4a574" stroke="#8B6914" stroke-width="1.5" stroke-dasharray="4,2"/>
+
+  <!-- Post labels -->
+  <text x="110" y="408" text-anchor="middle" font-size="9" fill="#555">Left-front</text>
+  <text x="620" y="408" text-anchor="middle" font-size="9" fill="#555">Right-front</text>
+  <text x="110" y="72" text-anchor="middle" font-size="9" fill="#555">Left-back</text>
+  <text x="620" y="72" text-anchor="middle" font-size="9" fill="#555">Right-back</text>
+  <text x="416" y="408" text-anchor="middle" font-size="9" fill="#555">Centre post</text>
+  <text x="416" y="72" text-anchor="middle" font-size="9" fill="#555">Back junction</text>
+
+  <!-- Front/back indicators -->
+  <text x="365" y="445" text-anchor="middle" font-size="13" font-weight="bold" fill="#333">FRONT</text>
+  <text x="365" y="65" text-anchor="middle" font-size="12" font-weight="bold" fill="#999">BACK (against wall)</text>
+
+  <!-- Dimensions -->
+  <defs>
+    <marker id="arrowRed" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <line x1="110" y1="460" x2="620" y2="460" stroke="#c0392b" stroke-width="1.5" marker-start="url(#arrowRed)" marker-end="url(#arrowRed)"/>
+  <text x="365" y="475" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">1300 mm</text>
+
+  <line x1="110" y1="440" x2="416" y2="440" stroke="#c0392b" stroke-width="1" marker-start="url(#arrowRed)" marker-end="url(#arrowRed)"/>
+  <text x="263" y="452" text-anchor="middle" font-size="10" fill="#c0392b">780 mm</text>
+  <line x1="416" y1="440" x2="620" y2="440" stroke="#c0392b" stroke-width="1" marker-start="url(#arrowRed)" marker-end="url(#arrowRed)"/>
+  <text x="518" y="452" text-anchor="middle" font-size="10" fill="#c0392b">470 mm</text>
+
+  <line x1="660" y1="90" x2="660" y2="380" stroke="#c0392b" stroke-width="1.5" marker-start="url(#arrowRed)" marker-end="url(#arrowRed)"/>
+  <text x="680" y="230" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b" transform="rotate(90,680,230)">844 mm (external)</text>
+  <text x="645" y="240" text-anchor="middle" font-size="10" fill="#888" transform="rotate(90,645,240)">750 mm internal</text>
+
+  <!-- Section labels -->
+  <rect x="175" y="200" width="170" height="55" rx="6" fill="#2e5090" fill-opacity="0.1" stroke="#2e5090" stroke-width="1"/>
+  <text x="260" y="220" text-anchor="middle" font-size="13" font-weight="bold" fill="#2e5090">LEFT SECTION</text>
+  <text x="260" y="237" text-anchor="middle" font-size="10" fill="#2e5090">Bins + Door (Wknd 3)</text>
+
+  <rect x="440" y="200" width="150" height="55" rx="6" fill="#2e5090" fill-opacity="0.1" stroke="#2e5090" stroke-width="1"/>
+  <text x="515" y="220" text-anchor="middle" font-size="13" font-weight="bold" fill="#2e5090">RIGHT SECTION</text>
+  <text x="515" y="237" text-anchor="middle" font-size="10" fill="#2e5090">Shelves (Wknd 4)</text>
+</svg>

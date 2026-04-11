@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bin Store Design — Plan &amp; Elevations (Detailed Dimensions)</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: #f5f5f0; color: #2a2a2a; padding: 32px; }
+  h1 { font-size: 26px; color: #2e5090; margin-bottom: 4px; }
+  .subtitle { font-size: 14px; color: #888; margin-bottom: 28px; }
+  .views { display: flex; flex-wrap: wrap; gap: 32px; margin-bottom: 36px; }
+  .view-card { background: #fff; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); padding: 24px; flex: 1; min-width: 340px; }
+  .view-card h2 { font-size: 16px; color: #2e5090; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 1px; }
+  svg { display: block; margin: 0 auto; }
+  .dim-line { stroke: #c0392b; stroke-width: 1; }
+  .dim-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 11px; fill: #c0392b; font-weight: 600; }
+  .label-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 10px; fill: #555; }
+  .label-bold { font-family: 'Segoe UI', Arial, sans-serif; font-size: 11px; fill: #2e5090; font-weight: 700; }
+  .structure { fill: #d4a574; stroke: #8b6914; stroke-width: 1.5; }
+  .cladding { fill: #e8d5b7; stroke: #a0855c; stroke-width: 1; }
+  .roof { fill: #7a8a7a; stroke: #4a5a4a; stroke-width: 1.5; }
+  .bin { fill: #6a9f6a; stroke: #3d7a3d; stroke-width: 1.5; opacity: 0.7; }
+  .bin-food { fill: #a0c4e8; stroke: #5a8ab5; stroke-width: 1.5; opacity: 0.7; }
+  .box { fill: #e8a060; stroke: #b87030; stroke-width: 1; opacity: 0.7; }
+  .shelf { fill: #c9a87c; stroke: #8b6914; stroke-width: 1; }
+  .door-swing { fill: none; stroke: #2e5090; stroke-width: 1; stroke-dasharray: 5,3; }
+  .open-side { fill: none; stroke: #27ae60; stroke-width: 2; stroke-dasharray: 8,4; }
+  .notes { background: #fff; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); padding: 24px; margin-bottom: 28px; }
+  .notes h2 { font-size: 16px; color: #2e5090; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 1px; }
+  .notes p { font-size: 14px; line-height: 1.7; margin-bottom: 10px; }
+  .notes strong { color: #2e5090; }
+  .legend { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 12px; margin-bottom: 8px; }
+  .legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; }
+  .legend-swatch { width: 20px; height: 14px; border-radius: 3px; border: 1px solid #999; }
+  .callout { background: #eef4ff; border-left: 4px solid #2e5090; padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 16px 0; font-size: 13px; }
+  .dim-table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 13px; }
+  .dim-table th { text-align: left; padding: 8px 12px; background: #2e5090; color: #fff; font-weight: 600; }
+  .dim-table td { padding: 8px 12px; border-bottom: 1px solid #e0e0e0; }
+  .dim-table tr:nth-child(even) td { background: #f8f8f8; }
+</style>
+</head>
+<body>
+
+<h1>Bin Store Design</h1>
+<p class="subtitle">Two-section store: enclosed left (wheelie bin + food caddy) • open-right shelves (3 recycling boxes) • 1300mm wide • 750mm deep • 1550mm tall (front)</p>
+
+<div class="legend">
+  <div class="legend-item"><div class="legend-swatch" style="background:#d4a574;border-color:#8b6914;"></div> Structural posts (50×47mm)</div>
+  <div class="legend-item"><div class="legend-swatch" style="background:#e8d5b7;border-color:#a0855c;"></div> Cladding (shiplap/T&amp;G)</div>
+  <div class="legend-item"><div class="legend-swatch" style="background:#7a8a7a;border-color:#4a5a4a;"></div> Roof (bitumen shingles)</div>
+  <div class="legend-item"><div class="legend-swatch" style="background:#6a9f6a;border-color:#3d7a3d;"></div> Wheelie bin</div>
+  <div class="legend-item"><div class="legend-swatch" style="background:#a0c4e8;border-color:#5a8ab5;"></div> Food caddy</div>
+  <div class="legend-item"><div class="legend-swatch" style="background:#e8a060;border-color:#b87030;"></div> Recycling boxes</div>
+  <div class="legend-item"><div class="legend-swatch" style="background:none;border:2px dashed #27ae60;"></div> Open side (no wall)</div>
+  <div class="legend-item"><div class="legend-swatch" style="background:none;border:2px dashed #2e5090;"></div> Door swing</div>
+</div>
+
+<div class="views">
+
+  <!-- ==================== PLAN VIEW (Top Down) ==================== -->
+  <div class="view-card">
+    <h2>Plan View (Top Down)</h2>
+    <svg width="560" height="460" viewBox="0 0 560 460">
+      <!-- Scale: ~3px per cm. 130cm=390px wide, 75cm=225px deep -->
+      <!-- Origin: x=50, y=100 -->
+
+      <defs>
+        <marker id="arrowGreen" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#27ae60"/></marker>
+        <marker id="arrowRed" markerWidth="6" markerHeight="5" refX="0" refY="2.5" orient="auto"><path d="M0,0 L6,2.5 L0,5 Z" fill="#c0392b"/></marker>
+        <marker id="arrowRedL" markerWidth="6" markerHeight="5" refX="6" refY="2.5" orient="auto"><path d="M6,0 L0,2.5 L6,5 Z" fill="#c0392b"/></marker>
+      </defs>
+
+      <!-- Back wall (cladding) -->
+      <rect x="50" y="100" width="390" height="8" class="cladding"/>
+      <!-- Left wall (cladding) -->
+      <rect x="50" y="100" width="8" height="225" class="cladding"/>
+      <!-- Centre divider (cladding) -->
+      <rect x="285" y="100" width="8" height="225" class="cladding"/>
+      <!-- Front solid panel — right section only -->
+      <rect x="285" y="317" width="155" height="8" class="cladding"/>
+
+      <!-- NO right wall — open side -->
+      <line x1="440" y1="100" x2="440" y2="325" class="open-side"/>
+      <text x="452" y="210" class="label-bold" transform="rotate(90,452,210)" style="font-size:10px;fill:#27ae60;">OPEN</text>
+
+      <!-- Corner posts -->
+      <rect x="50" y="100" width="15" height="15" class="structure"/>
+      <rect x="425" y="100" width="15" height="15" class="structure"/>
+      <rect x="50" y="310" width="15" height="15" class="structure"/>
+      <!-- Centre posts (top & bottom) -->
+      <rect x="285" y="100" width="15" height="15" class="structure"/>
+      <rect x="285" y="310" width="15" height="15" class="structure"/>
+
+      <!-- Left section contents -->
+      <!-- Wheelie bin (49cm wide x 57cm deep) -->
+      <rect x="70" y="115" width="147" height="171" class="bin" rx="6"/>
+      <text x="143" y="198" text-anchor="middle" class="label-bold" style="fill:#2a6b2a;font-size:10px;">WHEELIE BIN</text>
+      <text x="143" y="211" text-anchor="middle" class="label-text" style="fill:#2a6b2a;font-size:9px;">490 x 570mm</text>
+
+      <!-- Food caddy (32cm wide x 39cm deep) — near door -->
+      <rect x="223" y="177" width="50" height="110" class="bin-food" rx="4"/>
+      <text x="248" y="235" text-anchor="middle" class="label-text" transform="rotate(-90,248,235)" style="fill:#3a7ab5;font-size:8px;font-weight:600;">CADDY</text>
+
+      <!-- Door swing arc -->
+      <path d="M 65 325 A 210 210 0 0 0 278 325" class="door-swing"/>
+      <text x="170" y="370" text-anchor="middle" class="label-text" style="fill:#2e5090;font-weight:600;font-size:9px;">DOOR OPENS OUT</text>
+      <line x1="65" y1="325" x2="278" y2="325" stroke="#2e5090" stroke-width="2"/>
+
+      <!-- Right section: recycling boxes -->
+      <rect x="310" y="115" width="120" height="165" class="box" rx="4"/>
+      <text x="370" y="188" text-anchor="middle" class="label-bold" style="fill:#8b4513;font-size:10px;">RECYCLING</text>
+      <text x="370" y="203" text-anchor="middle" class="label-text" style="fill:#8b4513;font-size:9px;">BOXES x3</text>
+
+      <!-- Slide-in arrows -->
+      <line x1="445" y1="175" x2="465" y2="175" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arrowGreen)"/>
+      <line x1="445" y1="205" x2="465" y2="205" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arrowGreen)"/>
+
+      <!-- DIMENSIONS -->
+      <!-- Overall width -->
+      <line x1="50" y1="70" x2="440" y2="70" class="dim-line" marker-start="url(#arrowRedL)" marker-end="url(#arrowRed)"/>
+      <text x="245" y="65" text-anchor="middle" class="dim-text">1300mm overall width</text>
+
+      <!-- Left section internal width -->
+      <line x1="65" y1="85" x2="285" y2="85" class="dim-line" marker-start="url(#arrowRedL)" marker-end="url(#arrowRed)"/>
+      <text x="175" y="82" text-anchor="middle" class="dim-text">780mm left section</text>
+
+      <!-- Centre divider width -->
+      <line x1="285" y="350" x2="293" y2="350" class="dim-line" marker-start="url(#arrowRedL)" marker-end="url(#arrowRed)"/>
+      <text x="289" y="365" text-anchor="middle" class="dim-text" style="font-size:10px;">50mm post</text>
+
+      <!-- Right section internal width -->
+      <line x1="300" y1="85" x2="440" y2="85" class="dim-line" marker-start="url(#arrowRedL)" marker-end="url(#arrowRed)"/>
+      <text x="370" y="82" text-anchor="middle" class="dim-text">470mm right</text>
+
+      <!-- Overall depth -->
+      <line x1="18" y1="100" x2="18" y2="325" class="dim-line" marker-start="url(#arrowRedL)" marker-end="url(#arrowRed)"/>
+      <text x="5" y="215" text-anchor="middle" class="dim-text" transform="rotate(-90,5,215)">750mm depth</text>
+
+      <!-- Wheelie bin width dimension -->
+      <line x1="70" y1="340" x2="217" y2="340" class="dim-line" marker-start="url(#arrowRedL)" marker-end="url(#arrowRed)"/>
+      <text x="143" y="355" text-anchor="middle" class="dim-text" style="font-size:10px;">490mm</text>
+
+      <!-- Wheelie bin depth dimension -->
+      <line x1="475" y1="115" x2="475" y2="286" class="dim-line" marker-start="url(#arrowRedL)" marker-end="url(#arrowRed)"/>
+      <text x="490" y="202" text-anchor="middle" class="dim-text" style="font-size:10px;" transform="rotate(90,490,202)">570mm</text>
+
+      <!-- Food caddy width -->
+      <line x1="223" y1="305" x2="273" y2="305" class="dim-line" marker-start="url(#arrowRedL)" marker-end="url(#arrowRed)"/>
+      <text x="248" y="320" text-anchor="middle" class="dim-text" style="font-size:10px;">320mm</text>
+
+      <!-- Food caddy depth -->
+      <line x1="500" y1="177" x2="500" y2="287" class="dim-line" marker-start="url(#arrowRedL)" marker-end="url(#arrowRed)"/>
+      <text x="515" y="232" text-anchor="middle" class="dim-text" style="font-size:10px;" transform="rotate(90,515,232)">390mm</text>
+
+      <!-- Recycling box width -->
+      <line x1="310" y1="370" x2="430" y2="370" class="dim-line" marker-start="url(#arrowRedL)" marker-end="url(#arrowRed)"/>
+      <text x="370" y="385" text-anchor="middle" class="dim-text" style="font-size:10px;">570mm</text>
+
+      <!-- Recycling box depth -->
+      <line x1="510" y1="115" x2="510" y2="280" class="dim-line" marker-start="url(#arrowRedL)" marker-end="url(#arrowRed)"/>
+      <text x="525" y="198" text-anchor="middle" class="dim-text" style="font-size:10px;" transform="rotate(90,525,198)">430mm</text>
+
+      <!-- Clearance notes -->
+      <text x="245" y="440" text-anchor="middle" class="label-text" style="font-size:9px;">Clearances: 80mm back wall • 40mm sides for sliding access</text>
+
+      <!-- Orientation -->
+      <text x="470" y="410" class="label-text" style="font-size:9px;">&larr; FRONT</text>
+      <text x="470" y="110" class="label-text" style="font-size:9px;">&larr; BACK</text>
+    </svg>
+  </div>
+
+  <!-- ==================== FRONT ELEVATION ==================== -->
+  <div class="view-card">
+    <h2>Front Elevation</h2>
+    <svg width="560" height="500" viewBox="0 0 560 500">
+      <!-- Height: 1550mm front = 310px, Width: 1300mm = 390px -->
+      <!-- Ground at y=450, top-front at y=70 -->
+
+      <defs>
+        <marker id="arrowRed2" markerWidth="6" markerHeight="5" refX="0" refY="2.5" orient="auto"><path d="M0,0 L6,2.5 L0,5 Z" fill="#c0392b"/></marker>
+        <marker id="arrowRedL2" markerWidth="6" markerHeight="5" refX="6" refY="2.5" orient="auto"><path d="M6,0 L0,2.5 L6,5 Z" fill="#c0392b"/></marker>
+      </defs>
+
+      <!-- Roof -->
+      <polygon points="40,60 450,60 450,72 40,72" class="roof"/>
+      <text x="245" y="52" text-anchor="middle" class="label-text" style="fill:#4a5a4a;font-weight:600;font-size:9px;">BITUMEN SHINGLES (slopes back to front)</text>
+
+      <!-- Roof overhang dimensions -->
+      <line x1="40" y1="55" x2="50" y2="55" class="dim-line" marker-start="url(#arrowRedL2)" marker-end="url(#arrowRed2)"/>
+      <text x="45" y="50" text-anchor="middle" class="dim-text" style="font-size:9px;">30-40mm</text>
+
+      <line x1="440" y1="55" x2="450" y2="55" class="dim-line" marker-start="url(#arrowRedL2)" marker-end="url(#arrowRed2)"/>
+      <text x="445" y="50" text-anchor="middle" class="dim-text" style="font-size:9px;">30-40mm</text>
+
+      <!-- Left section: DOOR -->
+      <rect x="50" y="72" width="237" height="378" fill="#e8d5b7" stroke="#a0855c" stroke-width="1.5" rx="2"/>
+      <!-- Horizontal T&G lines on door -->
+      <line x1="55" y1="95" x2="282" y2="95" stroke="#c4a882" stroke-width="0.5"/>
+      <line x1="55" y1="118" x2="282" y2="118" stroke="#c4a882" stroke-width="0.5"/>
+      <line x1="55" y1="141" x2="282" y2="141" stroke="#c4a882" stroke-width="0.5"/>
+      <line x1="55" y1="164" x2="282" y2="164" stroke="#c4a882" stroke-width="0.5"/>
+      <line x1="55" y1="187" x2="282" y2="187" stroke="#c4a882" stroke-width="0.5"/>
+      <line x1="55" y1="210" x2="282" y2="210" stroke="#c4a882" stroke-width="0.5"/>
+      <line x1="55" y1="233" x2="282" y2="233" stroke="#c4a882" stroke-width="0.5"/>
+      <line x1="55" y1="256" x2="282" y2="256" stroke="#c4a882" stroke-width="0.5"/>
+      <line x1="55" y1="279" x2="282" y2="279" stroke="#c4a882" stroke-width="0.5"/>
+      <line x1="55" y1="302" x2="282" y2="302" stroke="#c4a882" stroke-width="0.5"/>
+      <line x1="55" y1="325" x2="282" y2="325" stroke="#c4a882" stroke-width="0.5"/>
+      <line x1="55" y1="348" x2="282" y2="348" stroke="#c4a882" stroke-width="0.5"/>
+      <line x1="55" y1="371" x2="282" y2="371" stroke="#c4a882" stroke-width="0.5"/>
+      <!-- Door handle -->
+      <rect x="267" y="215" width="8" height="28" rx="2" fill="#555" stroke="#333" stroke-width="1"/>
+      <!-- Hinges -->
+      <rect x="53" y="100" width="5" height="20" rx="1" fill="#777"/>
+      <rect x="53" y="400" width="5" height="20" rx="1" fill="#777"/>
+      <text x="168" y="260" text-anchor="middle" class="label-bold" style="font-size:12px;">DOOR</text>
+
+      <!-- Wheelie bin ghosted behind door -->
+      <rect x="80" y="168" width="98" height="232" fill="#6a9f6a" stroke="#3d7a3d" stroke-width="1" opacity="0.2" rx="4"/>
+      <text x="129" y="295" text-anchor="middle" class="label-text" style="fill:#3d7a3d;font-size:8px;opacity:0.6;">BIN BEHIND</text>
+
+      <!-- Lid-open clearance zone -->
+      <rect x="80" y="80" width="98" height="88" fill="#6a9f6a" stroke="#3d7a3d" stroke-width="1" opacity="0.12" rx="2" stroke-dasharray="4,3"/>
+      <text x="129" y="128" text-anchor="middle" class="label-text" style="fill:#3d7a3d;font-size:8px;opacity:0.7;">LID OPENS</text>
+
+      <!-- Centre post -->
+      <rect x="287" y="72" width="12" height="378" class="structure"/>
+
+      <!-- Right section: SOLID FRONT -->
+      <rect x="299" y="72" width="141" height="378" class="cladding"/>
+      <line x1="304" y1="95" x2="435" y2="95" stroke="#c4a882" stroke-width="0.5"/>
+      <line x1="304" y1="118" x2="435" y2="118" stroke="#c4a882" stroke-width="0.5"/>
+      <line x1="304" y1="141" x2="435" y2="141" stroke="#c4a882" stroke-width="0.5"/>
+      <line x1="304" y1="164" x2="435" y2="164" stroke="#c4a882" stroke-width="0.5"/>
+      <line x1="304" y1="187" x2="435" y2="187" stroke="#c4a882" stroke-width="0.5"/>
+      <line x1="304" y1="210" x2="435" y2="210" stroke="#c4a882" stroke-width="0.5"/>
+      <line x1="304" y1="233" x2="435" y2="233" stroke="#c4a882" stroke-width="0.5"/>
+      <line x1="304" y1="256" x2="435" y2="256" stroke="#c4a882" stroke-width="0.5"/>
+      <line x1="304" y1="279" x2="435" y2="279" stroke="#c4a882" stroke-width="0.5"/>
+      <line x1="304" y1="302" x2="435" y2="302" stroke="#c4a882" stroke-width="0.5"/>
+      <line x1="304" y1="325" x2="435" y2="325" stroke="#c4a882" stroke-width="0.5"/>
+      <line x1="304" y1="348" x2="435" y2="348" stroke="#c4a882" stroke-width="0.5"/>
+      <line x1="304" y1="371" x2="435" y2="371" stroke="#c4a882" stroke-width="0.5"/>
+      <text x="370" y="260" text-anchor="middle" class="label-bold" style="font-size:12px;">SOLID FRONT</text>
+
+      <!-- Corner posts -->
+      <rect x="38" y="60" width="14" height="390" class="structure"/>
+      <rect x="438" y="60" width="14" height="390" class="structure"/>
+
+      <!-- Ground line -->
+      <line x1="28" y1="450" x2="462" y2="450" stroke="#333" stroke-width="2"/>
+
+      <!-- DIMENSIONS -->
+      <!-- Overall width -->
+      <line x1="38" y1="475" x2="452" y2="475" class="dim-line" marker-start="url(#arrowRedL2)" marker-end="url(#arrowRed2)"/>
+      <text x="245" y="490" text-anchor="middle" class="dim-text">1300mm overall width</text>
+
+      <!-- Left section door width -->
+      <line x1="50" y1="465" x2="287" y2="465" class="dim-line" marker-start="url(#arrowRedL2)" marker-end="url(#arrowRed2)"/>
+      <text x="168" y="462" text-anchor="middle" class="dim-text" style="font-size:10px;">760mm door</text>
+
+      <!-- Centre post -->
+      <line x1="287" y1="465" x2="299" y2="465" class="dim-line" marker-start="url(#arrowRedL2)" marker-end="url(#arrowRed2)"/>
+      <text x="293" y="462" text-anchor="middle" class="dim-text" style="font-size:9px;">12mm</text>
+
+      <!-- Right section width -->
+      <line x1="299" y1="465" x2="440" y2="465" class="dim-line" marker-start="url(#arrowRedL2)" marker-end="url(#arrowRed2)"/>
+      <text x="369" y="462" text-anchor="middle" class="dim-text" style="font-size:10px;">480mm</text>
+
+      <!-- Overall height -->
+      <line x1="18" y1="72" x2="18" y2="450" class="dim-line" marker-start="url(#arrowRedL2)" marker-end="url(#arrowRed2)"/>
+      <text x="8" y="262" text-anchor="middle" class="dim-text" transform="rotate(-90,8,262)">1550mm front height</text>
+
+      <!-- Door height -->
+      <line x1="505" y1="72" x2="505" y2="450" class="dim-line" marker-start="url(#arrowRedL2)" marker-end="url(#arrowRed2)"/>
+      <text x="530" y="262" text-anchor="middle" class="dim-text" style="font-size:10px;" transform="rotate(90,530,262)">1540mm door</text>
+
+      <!-- Lid clearance height -->
+      <line x1="530" y1="80" x2="530" y2="168" class="dim-line" marker-start="url(#arrowRedL2)" marker-end="url(#arrowRed2)"/>
+      <text x="545" y="124" text-anchor="middle" class="dim-text" style="font-size:9px;" transform="rotate(90,545,124)">490mm</text>
+    </svg>
+  </div>
+</div>
+
+<div class="views">
+
+  <!-- ==================== RIGHT SIDE ELEVATION (OPEN) ==================== -->
+  <div class="view-card">
+    <h2>Right Side Elevation (Open Side)</h2>
+    <svg width="560" height="500" viewBox="0 0 560 500">
+      <!-- Depth 750mm=225px, Height 1550mm front / 1600mm back = 310/320px -->
+      <!-- Ground y=450, front x=380, back x=100 -->
+
+      <defs>
+        <marker id="arrowRed3" markerWidth="6" markerHeight="5" refX="0" refY="2.5" orient="auto"><path d="M0,0 L6,2.5 L0,5 Z" fill="#c0392b"/></marker>
+        <marker id="arrowRedL3" markerWidth="6" markerHeight="5" refX="6" refY="2.5" orient="auto"><path d="M6,0 L0,2.5 L6,5 Z" fill="#c0392b"/></marker>
+        <marker id="arrowG3" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#27ae60"/></marker>
+      </defs>
+
+      <!-- Roof slope (back higher) -->
+      <polygon points="95,48 375,62 375,72 95,58" class="roof"/>
+      <text x="235" y="41" text-anchor="middle" class="label-text" style="fill:#4a5a4a;font-weight:600;font-size:9px;">ROOF slopes back to front for drainage</text>
+
+      <!-- Back wall edge (taller: 1600mm) -->
+      <rect x="93" y="48" width="10" height="402" class="structure"/>
+      <!-- Front edge post (shorter: 1550mm) -->
+      <rect x="365" y="62" width="10" height="388" class="structure"/>
+
+      <!-- Back cladding edge -->
+      <rect x="103" y="53" width="6" height="397" class="cladding"/>
+
+      <!-- Shelves — 3 boxes, evenly spaced -->
+      <!-- Shelf 1 at ~520mm up from ground = y=450-104=346 -->
+      <rect x="109" y="346" width="256" height="5" class="shelf"/>
+      <!-- Shelf 2 at ~1040mm up from ground = y=450-208=242 -->
+      <rect x="109" y="242" width="256" height="5" class="shelf"/>
+      <!-- Floor at y=450 (box 1 sits on ground) -->
+
+      <!-- Box 1 — bottom (on floor) -->
+      <rect x="125" y="382" width="172" height="62" class="box" rx="4"/>
+      <text x="211" y="418" text-anchor="middle" class="label-text" style="fill:#8b4513;font-weight:600;font-size:9px;">BOX 1 (floor)</text>
+
+      <!-- Box 2 — middle shelf -->
+      <rect x="125" y="278" width="172" height="62" class="box" rx="4"/>
+      <text x="211" y="314" text-anchor="middle" class="label-text" style="fill:#8b4513;font-weight:600;font-size:9px;">BOX 2 (middle)</text>
+
+      <!-- Box 3 — top shelf -->
+      <rect x="125" y="174" width="172" height="62" class="box" rx="4"/>
+      <text x="211" y="210" text-anchor="middle" class="label-text" style="fill:#8b4513;font-weight:600;font-size:9px;">BOX 3 (top)</text>
+
+      <!-- Access arrows -->
+      <line x1="380" y1="205" x2="410" y2="205" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arrowG3)"/>
+      <line x1="380" y1="309" x2="410" y2="309" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arrowG3)"/>
+      <line x1="380" y1="413" x2="410" y2="413" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arrowG3)"/>
+      <text x="435" y="310" class="label-text" style="fill:#27ae60;font-weight:700;font-size:10px;" transform="rotate(90,435,310)">SLIDE IN/OUT</text>
+
+      <!-- Ground line -->
+      <line x1="80" y1="450" x2="400" y2="450" stroke="#333" stroke-width="2"/>
+
+      <!-- Open indicator -->
+      <text x="235" y="475" text-anchor="middle" class="label-bold" style="fill:#27ae60;font-size:11px;">OPEN SIDE — NO WALL</text>
+
+      <!-- DIMENSIONS -->
+      <!-- Overall depth -->
+      <line x1="100" y1="485" x2="375" y2="485" class="dim-line" marker-start="url(#arrowRedL3)" marker-end="url(#arrowRed3)"/>
+      <text x="237" y="498" text-anchor="middle" class="dim-text">750mm depth</text>
+
+      <!-- Front height -->
+      <line x1="420" y1="62" x2="420" y2="450" class="dim-line" marker-start="url(#arrowRedL3)" marker-end="url(#arrowRed3)"/>
+      <text x="440" y="260" text-anchor="middle" class="dim-text" style="font-size:10px;" transform="rotate(90,440,260)">1550mm front</text>
+
+      <!-- Back height -->
+      <line x1="60" y1="48" x2="60" y2="450" class="dim-line" marker-start="url(#arrowRedL3)" marker-end="url(#arrowRed3)"/>
+      <text x="40" y="252" text-anchor="middle" class="dim-text" style="font-size:10px;" transform="rotate(-90,40,252)">1600mm back</text>
+
+      <!-- Height difference -->
+      <line x1="30" y1="62" x2="30" y2="48" class="dim-line" marker-start="url(#arrowRedL3)" marker-end="url(#arrowRed3)"/>
+      <text x="25" y="56" text-anchor="middle" class="dim-text" style="font-size:9px;">50mm</text>
+
+      <!-- Shelf 1 spacing (ground to shelf 1) -->
+      <line x1="75" y1="351" x2="75" y2="450" class="dim-line" marker-start="url(#arrowRedL3)" marker-end="url(#arrowRed3)"/>
+      <text x="55" y="401" text-anchor="middle" class="dim-text" style="font-size:10px;" transform="rotate(-90,55,401)">520mm</text>
+
+      <!-- Shelf spacing (shelf 1 to shelf 2) -->
+      <line x1="75" y1="242" x2="75" y2="351" class="dim-line" marker-start="url(#arrowRedL3)" marker-end="url(#arrowRed3)"/>
+      <text x="55" y="297" text-anchor="middle" class="dim-text" style="font-size:10px;" transform="rotate(-90,55,297)">520mm</text>
+
+      <!-- Shelf spacing (shelf 2 to top) -->
+      <line x1="75" y1="174" x2="75" y2="242" class="dim-line" marker-start="url(#arrowRedL3)" marker-end="url(#arrowRed3)"/>
+      <text x="55" y="208" text-anchor="middle" class="dim-text" style="font-size:10px;" transform="rotate(-90,55,208)">520mm</text>
+
+      <!-- Box height -->
+      <line x1="470" y1="174" x2="470" y2="236" class="dim-line" marker-start="url(#arrowRedL3)" marker-end="url(#arrowRed3)"/>
+      <text x="490" y="205" text-anchor="middle" class="dim-text" style="font-size:10px;" transform="rotate(90,490,205)">340mm box</text>
+
+      <!-- Labels -->
+      <text x="375" y="30" text-anchor="middle" class="label-text" style="font-size:10px;">FRONT</text>
+      <text x="100" y="30" text-anchor="middle" class="label-text" style="font-size:10px;">BACK</text>
+    </svg>
+  </div>
+
+  <!-- ==================== LEFT SIDE ELEVATION (ENCLOSED) ==================== -->
+  <div class="view-card">
+    <h2>Left Side Elevation (Enclosed Wall)</h2>
+    <svg width="560" height="500" viewBox="0 0 560 500">
+      <!-- Depth 750mm=225px, Heights 1550/1600mm -->
+
+      <defs>
+        <marker id="arrowRed4" markerWidth="6" markerHeight="5" refX="0" refY="2.5" orient="auto"><path d="M0,0 L6,2.5 L0,5 Z" fill="#c0392b"/></marker>
+        <marker id="arrowRedL4" markerWidth="6" markerHeight="5" refX="6" refY="2.5" orient="auto"><path d="M6,0 L0,2.5 L6,5 Z" fill="#c0392b"/></marker>
+      </defs>
+
+      <!-- Posts -->
+      <rect x="93" y="48" width="10" height="402" class="structure"/>
+      <rect x="365" y="62" width="10" height="388" class="structure"/>
+
+      <!-- Roof (slopes from back at higher to front at lower) -->
+      <polygon points="90,43 380,57 380,67 90,53" class="roof"/>
+      <text x="235" y="36" text-anchor="middle" class="label-text" style="fill:#4a5a4a;font-weight:600;font-size:9px;">ROOF slopes back to front</text>
+
+      <!-- Full shiplap wall -->
+      <rect x="103" y="56" width="262" height="394" class="cladding"/>
+      <!-- Horizontal lines -->
+      <line x1="108" y1="80" x2="360" y2="80" stroke="#c4a882" stroke-width="0.5"/>
+      <line x1="108" y1="104" x2="360" y2="104" stroke="#c4a882" stroke-width="0.5"/>
+      <line x1="108" y1="128" x2="360" y2="128" stroke="#c4a882" stroke-width="0.5"/>
+      <line x1="108" y1="152" x2="360" y2="152" stroke="#c4a882" stroke-width="0.5"/>
+      <line x1="108" y1="176" x2="360" y2="176" stroke="#c4a882" stroke-width="0.5"/>
+      <line x1="108" y1="200" x2="360" y2="200" stroke="#c4a882" stroke-width="0.5"/>
+      <line x1="108" y1="224" x2="360" y2="224" stroke="#c4a882" stroke-width="0.5"/>
+      <line x1="108" y1="248" x2="360" y2="248" stroke="#c4a882" stroke-width="0.5"/>
+      <line x1="108" y1="272" x2="360" y2="272" stroke="#c4a882" stroke-width="0.5"/>
+      <line x1="108" y1="296" x2="360" y2="296" stroke="#c4a882" stroke-width="0.5"/>
+      <line x1="108" y1="320" x2="360" y2="320" stroke="#c4a882" stroke-width="0.5"/>
+      <line x1="108" y1="344" x2="360" y2="344" stroke="#c4a882" stroke-width="0.5"/>
+      <line x1="108" y1="368" x2="360" y2="368" stroke="#c4a882" stroke-width="0.5"/>
+
+      <text x="232" y="230" text-anchor="middle" class="label-bold" style="font-size:13px;">SOLID SHIPLAP</text>
+      <text x="232" y="248" text-anchor="middle" class="label-bold" style="font-size:13px;">CLADDING</text>
+
+      <!-- Ground -->
+      <line x1="80" y1="450" x2="390" y2="450" stroke="#333" stroke-width="2"/>
+
+      <!-- DIMENSIONS -->
+      <!-- Front height -->
+      <line x1="420" y1="62" x2="420" y2="450" class="dim-line" marker-start="url(#arrowRedL4)" marker-end="url(#arrowRed4)"/>
+      <text x="440" y="260" text-anchor="middle" class="dim-text" style="font-size:10px;" transform="rotate(90,440,260)">1550mm front</text>
+
+      <!-- Back height -->
+      <line x1="60" y1="48" x2="60" y2="450" class="dim-line" marker-start="url(#arrowRedL4)" marker-end="url(#arrowRed4)"/>
+      <text x="40" y="252" text-anchor="middle" class="dim-text" style="font-size:10px;" transform="rotate(-90,40,252)">1600mm back</text>
+
+      <!-- Depth -->
+      <line x1="93" y1="470" x2="375" y2="470" class="dim-line" marker-start="url(#arrowRedL4)" marker-end="url(#arrowRed4)"/>
+      <text x="234" y="485" text-anchor="middle" class="dim-text">750mm depth</text>
+
+      <!-- Height difference -->
+      <line x1="30" y1="62" x2="30" y2="48" class="dim-line" marker-start="url(#arrowRedL4)" marker-end="url(#arrowRed4)"/>
+      <text x="25" y="56" text-anchor="middle" class="dim-text" style="font-size:9px;">50mm</text>
+
+      <!-- Wall thickness -->
+      <line x1="103" y1="428" x2="365" y2="428" class="dim-line" marker-start="url(#arrowRedL4)" marker-end="url(#arrowRed4)"/>
+      <text x="234" y="443" text-anchor="middle" class="dim-text" style="font-size:10px;">270mm (wall face)</text>
+
+      <!-- Labels -->
+      <text x="375" y="30" text-anchor="middle" class="label-text" style="font-size:10px;">FRONT</text>
+      <text x="100" y="30" text-anchor="middle" class="label-text" style="font-size:10px;">BACK</text>
+    </svg>
+  </div>
+</div>
+
+<!-- ==================== KEY DIMENSIONS TABLE ==================== -->
+<div class="notes">
+  <h2>Key Dimensions</h2>
+
+  <table class="dim-table">
+    <tr><th>Measurement</th><th>Dimension</th><th>Reasoning</th></tr>
+    <tr><td>Overall width</td><td>1300mm</td><td>Matches your available space</td></tr>
+    <tr><td>Overall depth</td><td>750mm</td><td>Fits wheelie bin (570mm deep) with 80mm back clearance + 100mm front clearance</td></tr>
+    <tr><td>Height — front</td><td>1550mm</td><td>Wheelie bin (1060mm) + 490mm clearance above for opening lid and putting bags in</td></tr>
+    <tr><td>Height — back</td><td>1600mm</td><td>50mm higher than front to create gentle roof slope draining toward the front</td></tr>
+    <tr><td>Left section — internal width</td><td>~780mm</td><td>Wheelie bin (490mm) plus food caddy (380mm) — caddy stands beside/in front of bin</td></tr>
+    <tr><td>Right section — internal width</td><td>~470mm</td><td>Recycling box depth (430mm) + 40mm clearance for sliding in from the right</td></tr>
+    <tr><td>Right section — shelf spacing</td><td>~520mm each</td><td>3 zones evenly divided across ~1550mm internal height. Box (340mm) + 180mm clearance to grab &amp; lift</td></tr>
+    <tr><td>Centre divider post</td><td>50mm structural</td><td>50×47mm structural post with cladding on left-section side</td></tr>
+    <tr><td>Roof overhang</td><td>30–40mm all sides</td><td>Drip edge to keep water off the cladding</td></tr>
+    <tr><td>Wheelie bin dimensions</td><td>490 × 570mm</td><td>Standard 140L bin footprint</td></tr>
+    <tr><td>Food caddy dimensions</td><td>320 × 390mm</td><td>Standard 7L kitchen caddy as oriented in plan view</td></tr>
+    <tr><td>Recycling box footprint</td><td>570 × 430mm</td><td>Standard stacking recycling box</td></tr>
+    <tr><td>Recycling box height</td><td>~340mm</td><td>Allow 180mm headroom above for easy access</td></tr>
+    <tr><td>Door width</td><td>~760mm</td><td>Left section internal width minus frame/post clearances</td></tr>
+  </table>
+
+  <div class="callout">
+    <strong>Lid clearance:</strong> With the front height at 1550mm and the wheelie bin at 1060mm, you have roughly 490mm of clear space above the bin. This is enough to flip the lid fully open (it swings back about 300mm above the bin top) and comfortably drop bags in without removing the bin.
+  </div>
+
+  <div class="callout">
+    <strong>Food caddy placement:</strong> The caddy (380×390×320mm) fits beside the wheelie bin if angled slightly, or in front of it near the door. Since you will open the door for the caddy more often than the wheelie bin, keeping it near the front makes sense. Alternatively, mount a small shelf at ~900mm height inside the left section for the caddy — keeps it off the floor and out of the way.
+  </div>
+</div>
+
+<!-- ==================== CONSTRUCTION NOTES ==================== -->
+<div class="notes">
+  <h2>Construction Notes</h2>
+
+  <p><strong>Frame first.</strong> Build the skeleton from 50×47mm pressure-treated posts. Six uprights: two front (1550mm tall), two at the centre divider (height varies), and two at the back (1600mm tall). Horizontal rails at the top and bottom tie everything together, with the top rails creating the roof slope. Add mid-height horizontal rails on the left and back walls for cladding support.</p>
+
+  <p><strong>Cladding.</strong> Shiplap boards fixed horizontally to the frame — left wall, back wall, centre divider (left-section side), and the front panel of the right section. The door is a separate frame of 50×47mm battens clad with tongue &amp; groove boards, hung on two galvanised T-hinges.</p>
+
+  <p><strong>Shelves.</strong> Two shelves in the right section (the bottom box sits on the ground). Each shelf is a piece of 18mm exterior plywood or several cladding boards screwed to 50×22mm battens fixed to the centre divider and back wall.</p>
+
+  <p><strong>Roof.</strong> A sheet of 9–12mm exterior plywood sits on the top rails, overhanging 30–40mm on all sides. Cover with bitumen felt underlay first, then nail bitumen shingles on top. The 50mm height difference (back at 1600mm, front at 1550mm) gives a gentle drainage slope, with water running off the front edge where it drips clear of the door area.</p>
+
+  <p><strong>Floor.</strong> No built-in floor — sits on paving slabs, concrete, or compacted gravel. If on soil, stand the posts on concrete pad stones to keep timber off the wet ground.</p>
+
+  <p><strong>Finishing.</strong> Apply Ronseal Fence &amp; Shed Preserver to all timber (including cut ends) before assembly, then a coat of Ronseal Crystal Clear Outdoor Varnish once built. Re-varnish every 2–3 years.</p>
+</div>
+
+</body>
+</html>
