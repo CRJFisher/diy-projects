@@ -18,6 +18,9 @@ batten_w = 50;
 batten_h = 22;
 ply_t = 18;
 
+// Roof overhang
+roof_overhang = 25;   // overhang on front, back, and sides
+
 // Overall envelope
 total_width  = 1300;
 total_depth  = 750;
@@ -54,7 +57,7 @@ recycle_w = 430;  recycle_d = 570;  recycle_h = 300;
 
 // Display toggles
 show_frame    = true;
-show_roof     = false;
+show_roof     = true;
 show_cladding = false;
 show_door     = false;
 show_shelves  = false;

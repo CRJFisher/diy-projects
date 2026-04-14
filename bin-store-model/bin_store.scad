@@ -8,7 +8,9 @@
 
 include <parameters.scad>
 use <frame.scad>
+use <roof.scad>
 use <bins.scad>
 
 if (show_frame)  frame();
+if (show_roof)   roof();
 if (show_bins)   bins();

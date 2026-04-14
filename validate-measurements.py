@@ -56,6 +56,10 @@ TOTAL_WIDTH            = 1300  # mm, outside-to-outside
 TOTAL_DEPTH            = 750   # mm, outside-to-outside (50 + 650 + 50)
 INTERNAL_DEPTH         = 650   # mm, between inner faces of posts (food caddy clearance)
 ROOF_SLOPE             = 50    # mm, back higher than front
+ROOF_OVERHANG          = 25    # mm, overhang on front, back, and sides
+BATTEN_W               = 50    # mm, batten width (Y dimension on roof)
+BATTEN_H               = 22    # mm, batten height (Z dimension on roof)
+PLY_T                  = 18    # mm, plywood thickness
 LEFT_SECTION_CLEAR     = 780   # mm, door opening (left post inside face to centre post face)
 RIGHT_SECTION_WIDTH    = 440   # mm, recycling bin width + 10mm clearance (centre post overlaps into this space)
 FRONT_CENTRE_POST_X    = 874   # mm, X position of front centre post (post_face + left_section_clear + post_face)
@@ -125,6 +129,16 @@ _cut("BRACE_LEFT_1", "Left panel X-brace 1", 1000, notes="15x38mm user-supplied;
 _cut("BRACE_LEFT_2", "Left panel X-brace 2", 1000, notes="15x38mm user-supplied; ~1010 actual")
 
 # -- NOGGINS removed from Weekend 1 (optional; add in Weekend 3 if cladding needs extra support) --
+
+# -- ROOF BATTENS (50x22mm, running left-to-right across full width) --
+_cut("BATTEN_ROOF_1", "Roof batten 1 (front)",  1300, notes="50x22mm batten, full width")
+_cut("BATTEN_ROOF_2", "Roof batten 2",          1300, notes="50x22mm batten, full width")
+_cut("BATTEN_ROOF_3", "Roof batten 3",          1300, notes="50x22mm batten, full width")
+_cut("BATTEN_ROOF_4", "Roof batten 4 (back)",   1300, notes="50x22mm batten, full width")
+
+# -- ROOF DECK (plywood, with 25mm overhang on all sides) --
+_cut("ROOF_DECK_W", "Roof deck width",  1350, notes=f"Plywood: {TOTAL_WIDTH} + 2 x {ROOF_OVERHANG} = {TOTAL_WIDTH + 2 * ROOF_OVERHANG}")
+_cut("ROOF_DECK_D", "Roof deck depth",  800,  notes=f"Plywood: {TOTAL_DEPTH} + 2 x {ROOF_OVERHANG} = {TOTAL_DEPTH + 2 * ROOF_OVERHANG}")
 
 
 # ─────────────────────────────────────────────────────────
@@ -394,6 +408,25 @@ def build_constraints() -> list:
         [("RAIL_DEPTH_TL", L("RAIL_DEPTH_TL")),
          ("minus_RAIL_DEPTH_TR", -L("RAIL_DEPTH_TR"))],
         0))
+
+    # ── ROOF ──────────────────────────────────────────────
+
+    # Battens span the full width
+    for bid in ["BATTEN_ROOF_1", "BATTEN_ROOF_2", "BATTEN_ROOF_3", "BATTEN_ROOF_4"]:
+        add(Constraint(f"{bid}_LENGTH",
+            f"{bid}: batten length = total width ({TOTAL_WIDTH})",
+            [(bid, L(bid))], TOTAL_WIDTH))
+
+    # Roof deck dimensions (with overhang)
+    expected_deck_w = TOTAL_WIDTH + 2 * ROOF_OVERHANG
+    expected_deck_d = TOTAL_DEPTH + 2 * ROOF_OVERHANG
+    add(Constraint("ROOF_DECK_WIDTH",
+        f"Roof deck width = total_width + 2 x overhang = {expected_deck_w}",
+        [("ROOF_DECK_W", L("ROOF_DECK_W"))], expected_deck_w))
+
+    add(Constraint("ROOF_DECK_DEPTH",
+        f"Roof deck depth = total_depth + 2 x overhang = {expected_deck_d}",
+        [("ROOF_DECK_D", L("ROOF_DECK_D"))], expected_deck_d))
 
     # ── CROSS-BRACE DIAGONALS ─────────────────────────────
 
