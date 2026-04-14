@@ -140,6 +140,30 @@ Build `cladding.scad` and `door.scad`. The featheredge profile is the trickiest 
 ### Phase 4: Shelves
 Build `shelves.scad`. Simplest phase -- battens and plywood rectangles. Matches Weekend 4 scope.
 
+### Phase 5: Clash Detection
+
+OpenSCAD has no built-in collision detection, but `intersection()` can be used to find overlapping volumes between components. If the intersection is non-empty, there's a clash.
+
+#### File: `clash_check.scad`
+
+Toggles to check specific pairs:
+- `check_bins_vs_frame` -- does each bin fit within the frame without overlapping timber?
+- `check_bins_vs_bins` -- do any bins overlap each other?
+- `check_posts_vs_rails` -- are there any unintended post/rail overlaps?
+
+Each check renders only the `intersection()` of the two component groups in bright red. If the preview shows nothing, the pair is clear.
+
+#### CLI automation
+
+A helper script (`clash_check.sh`) can render each check to STL via the OpenSCAD CLI and report pass/fail based on whether the output is a degenerate (empty) mesh:
+
+```
+openscad -o /tmp/clash.stl -D 'check_bins_vs_frame=true' clash_check.scad
+# Empty STL (header-only, ~684 bytes) = no clash = PASS
+```
+
+This allows clash checks to be run non-interactively as part of a validation workflow.
+
 ## Design Notes
 
 - **Featheredge taper**: Model as `linear_extrude` of a trapezoidal 2D polygon (thick edge ~15mm, thin edge ~5mm). Each board overlaps the one below by ~25mm.
