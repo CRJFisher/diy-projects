@@ -10,8 +10,8 @@ This weekend you build the freestanding timber frame -- six posts, all rails, cr
 | Front height | 1597 mm |
 | Back height | 1647 mm |
 | Roof slope (back-to-front) | 50 mm fall |
-| Left section width | ~780 mm (enclosed, with door) |
-| Right section width | ~470 mm (open, with shelves) |
+| Left section width | ~860 mm (enclosed, with door) |
+| Right section width | ~440 mm (open, with shelves) |
 
 ---
 
@@ -25,7 +25,7 @@ All frame cuts use **50 x 47 mm pressure-treated softwood** (from B&Q). Posts fr
 | 2 | 1597 mm `[CUT:POST_FL,POST_FR]` | Front corner posts (left + right) |
 | 1 | 1503 mm `[CUT:POST_FC]` | Front centre post (sits between top & bottom rails; 1597 - 2 x 47) |
 | 4 | 1206 mm `[CUT:RAIL_BACK_TOP,RAIL_BACK_BOT,RAIL_BACK_MID,RAIL_FRONT_TOP]` | Full-width rails (2 top, 1 back bottom, 1 back mid-rail at 775 mm; 1300 minus 2 x 47 mm posts) |
-| 1 | 423 mm `[CUT:RAIL_FRONT_BOT_R]` | Front bottom rail -- right section only (centre post inside face to right corner post inside face; 470 section minus 47 centre post depth) |
+| 1 | 393 mm `[CUT:RAIL_FRONT_BOT_R]` | Front bottom rail -- right section only (centre post outside face to right corner post inside face; 440 section minus 47 right post) |
 | 5 | 650 mm `[CUT:RAIL_DEPTH_TL,RAIL_DEPTH_TR,RAIL_DEPTH_BL,RAIL_DEPTH_BR,RAIL_DEPTH_TC]` | Depth rails (4 corner connections + 1 centre divider top) |
 | 2 | 650 mm `[CUT:RAIL_MID_LEFT,RAIL_DEPTH_MC]` | Mid-rails (left wall + centre divider, at 775 mm) |
 | 2 | ~1100 mm `[CUT:BRACE_BACK_1,BRACE_BACK_2]` | Back panel X-braces -- **15x38mm user-supplied** (45° both ends) |
@@ -47,7 +47,7 @@ Build this frame flat on sawhorses (or a flat floor), then stand it up later. Re
 
 ### Assembly
 
-1. Lay all three 1647 mm `[CUT:POST_BL,POST_BR,POST_BC]` back posts flat, 50 mm face up: left corner post, centre-back post (780 mm from left), right corner post (1300 mm from left). The left-to-centre gap is ~780 mm; centre-to-right is ~470 mm
+1. Lay all three 1647 mm `[CUT:POST_BL,POST_BR,POST_BC]` back posts flat, 50 mm face up: left corner post, centre-back post (860 mm from left), right corner post (1300 mm from left). The left-to-centre gap is ~860 mm; centre-to-right is ~440 mm
 2. Butt a 1206 mm `[CUT:RAIL_BACK_TOP]` rail between the outer post tops, flush with the top ends. The rail passes over the centre-back post and is face-screwed to it -- the centre post is full height (1647 mm) and sits behind the rails, so the rails rest on its face. Pre-drill two pilot holes per joint, drive 2x 75 mm screws per side (6 screws total for this rail)
 3. Repeat at the bottom. Check 90 deg with a framing square before driving screws -- tap the rail sideways to correct any racking
 4. Mark all three posts at 775 mm up from the bottom rail. Fix the mid-height rail at this mark, spanning all three posts, same method (2x pilot holes, 2x 75 mm screws per side)
@@ -58,7 +58,7 @@ Build this frame flat on sawhorses (or a flat floor), then stand it up later. Re
 
 ### Cross-Bracing (Upper Zone Only)
 
-X-braces go in the **left section only** (between the left corner post and centre-back post), in the upper zone between the top rail and mid-height rail. They are surface-mounted on the **inside face** (facing the bins) -- no notches needed. This keeps the outside face flush for cladding. The right section (~470 mm) is too narrow for X-braces and will get shelves for rigidity instead.
+X-braces go in the **left section only** (between the left corner post and centre-back post), in the upper zone between the top rail and mid-height rail. They are surface-mounted on the **inside face** (facing the bins) -- no notches needed. This keeps the outside face flush for cladding. The right section (~440 mm) is too narrow for X-braces and will get shelves for rigidity instead.
 
 5. Hold timber diagonally across the left section's upper rectangle (left post to centre-back post, top rail to mid-rail), corner to corner. Mark where it meets the inner edges and cut 45 deg at each end so it sits flush into the corner. Fix with 2x 65 mm screws at each end (pre-drill)
 
@@ -78,7 +78,7 @@ Lean the completed frame against a wall, brace side outward.
 
 ## Step 2: Build the Front Frame
 
-The front frame is 1597 mm tall (50 mm shorter than the back to create roof slope). Unlike the back frame, the front has a **door opening** on the left (~780 mm wide) for the wheelie bin and food caddy, so it gets **no X-braces, no full-width mid-height rail, and no bottom rail across the door opening**. The centre divider post (Step 4) will define the right edge of the door opening. Refer to the **Cut List** for parts.
+The front frame is 1597 mm tall (50 mm shorter than the back to create roof slope). Unlike the back frame, the front has a **door opening** on the left (~860 mm wide) for the wheelie bin and food caddy, so it gets **no X-braces, no full-width mid-height rail, and no bottom rail across the door opening**. The centre divider post (Step 4) will define the right edge of the door opening. Refer to the **Cut List** for parts.
 
 > **Why no left-section bottom rail?** A full-width bottom rail would block the wheelie bin from rolling in and out -- you would have to lift the bin over a 47 mm timber lip every time. Removing the bottom rail from the door opening is standard practice in shed and garage construction. The left-front corner post is still braced at its base by the left-side depth rail (Step 3), and the door (Weekend 3) adds further rigidity when closed.
 
@@ -87,7 +87,7 @@ The front frame is 1597 mm tall (50 mm shorter than the back to create roof slop
 - **Posts are 1597 mm** (not 1647 mm) -- this creates the roof slope
 - **No X-braces** -- the left section is a door opening and the right section is too narrow for meaningful bracing
 - **No full-width mid-height rail** -- the left wall and right-section front get mid-rails (Step 5) but the right side wall does not (shelves will provide lateral bracing)
-- **Front bottom rail is right section only (423 mm)** -- no bottom rail across the door opening so the wheelie bin can roll in and out freely
+- **Front bottom rail is right section only (393 mm)** -- no bottom rail across the door opening so the wheelie bin can roll in and out freely
 - Top rail remains **1206 mm** (full width between posts)
 
 ### Assembly
@@ -98,7 +98,7 @@ Build it flat on sawhorses:
 2. Attach the top rail (1206 mm `[CUT:RAIL_FRONT_TOP]`) with 2x 75 mm screws per end (pilot holes first). **Do not fit a full-width bottom rail** -- the front bottom rail is fitted later in Step 4 as a short piece in the right section only
 3. Check for square -- clamp a temporary diagonal brace across the frame to hold it square until the bottom rail and centre post are fitted in Step 4
 
-> **Note:** The left section (~780 mm) will become the door opening -- keep it clear of bracing, mid-rails, and bottom rails. The right section (~470 mm) gets its bottom rail when the centre post is installed (Step 4). The centre post (Step 4) completes the front face.
+> **Note:** The left section (~860 mm) will become the door opening -- keep it clear of bracing, mid-rails, and bottom rails. The right section (~440 mm) gets its bottom rail when the centre post is installed (Step 4). The centre post (Step 4) completes the front face.
 
 ![Front Face -- Complete View](diagrams/front-frame.png)
 
@@ -126,10 +126,10 @@ This is where your 2D frames become a 3D box. **You need a helper.** Refer to th
 
 ## Step 4: Install the Centre Divider
 
-The centre divider splits the bin store into **left** (~780 mm, enclosed with door) and **right** (~470 mm, open shelves). See Cut List for timber sizes.
+The centre divider splits the bin store into **left** (~860 mm, enclosed with door) and **right** (~440 mm, open shelves). See Cut List for timber sizes.
 
-1. **Fit the right-section front bottom rail.** Cut the 423 mm `[CUT:RAIL_FRONT_BOT_R]` bottom rail (470 mm section width minus 47 mm centre post depth = 423 mm clear span between inside faces). Butt it against the inner face of the right corner post with its bottom edge flush with the post base. Fix with 2x 75 mm screws into the right corner post (pilot holes first). Leave the left end loose for now -- the centre post will sit on it next.
-2. **Mark the divider position.** Measure 780 mm from the left-front post along the front top rail and mark it. This is also where the left end of the right-section bottom rail should sit.
+1. **Fit the right-section front bottom rail.** Cut the 393 mm `[CUT:RAIL_FRONT_BOT_R]` bottom rail (440 mm section width minus 47 mm right post = 393 mm, centre post outside face to right post inside face). Butt it against the inner face of the right corner post with its bottom edge flush with the post base. Fix with 2x 75 mm screws into the right corner post (pilot holes first). Leave the left end loose for now -- the centre post will sit on it next.
+2. **Mark the divider position.** Measure 860 mm from the left-front post along the front top rail and mark it. This is also where the left end of the right-section bottom rail should sit.
 3. **Stand the centre post.** Place the 1503 mm `[CUT:POST_FC]` post vertically at your mark, standing on top of the right-section bottom rail, 50 mm face parallel to the front edge. The post sits between the top rail and the bottom rail -- its bottom end rests on the top face of the bottom rail and its top end butts against the underside of the top rail.
 4. **Fix the base.** Toe-screw 2x 75 mm screws through the post base into the bottom rail, one from each side. Pre-drill.
 5. **Fix the top.** Drive 2x 75 mm screws down through the top rail into the end grain of the centre post. Pre-drill with a 5 mm bit to prevent splitting. This joint is compression-loaded (the roof pushes down), so end-grain screwing is adequate here.
@@ -140,7 +140,7 @@ The centre divider splits the bin store into **left** (~780 mm, enclosed with do
 
 > **Front centre post joint method:** Unlike the back frame (where the centre post is full height and rails pass over it), the front centre post is 1503 mm -- exactly 94 mm shorter than the corner posts (2 x 47 mm rail thickness). It sits between the top rail and the right-section bottom rail. This keeps the front face flush for cladding and the door frame.
 
-> **No bottom rail at the door opening:** The left section (~780 mm) has no front bottom rail so the wheelie bin can roll straight in and out. The left-front corner post is braced at its base by the left-side bottom depth rail (fitted in Step 3), which is structurally sufficient.
+> **No bottom rail at the door opening:** The left section (~860 mm) has no front bottom rail so the wheelie bin can roll straight in and out. The left-front corner post is braced at its base by the left-side bottom depth rail (fitted in Step 3), which is structurally sufficient.
 
 ### Plan View -- Frame After Step 4
 
@@ -156,7 +156,7 @@ Mid-height rails at 775 mm stiffen the frame and provide cladding fixing points.
 |-----|-----------|--------|----------|
 | 1 | Left wall mid-rail | 650 mm | Left-front to left-back post, 775 mm height |
 
-Fix each rail with 2x 75 mm screws at each end. The right side wall does **not** get a mid-rail -- the shelves (Weekend 4) will act as lateral bracing instead. The right section of the front face (~470 mm wide) has no mid-rail either -- the cladding is nailed directly to the centre post and right corner post, which is sufficient for such a narrow span. Check all mid-rails are level with a spirit level before fully tightening.
+Fix each rail with 2x 75 mm screws at each end. The right side wall does **not** get a mid-rail -- the shelves (Weekend 4) will act as lateral bracing instead. The right section of the front face (~440 mm wide) has no mid-rail either -- the cladding is nailed directly to the centre post and right corner post, which is sufficient for such a narrow span. Check all mid-rails are level with a spirit level before fully tightening.
 
 ### Front View -- Mid-Height Rails Highlighted
 

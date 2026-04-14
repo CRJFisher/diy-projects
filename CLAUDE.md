@@ -27,3 +27,9 @@ These are the key constraints that need to be met in order to design a successfu
   - 40mm (clearance)
   - 50mm (post width)
   - Total: 50 + 40 + 570 + 40 + 50 = 750mm
+
+## OpenSCAD
+
+We're using OpenSCAD to design the bin store.
+
+There's a cheat sheet for OpenSCAD here: [OpenSCAD CheatSheet.htm](OpenSCAD CheatSheet.htm)
