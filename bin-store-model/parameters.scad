@@ -50,6 +50,18 @@ centre_post_height = front_height - 2 * rail_h;             // 1503
 // Right front bottom rail: from front centre post to right corner post
 right_front_bot_rail = total_width - post_face - front_centre_post_x;  // 379
 
+// Shelf geometry (right section)
+// Total usable height = front_height - rail_h = 1550mm (floor to bottom of top rail)
+// Three shelves of 69mm each (47 rail + 22 batten), leaving 1343mm for three compartments
+// 1343 / 3 = 447.67, rounded to 448, 448, 447 (bottom to top)
+shelf_thickness      = rail_h + batten_h;                                     // 69
+shelf_space          = 448;
+bottom_shelf_rail_z  = 0;                                                     // floor
+lower_shelf_rail_z   = shelf_thickness + shelf_space;                         // 517
+upper_shelf_rail_z   = 2 * (shelf_thickness + shelf_space);                   // 1034
+shelf_batten_length  = total_width - front_centre_post_x;                     // 426
+num_shelf_battens    = 5;
+
 // Bin dimensions (for ghost models)
 wheelie_w = 490;  wheelie_d = 570;  wheelie_h = 1060;
 caddy_w   = 323;  caddy_d   = 400;  caddy_h   = 400;
@@ -60,7 +72,7 @@ show_frame    = true;
 show_roof     = true;
 show_cladding = false;
 show_door     = false;
-show_shelves  = false;
+show_shelves  = true;
 show_bins     = true;
 show_edges    = true;
 

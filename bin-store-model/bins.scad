@@ -21,27 +21,27 @@ module recycling_box() {
 
 module bins() {
     // Wheelie bin: left section, centred in depth, on the floor
-    translate([post_face, post_side + (internal_depth - wheelie_d) / 2, rail_h])
+    translate([post_face, post_side + (internal_depth - wheelie_d) / 2, 0])
         wheelie_bin();
 
     // Food caddy: left section, next to wheelie bin
-    translate([post_face + wheelie_w, post_side + (internal_depth - caddy_d) / 2, rail_h])
+    translate([post_face + wheelie_w, post_side + (internal_depth - caddy_d) / 2, 0])
         food_caddy();
 
-    // Recycling boxes: right section, 3 stacked
+    // Recycling boxes: right section, one per shelf compartment
     // X starts after front centre post
-    recycle_x = front_centre_post_x + post_face;
+    recycle_x = front_centre_post_x;
     recycle_y = post_side + (internal_depth - recycle_d) / 2;
 
-    // Bottom box (on floor rail)
-    translate([recycle_x, recycle_y, rail_h])
+    // Bottom box (on bottom shelf battens)
+    translate([recycle_x, recycle_y, bottom_shelf_rail_z + rail_h + batten_h])
         recycling_box();
 
-    // Middle box
-    translate([recycle_x, recycle_y, rail_h + recycle_h + 20])
+    // Middle box (on lower shelf battens)
+    translate([recycle_x, recycle_y, lower_shelf_rail_z + rail_h + batten_h])
         recycling_box();
 
-    // Top box
-    translate([recycle_x, recycle_y, rail_h + 2 * (recycle_h + 20)])
+    // Top box (on upper shelf battens)
+    translate([recycle_x, recycle_y, upper_shelf_rail_z + rail_h + batten_h])
         recycling_box();
 }

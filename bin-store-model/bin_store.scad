@@ -10,7 +10,9 @@ include <parameters.scad>
 use <frame.scad>
 use <roof.scad>
 use <bins.scad>
+use <shelves.scad>
 
 if (show_frame)  frame();
 if (show_roof)   roof();
+if (show_shelves) shelves();
 if (show_bins)   bins();

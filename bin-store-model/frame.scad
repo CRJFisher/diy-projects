@@ -185,8 +185,16 @@ module centre_divider() {
     translate([front_centre_post_x, post_side, front_height - rail_h])
         sloped_depth_rail(depth_rail_length);
 
-    // Mid depth rail -- horizontal
-    translate([front_centre_post_x, post_side, mid_rail_height])
+    // Bottom shelf depth rail (on floor)
+    translate([front_centre_post_x, post_side, bottom_shelf_rail_z])
+        depth_rail(depth_rail_length);
+
+    // Lower shelf depth rail
+    translate([front_centre_post_x, post_side, lower_shelf_rail_z])
+        depth_rail(depth_rail_length);
+
+    // Upper shelf depth rail
+    translate([front_centre_post_x, post_side, upper_shelf_rail_z])
         depth_rail(depth_rail_length);
 }
 
@@ -206,8 +214,16 @@ module side_rails() {
     translate([0, post_side, 0])
         depth_rail(depth_rail_length);
 
-    // Bottom-right depth rail
-    translate([total_width - rail_d, post_side, 0])
+    // Right bottom shelf depth rail (on floor)
+    translate([total_width - rail_d, post_side, bottom_shelf_rail_z])
+        depth_rail(depth_rail_length);
+
+    // Right lower shelf depth rail
+    translate([total_width - rail_d, post_side, lower_shelf_rail_z])
+        depth_rail(depth_rail_length);
+
+    // Right upper shelf depth rail
+    translate([total_width - rail_d, post_side, upper_shelf_rail_z])
         depth_rail(depth_rail_length);
 
     // Left wall mid-rail at 775mm

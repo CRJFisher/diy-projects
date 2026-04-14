@@ -134,11 +134,11 @@ This is the highest-value phase: it validates that all bins fit within the struc
 ### Phase 2: Roof
 Build `roof.scad` -- battens, plywood deck. Matches Weekend 2 scope.
 
-### Phase 3: Cladding + Door
-Build `cladding.scad` and `door.scad`. The featheredge profile is the trickiest geometry (tapered cross-section). Matches Weekend 3 scope.
-
-### Phase 4: Shelves
+### Phase 3: Shelves
 Build `shelves.scad`. Simplest phase -- battens and plywood rectangles. Matches Weekend 4 scope.
+
+### Phase 4: Cladding + Door
+Build `cladding.scad` and `door.scad`. The featheredge profile is the trickiest geometry (tapered cross-section). Matches Weekend 3 scope.
 
 ### Phase 5: Clash Detection
 
