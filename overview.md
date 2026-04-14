@@ -25,7 +25,7 @@ Full constraint derivations are in [CLAUDE.md](CLAUDE.md).
 2. **50mm roof slope** (back to front) -- no angled cuts needed; square-cut depth rails seat cleanly at ~3.8 degrees
 3. **X-braces from user-supplied 15x38mm timber** -- keeps B&Q stock for posts/rails; 15mm braces overlap to only 30mm at crossing (less than 47mm frame depth)
 4. **No right wall mid-rail** -- shelves provide lateral bracing for the right section
-5. **Front centre post is 1503mm** (not full height) -- sits between top and bottom rails, keeping the front face flush for cladding and door frame
+5. **Front centre post is 1503mm** (not full height) -- sits between top and bottom rails, keeping the front face flush for cladding and door frame. The **back centre post is full height (1647mm)** and is positioned inside the frame, one post_side (50mm) in front of the back corner posts, rather than flush with the back wall. The back left-to-right rails run continuously across the full width without breaking at the back centre post.
 6. **Roof construction** (bottom to top): battens (50x22mm, left-to-right) -> 18mm plywood -> felt -> shingles. Battens follow the slope naturally since front posts are shorter than back.
 
 ## Workflow

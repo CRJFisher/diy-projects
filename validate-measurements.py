@@ -57,6 +57,9 @@ TOTAL_DEPTH            = 750   # mm, outside-to-outside (50 + 650 + 50)
 INTERNAL_DEPTH         = 650   # mm, between inner faces of posts (food caddy clearance)
 ROOF_SLOPE             = 50    # mm, back higher than front
 LEFT_SECTION_CLEAR     = 780   # mm, door opening (left post inside face to centre post face)
+RIGHT_SECTION_WIDTH    = 440   # mm, recycling bin width + 10mm clearance (centre post overlaps into this space)
+FRONT_CENTRE_POST_X    = 874   # mm, X position of front centre post (post_face + left_section_clear + post_face)
+BACK_CENTRE_POST_X     = 827   # mm, X position of back centre post (post_face + left_section_clear)
 MID_RAIL_HEIGHT        = 775   # mm from ground
 MIN_INTERNAL_CLEARANCE = 1550  # mm, wheelie bin lid clearance in left section
 
@@ -88,10 +91,10 @@ def _cut(cut_id, desc, length, qty=1, notes=""):
 # -- POSTS --
 _cut("POST_BL",  "Back-left corner post",            1647, notes="Full height back post")
 _cut("POST_BR",  "Back-right corner post",            1647)
-_cut("POST_BC",  "Back-centre post",                  1647, notes="Full height; rails pass over it")
+_cut("POST_BC",  "Back-centre post",                  1647, notes="Full height (same as corner back posts); inside frame at X=827, one post_side in front of back wall")
 _cut("POST_FL",  "Front-left corner post",            1597, notes="50 mm shorter than back for roof slope")
 _cut("POST_FR",  "Front-right corner post",           1597)
-_cut("POST_FC",  "Front centre post",                 1503, notes="Between top & bottom rails: 1597 - 2x47")
+_cut("POST_FC",  "Front centre post",                 1503, notes="Between top & bottom rails: 1597 - 2x47; at X=874 (sits on top of front bottom right rail)")
 
 # -- BACK FRAME RAILS (butt between inner faces of corner posts) --
 _cut("RAIL_BACK_TOP",  "Back top rail",    1206, notes="Butts between corner posts: 1300 - 2x47 = 1206")
@@ -100,8 +103,8 @@ _cut("RAIL_BACK_MID",  "Back mid-height rail", 1206, notes="At 775 mm; butts bet
 
 # -- FRONT FRAME RAILS --
 _cut("RAIL_FRONT_TOP",    "Front top rail",                   1206, notes="Butts between corner posts: 1300 - 2x47 = 1206")
-_cut("RAIL_FRONT_BOT_R",  "Front bottom rail (right section)", 423,
-     notes="470mm section width minus 47mm (centre post depth) = 423mm clear span between inside faces")
+_cut("RAIL_FRONT_BOT_R",  "Front bottom rail (right section)", 379,
+     notes="From front centre post X (874) to right corner post inner face (1253): 1300 - 47 - 874 = 379mm; front centre post sits on top of this rail")
 
 
 # -- DEPTH RAILS (front to back, butt between posts) --
@@ -202,8 +205,8 @@ def build_constraints() -> list:
     # The naming (POST_WIDTH=50 "left-right", POST_DEPTH=47 "front-to-back")
     # appears swapped relative to reality, but we use POST_DEPTH here to
     # match the authoritative constraints in CLAUDE.md.
-    right_section_width = TOTAL_WIDTH - POST_WIDTH - LEFT_SECTION_CLEAR
-    right_clear = TOTAL_WIDTH - 3 * POST_DEPTH - LEFT_SECTION_CLEAR
+    right_section_width = RIGHT_SECTION_WIDTH
+    right_clear = TOTAL_WIDTH - 3 * POST_DEPTH - LEFT_SECTION_CLEAR  # 1300 - 141 - 780 = 379
     depth_rail_expected = INTERNAL_DEPTH  # rails butt between posts = 650 mm
 
     # ── WIDTH (left-to-right) ──────────────────────────────
@@ -237,24 +240,20 @@ def build_constraints() -> list:
 
     # Right-section rails
     add(Constraint("RIGHT_SECTION_COMPUTED_WIDTH",
-        f"Right section width = {TOTAL_WIDTH} - {POST_WIDTH} - {LEFT_SECTION_CLEAR}",
-        [("right_section", right_section_width)], 470, tolerance=5))
+        f"Right section width = {RIGHT_SECTION_WIDTH} (from CLAUDE.md: recycling bin width + 10mm clearance)",
+        [("right_section", right_section_width)], 440))
 
-    # Right-section rail clear span (rail butts between inside faces of posts)
-    # 470mm section width minus 47mm centre post depth = 423mm
-    right_rail_clear = right_section_width - POST_DEPTH  # 470 - 47 = 423
+    # Right-section rail clear span
+    # Front centre post at X=874, right corner post inner face at 1300-47=1253
+    # Rail length = 1253 - 874 = 379mm (front centre post sits on top of this rail)
+    right_rail_expected = TOTAL_WIDTH - POST_DEPTH - FRONT_CENTRE_POST_X  # 1300 - 47 - 874 = 379
     add(Constraint("RIGHT_RAIL_CLEAR_SPAN",
-        f"Right front bottom rail = section width ({right_section_width}) - centre post depth ({POST_DEPTH})",
-        [("RAIL_FRONT_BOT_R", L("RAIL_FRONT_BOT_R"))], right_rail_clear))
+        f"Right front bottom rail = total_width ({TOTAL_WIDTH}) - right post depth ({POST_DEPTH}) - front_centre_post_x ({FRONT_CENTRE_POST_X})",
+        [("RAIL_FRONT_BOT_R", L("RAIL_FRONT_BOT_R"))], right_rail_expected))
 
-    # Right front bottom rail: clear span between inside faces of posts
-    # = right_section_width - POST_DEPTH (centre post depth)
-    right_rail_expected = right_section_width - POST_DEPTH  # 470 - 47 = 423
-    for rid, label in [
-        ("RAIL_FRONT_BOT_R", "Front bottom rail (right) = right section clear span"),
-    ]:
-        add(Constraint(f"{rid}_WIDTH", label,
-                        [(rid, L(rid))], right_rail_expected))
+    add(Constraint("RAIL_FRONT_BOT_R_WIDTH",
+        "Front bottom rail (right) = right section clear span",
+        [("RAIL_FRONT_BOT_R", L("RAIL_FRONT_BOT_R"))], right_rail_expected))
 
     # Full width dimensional chain (uses POST_DEPTH = 47 mm per CLAUDE.md)
     add(Constraint("TOTAL_WIDTH_CHAIN",
@@ -295,19 +294,26 @@ def build_constraints() -> list:
         [("POST_FL", L("POST_FL")), ("minus_POST_FR", -L("POST_FR"))],
         0))
 
-    # Centre post vertical chain: top_rail + centre_post + bottom_rail = front_post
-    add(Constraint("CENTRE_POST_VERTICAL",
-        "top_rail_ht + centre_post + bot_rail_ht = front corner post",
+    # Front centre post vertical chain: top_rail + centre_post + bottom_rail = front_post
+    # (This derivation applies only to the front centre post; the back centre post is full height)
+    add(Constraint("FRONT_CENTRE_POST_VERTICAL",
+        "top_rail_ht + front_centre_post + bot_rail_ht = front corner post",
         [("rail_top_ht", RAIL_HEIGHT),
          ("POST_FC", L("POST_FC")),
          ("rail_bot_ht", RAIL_HEIGHT)],
         L("POST_FL")))
 
-    # Centre post expected value
-    add(Constraint("CENTRE_POST_CALC",
-        f"Centre post = front_post - 2 x rail_height",
+    # Front centre post expected value
+    add(Constraint("FRONT_CENTRE_POST_CALC",
+        f"Front centre post = front_post - 2 x rail_height",
         [("POST_FC", L("POST_FC"))],
         L("POST_FL") - 2 * RAIL_HEIGHT))
+
+    # Back centre post is full height (same as back corner posts)
+    add(Constraint("BACK_CENTRE_POST_HEIGHT",
+        "Back centre post = back corner post height (full height, inside frame)",
+        [("POST_BC", L("POST_BC")), ("minus_POST_BL", -L("POST_BL"))],
+        0))
 
     # ── INTERNAL CLEARANCE (CRITICAL) ──────────────────────
 
@@ -448,10 +454,12 @@ def calculate_corrections() -> list[str]:
             f"CLEARANCE FIX: Back posts {CUTS['POST_BL'].length} -> {new_back} mm "
             f"(+{shortfall}) to maintain {ROOF_SLOPE} mm roof slope.")
         msgs.append(
-            f"CLEARANCE FIX: Centre post {CUTS['POST_FC'].length} -> {new_centre} mm.")
+            f"CLEARANCE FIX: Front centre post {CUTS['POST_FC'].length} -> {new_centre} mm "
+            f"(back centre post stays at full back height).")
 
         for pid in ("POST_FL", "POST_FR"):
             CUTS[pid].corrected = new_front
+        # Back centre post is full height (same as back corner posts)
         for pid in ("POST_BL", "POST_BR", "POST_BC"):
             CUTS[pid].corrected = new_back
         CUTS["POST_FC"].corrected = new_centre
