@@ -77,18 +77,85 @@ module sloped_depth_rail(length) {
     }
 }
 
-module x_brace(p1, p2) {
-    dx = p2[0] - p1[0];
-    dy = p2[1] - p1[1];
-    dz = p2[2] - p1[2];
-    length = sqrt(dx*dx + dy*dy + dz*dz);
-    angle_z = atan2(dy, dx);
-    angle_y = -atan2(dz, sqrt(dx*dx + dy*dy));
+// 2D profile of a diagonal brace with triangulated ends.
+// The brace strip is oversized then clipped to the frame opening,
+// producing angled cuts that sit flush into the corners.
+module brace_profile(a1, b1, a2, b2, w, clip) {
+    da = a2 - a1;
+    db = b2 - b1;
+    len = sqrt(da*da + db*db);
+    angle = atan2(db, da);
+    ext = w;
 
+    intersection() {
+        translate([a1, b1])
+        rotate(angle)
+        translate([-ext, -w/2])
+        square([len + 2*ext, w]);
+
+        polygon(clip);
+    }
+}
+
+// X-brace pair in the back panel (XZ plane, between left post and centre post, above mid rail)
+module back_panel_braces() {
+    x_min = post_face;
+    x_max = back_centre_post_x;
+    z_min = mid_rail_height + rail_h;
+    z_max = back_height - rail_h;
+
+    clip = [[x_min, z_min], [x_max, z_min], [x_max, z_max], [x_min, z_max]];
+
+    // Two braces offset in Y within the 50mm rail depth so they don't collide
+    rail_y = total_depth - post_side;
+    y1 = rail_y + (rail_d/2 - brace_t) / 2;
+    y2 = rail_y + rail_d/2 + (rail_d/2 - brace_t) / 2;
+
+    // Brace 1: bottom-left to top-right
     color(brace_colour)
-    translate(p1)
-    rotate([0, angle_y, angle_z])
-    cube([length, brace_t, brace_w]);
+    translate([0, y1 + brace_t, 0])
+    rotate([90, 0, 0])
+    linear_extrude(height=brace_t)
+    brace_profile(x_min, z_min, x_max, z_max, brace_w, clip);
+
+    // Brace 2: top-left to bottom-right
+    color(brace_colour)
+    translate([0, y2 + brace_t, 0])
+    rotate([90, 0, 0])
+    linear_extrude(height=brace_t)
+    brace_profile(x_min, z_max, x_max, z_min, brace_w, clip);
+}
+
+// X-brace pair in the left side panel (YZ plane, above mid rail)
+module side_panel_braces() {
+    y_min = post_side;
+    y_max = post_side + depth_rail_length;
+    z_min = mid_rail_height + rail_h;
+    z_front = front_height - rail_h;
+    z_back  = back_height - rail_h;
+
+    // Trapezoid clip: top edge follows the roof slope
+    clip = [[y_min, z_min], [y_max, z_min], [y_max, z_back], [y_min, z_front]];
+
+    // Two braces offset in X within the 47mm post width so they don't collide
+    x1 = (post_face/2 - brace_t) / 2;
+    x2 = post_face/2 + (post_face/2 - brace_t) / 2;
+
+    // Brace 1: bottom-front to top-back
+    color(brace_colour)
+    translate([x1, 0, 0])
+    rotate([0, 0, 90])
+    rotate([90, 0, 0])
+    linear_extrude(height=brace_t)
+    brace_profile(y_min, z_min, y_max, z_back, brace_w, clip);
+
+    // Brace 2: top-front to bottom-back
+    color(brace_colour)
+    translate([x2, 0, 0])
+    rotate([0, 0, 90])
+    rotate([90, 0, 0])
+    linear_extrude(height=brace_t)
+    brace_profile(y_min, z_front, y_max, z_min, brace_w, clip);
 }
 
 // ── Post positions ──────────────────────────────────────
@@ -146,17 +213,8 @@ module back_frame() {
     translate([post_face, rail_y, mid_rail_height])
         rail(full_rail_length);
 
-    // X-braces in back-left panel (left post to centre post X, above mid rail)
-    brace_x_left  = post_face;
-    brace_x_right = back_centre_post_x;
-    brace_z_bot   = mid_rail_height + rail_h;
-    brace_z_top   = back_height - rail_h;
-    brace_y       = rail_y + rail_d/2 - brace_t/2;
-
-    x_brace([brace_x_left, brace_y, brace_z_bot],
-            [brace_x_right, brace_y, brace_z_top]);
-    x_brace([brace_x_left, brace_y, brace_z_top],
-            [brace_x_right, brace_y, brace_z_bot]);
+    // X-braces in back-left panel
+    back_panel_braces();
 }
 
 // ── Front Frame ─────────────────────────────────────────
@@ -230,17 +288,8 @@ module side_rails() {
     translate([0, post_side, mid_rail_height])
         depth_rail(depth_rail_length);
 
-    // X-braces in left side panel (above mid rail)
-    brace_y_front = post_side;
-    brace_y_back  = post_side + depth_rail_length;
-    brace_z_bot   = mid_rail_height + rail_h;
-    brace_z_top   = front_height - rail_h;
-    brace_x       = post_face/2 - brace_t/2;
-
-    x_brace([brace_x, brace_y_front, brace_z_bot],
-            [brace_x, brace_y_back, brace_z_top]);
-    x_brace([brace_x, brace_y_front, brace_z_top],
-            [brace_x, brace_y_back, brace_z_bot]);
+    // X-braces in left side panel
+    side_panel_braces();
 }
 
 // ── Complete Frame ──────────────────────────────────────
