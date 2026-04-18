@@ -98,4 +98,5 @@ ply_colour    = [0.85, 0.75, 0.60];
 brace_colour  = [0.65, 0.50, 0.35];
 edge_colour   = [0.15, 0.10, 0.05];
 cladding_colour = [0.84, 0.70, 0.18];
+cladding_colour_alt = [0.68, 0.55, 0.12];   // alternate-row shade so boards read as individual planks
 hardboard_colour = [0.50, 0.46, 0.40];
