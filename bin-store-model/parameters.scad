@@ -18,6 +18,19 @@ batten_w = 50;
 batten_h = 22;
 ply_t = 18;
 
+// Cladding and door geometry
+featheredge_w = 125;
+featheredge_thick = 15;
+featheredge_thin = 5;
+featheredge_overlap = 25;
+featheredge_cover = featheredge_w - featheredge_overlap;
+hardboard_t = 6;
+door_frame_w = 70;
+door_frame_t = 38;
+door_gap = 5;
+door_head_clearance = 5;
+front_panel_post_overlap = post_side;
+
 // Roof overhang
 roof_overhang = 25;   // overhang on front, back, and sides
 
@@ -70,17 +83,19 @@ recycle_w = 430;  recycle_d = 570;  recycle_h = 300;
 // Display toggles
 show_frame    = true;
 show_roof     = true;
-show_cladding = false;
-show_door     = false;
+show_cladding = true;
+show_door     = true;
 show_shelves  = true;
 show_bins     = true;
 show_edges    = true;
 
 // Door angle (0 = closed, 90 = fully open)
-door_angle = 15;
+door_angle = 0;
 
 // Colours
 timber_colour = [0.76, 0.60, 0.42];
 ply_colour    = [0.85, 0.75, 0.60];
 brace_colour  = [0.65, 0.50, 0.35];
 edge_colour   = [0.15, 0.10, 0.05];
+cladding_colour = [0.84, 0.70, 0.18];
+hardboard_colour = [0.50, 0.46, 0.40];

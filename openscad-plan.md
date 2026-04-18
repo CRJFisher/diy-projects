@@ -3,9 +3,21 @@
 ## Goal
 
 Create a parametric 3D model of the bin store in OpenSCAD that:
+
 - Validates fit of all bins (wheelie bin, food caddy, recycling boxes)
 - Visualises the structure at each build stage
 - Serves as a reference alongside the build guides
+
+## Inventory Workflow
+
+The OpenSCAD/code layer is also the source of truth for the generated project `cut_list`.
+
+- `bin-store-model/parameters.scad` and the module structure under `bin-store-model/` feed the extraction layer
+- the generated `cut_list` is mirrored into Grist as a read-only operational table
+- manual stock counts live in the Grist `inventory` table and are pulled back into repo snapshots
+- `shopping_list` is derived from `cut_list` minus `inventory`
+
+See `docs/grist_inventory_workflow.md` for the operator workflow and the repo-backed snapshot files under `data/`.
 
 ## File Structure
 
@@ -35,6 +47,7 @@ bin-store-model/
 All measurements centralised here. Modules never contain magic numbers.
 
 ### Timber cross-sections
+
 - `post_face = 47; post_side = 50;` (face = X/left-right dimension, side = Y/front-back dimension)
 - `rail_h = 47; rail_d = 50;`
 - `brace_t = 15; brace_w = 38;`
@@ -42,6 +55,7 @@ All measurements centralised here. Modules never contain magic numbers.
 - `ply_t = 18;`
 
 ### Overall envelope
+
 - `total_width = 1300;`
 - `total_depth = 750;`
 - `front_height = 1597;`
@@ -49,6 +63,7 @@ All measurements centralised here. Modules never contain magic numbers.
 - `roof_slope = 50;`
 
 ### Section geometry
+
 - `left_section_clear = 780;` (door opening)
 - `right_section_width = 440;` (recycling area, front centre post overlaps into this)
 - `front_centre_post_x = 874;` (post_face + left_section_clear + post_face = 47 + 780 + 47; sits on top of front bottom right rail)
@@ -57,6 +72,7 @@ All measurements centralised here. Modules never contain magic numbers.
 - `internal_depth = 650;`
 
 ### Derived values (computed in OpenSCAD)
+
 - Full-width rail length: `total_width - 2 * post_face` = 1206mm
 - Right front bottom rail: `total_width - post_face - front_centre_post_x` = 1300 - 47 - 874 = 379mm
 - Front centre post height: `front_height - 2 * rail_h` = 1503mm (only applies to front centre post)
@@ -64,11 +80,13 @@ All measurements centralised here. Modules never contain magic numbers.
 - Depth rails: `internal_depth` = 650mm
 
 ### Bin dimensions (for ghost models)
+
 - Wheelie bin: 490 x 570 x 1060mm
 - Food caddy: 323 x 400 x 400mm (confirm actual depth/height)
 - Recycling box: 430 x 570 x 300mm
 
 ### Display toggles
+
 - `show_frame`, `show_roof`, `show_cladding`, `show_door`, `show_shelves`, `show_bins` -- booleans to toggle subsystems
 - `door_angle` -- 0 = closed, 90 = fully open (default: 15 for visual clarity)
 
@@ -77,12 +95,14 @@ All measurements centralised here. Modules never contain magic numbers.
 ### Frame (`frame.scad`)
 
 Primitives:
+
 - `post(height)` -- single 50x47 vertical timber
 - `rail(length)` -- horizontal timber along X axis
 - `depth_rail(length)` -- horizontal timber along Y axis
 - `x_brace(p1, p2)` -- diagonal brace between two 3D points, auto-computes length/angle
 
 Assemblies:
+
 - `back_frame()` -- 2 back corner posts (1647mm each), back centre post (1647mm, inside frame at X=827, one post_side in front of back wall), 3 continuous horizontal rails (top/mid/bottom at 1206mm), 2 X-braces in left upper zone
 - `front_frame()` -- 2 corner posts (1597mm), top rail (1206mm), right bottom rail (379mm). No left bottom rail (wheelie bin access)
 - `centre_divider()` -- front centre post (1503mm, at X=874, sits on top of front bottom right rail), top centre depth rail connecting from front top rail to back top rail (passes to the right of back centre post at X=874), mid depth rail
@@ -123,30 +143,37 @@ Assemblies:
 ## Implementation Phases
 
 ### Phase 1: Frame + Ghost Bins
+
 Build `parameters.scad`, `frame.scad`, `bins.scad`, and `bin_store.scad`.
 
 This is the highest-value phase: it validates that all bins fit within the structure and matches the already-built Weekend 1 frame. Deliverables:
+
 - All 6 posts in correct positions
 - All rails (full-width, right bottom, depth, mid-height)
 - X-braces in back-left and left panels
 - Ghost bins positioned for fit-checking
 
 ### Phase 2: Roof
+
 Build `roof.scad` -- battens, plywood deck. Matches Weekend 2 scope.
 
 ### Phase 3: Shelves
+
 Build `shelves.scad`. Simplest phase -- battens and plywood rectangles. Matches Weekend 4 scope.
 
 ### Phase 4: Cladding + Door
+
 Build `cladding.scad` and `door.scad`. The featheredge profile is the trickiest geometry (tapered cross-section). Matches Weekend 3 scope.
 
 ### Phase 5: Clash Detection
 
 OpenSCAD has no built-in collision detection, but `intersection()` can be used to find overlapping volumes between components. If the intersection is non-empty, there's a clash.
+This work will replace the `validate-measurements.py` script with a more robust clash detection system.
 
 #### File: `clash_check.scad`
 
 Toggles to check specific pairs:
+
 - `check_bins_vs_frame` -- does each bin fit within the frame without overlapping timber?
 - `check_bins_vs_bins` -- do any bins overlap each other?
 - `check_posts_vs_rails` -- are there any unintended post/rail overlaps?
