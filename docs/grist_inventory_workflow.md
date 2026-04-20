@@ -13,12 +13,14 @@ This project uses Grist as the operational UI for inventory tracking while keepi
 
 ## Table sync directions
 
+
 | Grist table          | Direction     | Authored in                                        |
 | -------------------- | ------------- | -------------------------------------------------- |
 | `cut_list`           | local → Grist | Repo (OpenSCAD extraction)                         |
 | `cut_list.completed` | Grist → local | Grist (pulled, merged, and rewritten on each push) |
 | `shopping_list`      | local → Grist | Repo (`compute_shopping_list.py` + shopping skill) |
 | `inventory`          | Grist → local | Grist (manual stock entry)                         |
+
 
 The sync script (`scripts/sync_grist_tables.py`) enforces these directions via its `TABLE_SPEC` registry. Running `python3 scripts/sync_grist_tables.py` with no flags syncs every registered table in its default direction.
 
