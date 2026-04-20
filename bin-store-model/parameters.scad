@@ -26,7 +26,7 @@ featheredge_overlap = 25;
 featheredge_cover = featheredge_w - featheredge_overlap;
 hardboard_t = 6;
 door_frame_w = 70;
-door_frame_t = 38;
+door_frame_t = 34;
 door_gap = 5;
 front_panel_post_overlap = post_side;
 
