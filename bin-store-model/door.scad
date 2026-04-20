@@ -33,13 +33,13 @@ module door_panel(width, height) {
 
     if (inner_width > 0 && inner_height > 0) {
         translate([0, -featheredge_thick, 0])
-            front_featheredge_panel(width, height);
+            front_featheredge_panel(width, height, -door_gap);
     }
 }
 
 module door(angle = door_angle) {
     door_width = front_centre_post_x - (post_face + door_gap);
-    door_height = front_height - rail_h - 2 * door_gap - door_head_clearance;
+    door_height = front_height - rail_h - 2 * door_gap;
 
     rotate([0, 0, -angle])
         door_panel(door_width, door_height);

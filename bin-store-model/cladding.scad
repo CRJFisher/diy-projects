@@ -68,14 +68,16 @@ module featheredge_board(length, board_colour = cladding_colour) {
 // Stacked featheredge boards clipped to a trapezoidal panel envelope.
 // Both the board geometry and its edge wireframe sit inside the SAME
 // intersection, so edges are trimmed to the panel shape automatically.
-module featheredge_wall(length, front_top, back_top) {
+// `board_z_offset` shifts the board stack within the clip envelope so shadow
+// lines can be aligned across panels that sit at different base heights.
+module featheredge_wall(length, front_top, back_top, board_z_offset = 0) {
     max_top = max(front_top, back_top);
-    board_count = ceil(max_top / featheredge_cover) + 1;
+    board_count = ceil((max_top - board_z_offset) / featheredge_cover) + 1;
 
     intersection() {
         union() {
             for (i = [0 : board_count - 1]) {
-                translate([0, 0, i * featheredge_cover])
+                translate([0, 0, board_z_offset + i * featheredge_cover])
                     featheredge_board(length,
                         (i % 2 == 0) ? cladding_colour : cladding_colour_alt);
             }
@@ -89,9 +91,9 @@ module featheredge_wall(length, front_top, back_top) {
     }
 }
 
-module front_featheredge_panel(width, height) {
+module front_featheredge_panel(width, height, board_z_offset = 0) {
     rotate([0, 0, -90])
-        featheredge_wall(width, height, height);
+        featheredge_wall(width, height, height, board_z_offset);
 }
 
 module hardboard_panel(width, height) {

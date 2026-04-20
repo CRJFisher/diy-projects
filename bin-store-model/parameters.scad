@@ -28,7 +28,6 @@ hardboard_t = 6;
 door_frame_w = 70;
 door_frame_t = 38;
 door_gap = 5;
-door_head_clearance = 5;
 front_panel_post_overlap = post_side;
 
 // Roof overhang
