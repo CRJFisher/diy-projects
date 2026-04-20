@@ -13,9 +13,9 @@ Create a parametric 3D model of the bin store in OpenSCAD that:
 The OpenSCAD/code layer is also the source of truth for the generated project `cut_list`.
 
 - `bin-store-model/parameters.scad` and the module structure under `bin-store-model/` feed the extraction layer
-- the generated `cut_list` is mirrored into Grist as a read-only operational table
+- the generated `cut_list` is mirrored into Grist as a generated operational table, with only the `completed` flag editable
 - manual stock counts live in the Grist `inventory` table and are pulled back into repo snapshots
-- `shopping_list` is derived from `cut_list` minus `inventory`
+- shopping decisions and `shopping_list` population are handled by a separate AI agent workflow outside the scripts in this repo
 
 See `docs/grist_inventory_workflow.md` for the operator workflow and the repo-backed snapshot files under `data/`.
 

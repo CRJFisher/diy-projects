@@ -9,13 +9,13 @@ A two-section outdoor bin store in pressure-treated softwood.
 
 ## Key Dimensions
 
-| Dimension | Value | Derived from |
-|-----------|-------|--------------|
-| Total width | 1300mm | 47mm post + 490mm wheelie bin + 323mm food caddy + 440mm recycling box |
-| Total depth | 750mm | 50mm post + 40mm clearance + 570mm recycling box + 40mm clearance + 50mm post |
-| Front height | 1597mm | Standard for internal clearance |
-| Back height | 1647mm | Front + 50mm roof slope |
-| Internal clearance | 1550mm min | 1060mm wheelie bin + 490mm lid clearance |
+| Dimension          | Value      | Derived from                                                                  |
+| ------------------ | ---------- | ----------------------------------------------------------------------------- |
+| Total width        | 1300mm     | 47mm post + 490mm wheelie bin + 323mm food caddy + 440mm recycling box        |
+| Total depth        | 750mm      | 50mm post + 40mm clearance + 570mm recycling box + 40mm clearance + 50mm post |
+| Front height       | 1597mm     | Standard for internal clearance                                               |
+| Back height        | 1647mm     | Front + 50mm roof slope                                                       |
+| Internal clearance | 1550mm min | 1060mm wheelie bin + 490mm lid clearance                                      |
 
 Full constraint derivations are in [CLAUDE.md](CLAUDE.md).
 
@@ -30,23 +30,23 @@ Full constraint derivations are in [CLAUDE.md](CLAUDE.md).
 
 ## Workflow
 
-| Weekend | Scope | Status |
-|---------|-------|--------|
-| 1 | Frame -- 6 posts, all rails, X-bracing, centre divider | Done |
-| 2 | Roof -- battens, plywood sheathing, felt, shingles | Upcoming |
-| 3 | Cladding (featheredge) + door (frame, hinges, latch) | Planned |
-| 4 | Shelves (plywood on battens) + paint | Planned |
+| Weekend | Scope                                                  | Status   |
+| ------- | ------------------------------------------------------ | -------- |
+| 1       | Frame -- 6 posts, all rails, X-bracing, centre divider | Done     |
+| 2       | Roof -- battens, plywood sheathing, felt, shingles     | Upcoming |
+| 3       | Cladding (featheredge) + door (frame, hinges, latch)   | Planned  |
+| 4       | Shelves (plywood on battens) + paint                   | Planned  |
 
 ## Materials (B&Q)
 
-| Material | Stock length | Total needed |
-|----------|-------------|-------------|
-| 50x47mm softwood | 2.4m | 8 sticks (posts + door stiles, offcuts = depth rails) |
-| 50x47mm softwood | 1.8m | 5 sticks (full-width rails + door rail) |
-| 50x22mm battens | 1.8m | 7 sticks (4 roof + 3 shelf) |
-| 18mm exterior plywood | 2440x1220mm | 1 sheet (roof + shelves) |
-| Featheredge 1.8m (10-pack) | 1.8m | 3 packs (back + left + divider) |
-| Featheredge 3m | 3m | 8 pieces (door panel + right front) |
+| Material                   | Stock length | Total needed                                          |
+| -------------------------- | ------------ | ----------------------------------------------------- |
+| 50x47mm softwood           | 2.4m         | 8 sticks (posts + door stiles, offcuts = depth rails) |
+| 50x47mm softwood           | 1.8m         | 5 sticks (full-width rails + door rail)               |
+| 50x22mm battens            | 1.8m         | 7 sticks (4 roof + 3 shelf)                           |
+| 18mm exterior plywood      | 2440x1220mm  | 1 sheet (roof + shelves)                              |
+| Featheredge 1.8m (10-pack) | 1.8m         | 3 packs (back + left + divider)                       |
+| Featheredge 3m             | 3m           | 8 pieces (door panel + right front)                   |
 
 **User-supplied:** 15x38x2400mm timber (2 of 8 sticks for X-braces).
 
@@ -55,5 +55,19 @@ Full constraint derivations are in [CLAUDE.md](CLAUDE.md).
 - `overview.md` -- this file
 - `CLAUDE.md` -- key constraints for AI-assisted design
 - `validate-measurements.py` -- validates all dimensions against constraints
+- `scripts/` -- Grist inventory workflow scripts and shared extraction/sync helpers
+- `data/` -- repo-backed snapshots for `cut_list`, `inventory`, and Grist schema
+- `docs/grist_inventory_workflow.md` -- operator guide for the Grist-based inventory workflow
 - `week-1/` -- Weekend 1 build guide, shopping list, and helper script
 - `diagrams/` -- SVG/PNG diagrams referenced by the build guides
+
+## Inventory Workflow
+
+The inventory workflow uses Grist as the day-to-day UI, but keeps durable history in the repo:
+
+- `cut_list` is generated from the OpenSCAD/code layer and treated as read-only in Grist
+- the one editable cut-list field is `completed`, which marks cuts that have already been processed
+- `inventory` is edited in Grist, then pulled back into `data/inventory.json`
+- a separate AI agent process is responsible for turning required-minus-available inventory into purchase candidates and populating `shopping_list`
+
+See `docs/grist_inventory_workflow.md` for the exact commands and sync process.
