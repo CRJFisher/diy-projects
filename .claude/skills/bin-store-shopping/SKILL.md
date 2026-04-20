@@ -30,7 +30,7 @@ Turns the current gap between `cut_list` and `inventory` into a B&Q shopping lis
 python3 scripts/sync_grist_tables.py
 ```
 
-This runs every table in its default direction: `cut_list` + `shopping_list` pushed, `inventory` + `material_rules` pulled. Running shopping against stale inventory produces wrong shortfalls, so do not skip this step.
+This runs every table in its default direction: `cut_list` + `shopping_list` pushed, `inventory` pulled. Running shopping against stale inventory produces wrong shortfalls, so do not skip this step.
 
 ### Step 2 — Compute the outstanding cuts
 

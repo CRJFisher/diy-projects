@@ -1,6 +1,6 @@
 ---
 name: bin-store-sync
-description: Bin store Grist sync. Trigger when the user says "sync Grist", "refresh the cut list", "push the cut list", "pull inventory", "sync bin store tables", or "update Grist from the repo". Regenerates the cut list from the OpenSCAD model and then syncs every Grist table in its default direction — cut_list and shopping_list push local → Grist (preserving the `completed` checkbox across pushes); inventory and material_rules pull Grist → local. Use this before running bin-store-shopping or any time the OpenSCAD model has changed.
+description: Bin store Grist sync. Trigger when the user says "sync Grist", "refresh the cut list", "push the cut list", "pull inventory", "sync bin store tables", or "update Grist from the repo". Regenerates the cut list from the OpenSCAD model and then syncs every Grist table in its default direction — cut_list and shopping_list push local → Grist (preserving the `completed` checkbox across pushes); inventory pulls Grist → local. Use this before running bin-store-shopping or any time the OpenSCAD model has changed.
 allowed-tools:
   [
     Bash(python3 scripts/extract_cut_list.py*),
@@ -21,14 +21,13 @@ Thin orchestrator for the repo ↔ Grist data flow. Does not touch shopping or s
 
 ## Direction rules (enforced by the sync script)
 
-| Table            | Direction     | Notes                                                                |
-| ---------------- | ------------- | -------------------------------------------------------------------- |
-| `cut_list`       | local → Grist | Pulls `completed` column first, merges, rewrites local, then pushes. |
-| `shopping_list`  | local → Grist | Pushed only.                                                         |
-| `inventory`      | Grist → local | Pulled only.                                                         |
-| `material_rules` | Grist → local | Pulled only.                                                         |
+| Table           | Direction     | Notes                                                                |
+| --------------- | ------------- | -------------------------------------------------------------------- |
+| `cut_list`      | local → Grist | Pulls `completed` column first, merges, rewrites local, then pushes. |
+| `shopping_list` | local → Grist | Pushed only.                                                         |
+| `inventory`     | Grist → local | Pulled only.                                                         |
 
-Running `sync_grist_tables.py` with no `--table` flag syncs all four.
+Running `sync_grist_tables.py` with no `--table` flag syncs all three.
 
 ## Actions
 
@@ -51,7 +50,7 @@ Regenerates the cut list from the OpenSCAD model, then syncs every registered ta
 If the user asks to sync just one table:
 
 ```bash
-python3 scripts/sync_grist_tables.py --table <cut_list|shopping_list|inventory|material_rules>
+python3 scripts/sync_grist_tables.py --table <cut_list|shopping_list|inventory>
 ```
 
 Skip the `extract_cut_list.py` step unless they asked for `cut_list` — that's the only table that depends on regenerating the OpenSCAD output first.

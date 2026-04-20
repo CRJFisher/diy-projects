@@ -3,40 +3,8 @@
     {
       "columns": [
         {
-          "id": "project_id",
-          "label": "Project ID",
-          "type": "Text"
-        },
-        {
-          "id": "name",
-          "label": "Name",
-          "type": "Text"
-        },
-        {
-          "id": "status",
-          "label": "Status",
-          "type": "Text"
-        },
-        {
-          "id": "notes",
-          "label": "Notes",
-          "type": "Text"
-        }
-      ],
-      "description": "Minimal project metadata for OpenSCAD-driven inventory workflows.",
-      "id": "projects",
-      "primary_key": "project_id"
-    },
-    {
-      "columns": [
-        {
           "id": "cut_id",
           "label": "Cut ID",
-          "type": "Text"
-        },
-        {
-          "id": "project_id",
-          "label": "Project ID",
           "type": "Text"
         },
         {
@@ -269,76 +237,9 @@
           "type": "Text"
         }
       ],
-      "description": "Agent-owned shopping table. This repo does not generate or sync shopping rows.",
+      "description": "Agent-owned shopping table. Pushed from the repo by the bin-store-shopping skill.",
       "id": "shopping_list",
       "primary_key": "shopping_id"
-    },
-    {
-      "columns": [
-        {
-          "id": "rule_id",
-          "label": "Rule ID",
-          "type": "Text"
-        },
-        {
-          "id": "category",
-          "label": "Category",
-          "type": "Text"
-        },
-        {
-          "id": "material_type",
-          "label": "Material Type",
-          "type": "Text"
-        },
-        {
-          "id": "section_key",
-          "label": "Section Key",
-          "type": "Text"
-        },
-        {
-          "id": "purchase_unit",
-          "label": "Purchase Unit",
-          "type": "Text"
-        },
-        {
-          "id": "stock_length_mm",
-          "label": "Stock Length (mm)",
-          "type": "Numeric"
-        },
-        {
-          "id": "stock_width_mm",
-          "label": "Stock Width (mm)",
-          "type": "Numeric"
-        },
-        {
-          "id": "stock_thickness_mm",
-          "label": "Stock Thickness (mm)",
-          "type": "Numeric"
-        },
-        {
-          "id": "units_per_purchase",
-          "label": "Units Per Purchase",
-          "type": "Numeric"
-        },
-        {
-          "id": "waste_factor",
-          "label": "Waste Factor",
-          "type": "Numeric"
-        },
-        {
-          "id": "supplier",
-          "label": "Supplier",
-          "type": "Text"
-        },
-        {
-          "id": "notes",
-          "label": "Notes",
-          "type": "Text"
-        }
-      ],
-      "description": "Optional purchasing hints such as stock lengths, waste factors, and preferred suppliers.",
-      "id": "material_rules",
-      "primary_key": "rule_id"
     }
   ]
 }

@@ -7,7 +7,6 @@ This directory holds the repo-backed snapshots for the Grist inventory workflow.
 - `cut_list.json` is generated from the OpenSCAD/code layer. Do not edit it by hand.
 - the `completed` field inside the Grist `cut_list` table is the one editable exception; it marks rows that have already been processed against inventory.
 - `inventory.json` is the local snapshot of the Grist `inventory` table after pull/sync.
-- `material_rules.json` is optional metadata for purchase units, stock lengths, waste factors, and suppliers.
 - `grist_schema.json` defines the intended Grist tables and columns for bootstrapping or validation.
 
 The Grist `shopping_list` table is intentionally not managed by the scripts in this repo. A separate AI agent process is expected to use `cut_list` and `inventory` to determine what to buy and then populate shopping data.

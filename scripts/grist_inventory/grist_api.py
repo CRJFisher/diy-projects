@@ -84,6 +84,43 @@ class GristClient:
             f"/docs/{self.doc_id}/tables/{urllib.parse.quote(table_id)}/columns",
             body,
         )
+        self.normalize_column_ids(table_spec)
+
+    def normalize_column_ids(self, table_spec: dict[str, Any]) -> list[list[Any]]:
+        """Rename any Grist-normalized column ids back to the schema's snake_case.
+
+        Grist derives column ids from the column `label` (`"Cut ID"` →
+        `Cut_ID`, `"Length (mm)"` → `Length_mm_`), ignoring the `id` we send on
+        create. This method diffs the stored column ids against the schema and
+        emits `RenameColumn` actions for any mismatch, and `RemoveColumn` for
+        stored columns the schema no longer lists. Matching is by lowercase id
+        with trailing underscores stripped.
+        """
+        table_id = self._resolve_table_id(table_spec["id"])
+        payload = self._request_json(
+            "GET", f"/docs/{self.doc_id}/tables/{urllib.parse.quote(table_id)}/columns"
+        )
+        current_ids = [col["id"] for col in payload.get("columns", [])]
+        desired_ids = [col["id"] for col in table_spec["columns"]]
+
+        def norm(value: str) -> str:
+            return value.lower().rstrip("_")
+
+        desired_by_norm = {norm(d): d for d in desired_ids}
+        actions: list[list[Any]] = []
+        matched: set[str] = set()
+        for current in current_ids:
+            want = desired_by_norm.get(norm(current))
+            if want is None:
+                actions.append(["RemoveColumn", table_id, current])
+            elif current != want:
+                actions.append(["RenameColumn", table_id, current, want])
+                matched.add(current)
+            else:
+                matched.add(current)
+        if actions:
+            self._request_json("POST", f"/docs/{self.doc_id}/apply", actions)
+        return actions
 
     def fetch_records(self, table_id: str) -> list[dict[str, Any]]:
         resolved = self._resolve_table_id(table_id)

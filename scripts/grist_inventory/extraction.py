@@ -9,9 +9,6 @@ from typing import Any
 from grist_inventory.common import PARAMETERS_PATH, compact_row
 
 
-PROJECT_ID = "bin_store"
-
-
 ASSIGNMENT_RE = re.compile(r"^([A-Za-z_][A-Za-z0-9_]*)\s*=\s*(.+?);$")
 
 
@@ -96,7 +93,6 @@ def build_cut_list_rows(parameters: dict[str, Any] | None = None) -> list[dict[s
             compact_row(
                 {
                     "cut_id": cut_id,
-                    "project_id": PROJECT_ID,
                     "category": category,
                     "material_type": material_type,
                     "section_key": section_key,

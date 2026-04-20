@@ -12,13 +12,11 @@ PARAMETERS_PATH = BIN_STORE_DIR / "parameters.scad"
 SCHEMA_PATH = DATA_DIR / "grist_schema.json"
 CUT_LIST_PATH = DATA_DIR / "cut_list.json"
 INVENTORY_PATH = DATA_DIR / "inventory.json"
-MATERIAL_RULES_PATH = DATA_DIR / "material_rules.json"
 SHOPPING_LIST_PATH = DATA_DIR / "shopping_list.json"
 
 SNAPSHOT_PATHS = {
     "cut_list": CUT_LIST_PATH,
     "inventory": INVENTORY_PATH,
-    "material_rules": MATERIAL_RULES_PATH,
     "shopping_list": SHOPPING_LIST_PATH,
 }
 

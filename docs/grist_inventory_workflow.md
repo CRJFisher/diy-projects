@@ -19,7 +19,6 @@ This project uses Grist as the operational UI for inventory tracking while keepi
 | `cut_list.completed` | Grist → local | Grist (pulled, merged, and rewritten on each push) |
 | `shopping_list`      | local → Grist | Repo (`compute_shopping_list.py` + shopping skill) |
 | `inventory`          | Grist → local | Grist (manual stock entry)                         |
-| `material_rules`     | Grist → local | Grist (optional purchasing hints)                  |
 
 The sync script (`scripts/sync_grist_tables.py`) enforces these directions via its `TABLE_SPEC` registry. Running `python3 scripts/sync_grist_tables.py` with no flags syncs every registered table in its default direction.
 
@@ -59,7 +58,7 @@ From the repo root:
 python3 scripts/sync_grist_tables.py --bootstrap-schema
 ```
 
-Reads `data/grist_schema.json` and creates the `projects`, `cut_list`, `inventory`, `shopping_list`, and `material_rules` tables with their columns. Idempotent for missing tables/columns.
+Reads `data/grist_schema.json` and creates the `cut_list`, `inventory`, and `shopping_list` tables with their columns. Idempotent for missing tables/columns.
 
 ### 4. Annotate the cut_list table
 
@@ -75,7 +74,7 @@ Seed the doc with the current repo state:
 python3 scripts/sync_grist_tables.py
 ```
 
-Confirm the `cut_list` rows appear in Grist. Inventory/material_rules will pull empty until you add rows in the Grist UI.
+Confirm the `cut_list` rows appear in Grist. `inventory` will pull empty until you add rows in the Grist UI.
 
 ## Required environment variables
 
@@ -91,7 +90,7 @@ The default config targets hosted Grist on the free plan. Free-plan limits cover
 
 Day-to-day operations run through Claude Code skills in `.claude/skills/`:
 
-- `**bin-store-sync**` — push `cut_list`/`shopping_list`, pull `inventory`/`material_rules`. Trigger with "sync Grist", "refresh the cut list", or "pull inventory".
+- `**bin-store-sync**` — push `cut_list`/`shopping_list`, pull `inventory`. Trigger with "sync Grist", "refresh the cut list", or "pull inventory".
 - `**bin-store-shopping**` — auto-sync, compute outstanding cuts (cut list minus inventory), search B&Q for each outstanding section, write product links to `shopping_list`, and push back to Grist. Trigger with "what do I need to buy" or "refresh the bin store shopping list".
 
 Invoking the skill is the recommended entrypoint; the underlying scripts remain available for manual runs.
@@ -101,10 +100,9 @@ Invoking the skill is the recommended entrypoint; the underlying scripts remain 
 - `scripts/extract_cut_list.py`: regenerates `data/cut_list.json` from the OpenSCAD model.
 - `scripts/sync_grist_tables.py`: bootstraps and syncs Grist tables per the direction registry.
 - `scripts/compute_shopping_list.py`: computes outstanding cuts (greedy per-cut fit with 3 mm kerf and 150 mm minimum usable offcut) and seeds `data/shopping_list.json`.
-- `scripts/export_reports.py`: exports CSV/Markdown reports to `data/exports/`.
-- `scripts/grist_inventory/`: shared package — `common` (paths, snapshot I/O), `extraction` (OpenSCAD parser), `grist_api` (REST client), `requirements` (shortfall algorithm), `schema`.
+- `scripts/grist_inventory/`: shared package — `common` (paths, snapshot I/O), `extraction` (OpenSCAD parser), `grist_api` (REST client), `requirements` (shortfall algorithm).
 - `data/grist_schema.json`: canonical schema for the Grist base.
-- `data/cut_list.json`, `data/inventory.json`, `data/shopping_list.json`, `data/material_rules.json`: snapshots.
+- `data/cut_list.json`, `data/inventory.json`, `data/shopping_list.json`: snapshots.
 
 ## Current extraction scope
 

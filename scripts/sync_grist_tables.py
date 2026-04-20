@@ -11,7 +11,6 @@ from dotenv import load_dotenv
 from grist_inventory.common import (
     CUT_LIST_PATH,
     INVENTORY_PATH,
-    MATERIAL_RULES_PATH,
     ROOT_DIR,
     SCHEMA_PATH,
     SHOPPING_LIST_PATH,
@@ -50,11 +49,6 @@ TABLE_SPEC: dict[str, dict[str, Any]] = {
         "direction": "pull",
         "path": INVENTORY_PATH,
         "primary_key": "inventory_id",
-    },
-    "material_rules": {
-        "direction": "pull",
-        "path": MATERIAL_RULES_PATH,
-        "primary_key": "rule_id",
     },
 }
 
@@ -148,7 +142,7 @@ def main() -> int:
     parser = argparse.ArgumentParser(
         description=(
             "Sync Grist tables. With no --table flags, syncs all registered tables in "
-            "their default directions (cut_list/shopping_list push, inventory/material_rules pull)."
+            "their default directions (cut_list/shopping_list push, inventory pull)."
         )
     )
     parser.add_argument("--api-key", help="Grist API key. Defaults to GRIST_API_KEY.")
