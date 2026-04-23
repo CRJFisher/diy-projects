@@ -38,12 +38,23 @@ TABLE_SPEC: dict[str, dict[str, Any]] = {
         "path": CUT_LIST_PATH,
         "primary_key": "cut_id",
         "preserve_fields": ["completed"],
+        # If any of these fields drift for a given cut_id, `completed` is NOT
+        # preserved — the row now describes a different physical cut, so the
+        # checkbox would be unsafe to carry over.
+        "reset_preserve_on_change": [
+            "length_mm",
+            "width_mm",
+            "thickness_mm",
+            "section_key",
+            "qty_required",
+        ],
     },
     "shopping_list": {
         "direction": "push",
         "path": SHOPPING_LIST_PATH,
         "primary_key": "shopping_id",
         "preserve_fields": [],
+        "reset_preserve_on_change": [],
     },
     "inventory": {
         "direction": "pull",
@@ -87,6 +98,7 @@ def push_table(client: GristClient, table_name: str) -> None:
     path: Path = spec["path"]
     primary_key: str = spec["primary_key"]
     preserve_fields: list[str] = spec["preserve_fields"]
+    reset_on_change: list[str] = spec.get("reset_preserve_on_change") or []
 
     snapshot = load_snapshot(path, table_name, primary_key)
     rows: list[dict[str, Any]] = list(snapshot["rows"])
@@ -100,6 +112,7 @@ def push_table(client: GristClient, table_name: str) -> None:
             existing_rows=existing_rows,
             primary_key=primary_key,
             editable_fields=preserve_fields,
+            reset_on_change_fields=reset_on_change,
         )
         write_snapshot(path, table_name, primary_key, rows)
 
