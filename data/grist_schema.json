@@ -145,6 +145,11 @@
           "type": "Text"
         },
         {
+          "id": "url",
+          "label": "URL",
+          "type": "Text"
+        },
+        {
           "id": "notes",
           "label": "Notes",
           "type": "Text"
