@@ -43,7 +43,7 @@ roof_slope   = 50;   // back_height - front_height
 // Section geometry
 left_section_clear  = 780;   // door opening width
 right_section_width = 440;   // recycling area width
-mid_rail_height     = 775;   // mid-rail from ground
+mid_rail_height     = 796;   // mid-rail from ground (underside)
 internal_depth      = 650;   // between inner faces of front/back posts
 
 // Derived values
