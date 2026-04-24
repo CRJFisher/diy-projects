@@ -40,19 +40,19 @@
     {
       "acquired": false,
       "category": "hardware",
-      "length_mm": 300.0,
+      "length_mm": 400.0,
       "material_type": "tee_hinge",
-      "notes": "AFIT Galvanised Gate Tee Hinges 300mm, 4-pack, \u00a325.16. One pack gives 4 hinges: 3 on the door, 1 spare.",
+      "notes": "AFIT Galvanised Gate Tee Hinges 400mm (16 inch) heavy duty, 2-pack. One pack gives 2 hinges for the door.",
       "qty_available": 0,
       "qty_needed": 1,
       "qty_required": 1,
-      "section_key": "300mm_galv",
+      "section_key": "400mm_galv",
       "shopping_id": "hw_door_hinges",
       "status": "ready",
       "supplier": "B&Q",
       "thickness_mm": 0.0,
       "unit": "piece",
-      "url": "https://www.diy.com/departments/afit-galvanised-gate-tee-hinges-300mm-12-inch-heavy-duty-t-hinges-for-wooden-gates-doors-sheds-4-pack/5063498059610_BQ.prd",
+      "url": "https://www.diy.com/departments/afit-galvanised-gate-tee-hinges-400mm-16-inch-heavy-duty-t-hinges-for-wooden-gates-doors-sheds-2-pack/5063498055803_BQ.prd",
       "width_mm": 0.0
     },
     {
