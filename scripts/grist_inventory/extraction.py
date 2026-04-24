@@ -338,21 +338,6 @@ def build_cut_list_rows(parameters: dict[str, Any] | None = None) -> list[dict[s
         width_mm=batten_width_mm,
         thickness_mm=batten_thickness_mm,
     )
-    add_row(
-        cut_id="shelf_panel_inferred",
-        category="sheet_good",
-        material_type="plywood_exterior",
-        section_key=f"{parameters['ply_t']}_sheet",
-        length_mm=parameters["shelf_batten_length"],
-        width_mm=parameters["depth_rail_length"],
-        thickness_mm=parameters["ply_t"],
-        qty_required=3,
-        unit="piece",
-        source_kind="inferred_from_code",
-        source_ref="shelves.shelves",
-        phase="weekend_4",
-        notes="Shelf panels are not modeled directly; this cut size is inferred from the batten span and depth-rail length.",
-    )
 
     back_panel_piece_height = math.ceil(parameters["back_height"] / 2)
     add_row(
@@ -368,7 +353,7 @@ def build_cut_list_rows(parameters: dict[str, Any] | None = None) -> list[dict[s
         source_kind="module_derived",
         source_ref="cladding.back_wall_panel",
         phase="weekend_3",
-        notes="Back wall panel split into two stacked pieces so a standard 2440x1220 plywood sheet can be used (a single 1647mm-tall piece would not fit).",
+        notes="Back wall panel split into two stacked pieces of 1300x824mm so each piece fits within a 2440x1220 sheet. Two pieces do not nest on a single sheet (1300+1300 > 2440 and 824+824 > 1220), so the job needs 2 sheets.",
     )
 
     featheredge_cover = parameters["featheredge_cover"]

@@ -7,7 +7,7 @@
       "cut_id": "back_panel_plywood",
       "length_mm": 1300,
       "material_type": "plywood_exterior",
-      "notes": "Back wall panel split into two stacked pieces so a standard 2440x1220 plywood sheet can be used (a single 1647mm-tall piece would not fit).",
+      "notes": "Back wall panel split into two stacked pieces of 1300x824mm so each piece fits within a 2440x1220 sheet. Two pieces do not nest on a single sheet (1300+1300 > 2440 and 824+824 > 1220), so the job needs 2 sheets.",
       "phase": "weekend_3",
       "qty_required": 2,
       "section_key": "6_sheet",
@@ -304,22 +304,6 @@
       "thickness_mm": 22,
       "unit": "piece",
       "width_mm": 50
-    },
-    {
-      "category": "sheet_good",
-      "completed": false,
-      "cut_id": "shelf_panel_inferred",
-      "length_mm": 426,
-      "material_type": "plywood_exterior",
-      "notes": "Shelf panels are not modeled directly; this cut size is inferred from the batten span and depth-rail length.",
-      "phase": "weekend_4",
-      "qty_required": 3,
-      "section_key": "18_sheet",
-      "source_kind": "inferred_from_code",
-      "source_ref": "shelves.shelves",
-      "thickness_mm": 18,
-      "unit": "piece",
-      "width_mm": 650
     }
   ],
   "table_name": "cut_list"

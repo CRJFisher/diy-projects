@@ -76,24 +76,6 @@
     {
       "acquired": false,
       "category": "hardware",
-      "length_mm": 0.0,
-      "material_type": "plywood_exterior",
-      "notes": "Arranwood Marine Plywood BS1088 12mm. Multiple size options \u00a330-\u00a3163 \u2014 pick the smallest that covers the ~1300x750 roof plus ~50mm overhang all round (so ~1400x850 minimum).",
-      "qty_available": 0,
-      "qty_needed": 1,
-      "qty_required": 1,
-      "section_key": "12_sheet",
-      "shopping_id": "hw_roof_board",
-      "status": "ready",
-      "supplier": "B&Q",
-      "thickness_mm": 12.0,
-      "unit": "sheet",
-      "url": "https://www.diy.com/departments/arranwood-marine-plywood-bs1088-12mm-2440mm-x-1220mm-8ft-x-4ft-/0662059023043_BQ.prd",
-      "width_mm": 0.0
-    },
-    {
-      "acquired": false,
-      "category": "hardware",
       "length_mm": 2400.0,
       "material_type": "roof_membrane",
       "notes": "SkyGuard EPDM Rubber Roof Kit 1.4m x 2.4m, \u00a377.66. Generous overhang for a 1300x750 bin-store roof; kit includes adhesive.",
@@ -112,11 +94,11 @@
     {
       "acquired": false,
       "category": "sheet_good",
-      "cuts_summary": "1x1350, 3x426",
+      "cuts_summary": "1x1350",
       "length_mm": 2440.0,
       "material_type": "plywood_exterior",
       "min_stock_length_mm": 1350.0,
-      "notes": "Arranwood Marine Plywood BS1088 18mm 2440mm x 1220mm (8ft x 4ft). One 8x4 sheet easily yields 1x1350 + 3x426 cuts. Marine grade (BS1088) is exterior-rated.",
+      "notes": "B&Q Plywood WBP Exterior 18mm 2440mm x 1220mm (8ft x 4ft), ~\u00a337. Standard exterior/WBP grade \u2014 marine BS1088 is over-spec for a covered bin store under EPDM. Sole 18mm cut is the 1350x800 roof deck; one sheet covers it with plenty of waste for mistakes.",
       "qty_available": 0,
       "qty_needed": 1,
       "qty_required": 1,
@@ -124,8 +106,8 @@
       "shopping_id": "plywood_exterior-18_sheet",
       "status": "ready",
       "supplier": "B&Q",
-      "total_linear_mm": 2640.0,
-      "url": "https://www.diy.com/departments/18mm-marine-plywood-2440mm-x-1220mm-8ft-x-4ft-/0662059023050_BQ.prd"
+      "total_linear_mm": 1353.0,
+      "url": "https://www.diy.com/departments/plywood-l2440mm-w1220mm-th18mm/152949_BQ.prd"
     },
     {
       "acquired": false,
@@ -134,7 +116,7 @@
       "length_mm": 2440.0,
       "material_type": "plywood_exterior",
       "min_stock_length_mm": 1300.0,
-      "notes": "Arranwood Marine Plywood BS1088 6mm 2440mm x 1220mm (8ft x 4ft). One 8x4 sheet yields both 1300mm pieces as parallel strips (each up to ~600mm wide). Marine grade (BS1088) is exterior-rated.",
+      "notes": "Arranwood Hardwood Plywood 6mm 2440mm x 1220mm (8ft x 4ft), PACK OF 2. Exterior/WBP grade (EN 636-2) \u2014 marine BS1088 is over-spec for a painted, roof-sheltered back panel. Two 1300x824mm pieces do NOT nest on a single 2440x1220 sheet (1300+1300 > 2440 and 824+824 > 1220), so 2 sheets are needed \u2014 the pack of 2 covers the job. Check stock at purchase time.",
       "qty_available": 0,
       "qty_needed": 1,
       "qty_required": 1,
@@ -143,7 +125,7 @@
       "status": "ready",
       "supplier": "B&Q",
       "total_linear_mm": 2606.0,
-      "url": "https://www.diy.com/departments/arranwood-marine-plywood-bs1088-6mm-2440mm-x-1220mm-8ft-x-4ft-/0662059018902_BQ.prd"
+      "url": "https://www.diy.com/departments/arranwood-hardwood-plywood-6mm-2440mm-x-1220mm-8ft-x-4ft-pack-of-2/5056774343633_BQ.prd"
     },
     {
       "acquired": false,
