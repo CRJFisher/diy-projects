@@ -4,18 +4,18 @@
     {
       "category": "sheet_good",
       "completed": false,
-      "cut_id": "back_panel_hardboard",
+      "cut_id": "back_panel_plywood",
       "length_mm": 1300,
-      "material_type": "hardboard",
-      "notes": "Code currently models the hardboard panel on the back wall.",
+      "material_type": "plywood_exterior",
+      "notes": "Back wall panel split into two stacked pieces so a standard 2440x1220 plywood sheet can be used (a single 1647mm-tall piece would not fit).",
       "phase": "weekend_3",
-      "qty_required": 1,
+      "qty_required": 2,
       "section_key": "6_sheet",
       "source_kind": "module_derived",
       "source_ref": "cladding.back_wall_panel",
       "thickness_mm": 6,
-      "unit": "sheet",
-      "width_mm": 1647
+      "unit": "piece",
+      "width_mm": 824
     },
     {
       "category": "timber",

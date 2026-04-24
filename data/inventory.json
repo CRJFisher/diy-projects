@@ -32,7 +32,7 @@
       "supplier": "B&Q",
       "thickness_mm": 22,
       "unit": "piece",
-      "url": "https://www.diy.com/departments/rough-sawn-treated-whitewood-stick-timber-l-1-8m-w-50mm-t-22mm/3663602558477_BQ.prd",
+      "url": "",
       "width_mm": 50
     },
     {
@@ -62,11 +62,11 @@
       "notes": "Weekend 1: all 5 sticks consumed. 4 cut to 1206mm full-width rails (594mm offcuts scrap). 1 cut to 650mm mid-rail + 393mm right-front-bottom rail (757mm offcut scrap).",
       "qty_on_hand": 1,
       "section_key": "47x50",
-      "status": "consumed",
+      "status": "on_hand",
       "supplier": "B&Q",
       "thickness_mm": 47,
       "unit": "piece",
-      "url": "https://www.diy.com/departments/rough-sawn-treated-whitewood-spruce-stick-timber-l-1-8m-w-50mm-t-47mm/3663602558521_BQ.prd",
+      "url": "",
       "width_mm": 50
     },
     {
@@ -83,7 +83,7 @@
       "supplier": "B&Q",
       "thickness_mm": 47,
       "unit": "piece",
-      "url": "https://www.diy.com/departments/metsa-wood-rough-sawn-treated-whitewood-spruce-stick-timber-l-2-4m-w-50mm-t-47mm/1798315_BQ.prd",
+      "url": "",
       "width_mm": 50
     },
     {

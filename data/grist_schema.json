@@ -217,6 +217,21 @@
           "type": "Int"
         },
         {
+          "id": "cuts_summary",
+          "label": "Cuts Summary",
+          "type": "Text"
+        },
+        {
+          "id": "min_stock_length_mm",
+          "label": "Min Stock Length (mm)",
+          "type": "Numeric"
+        },
+        {
+          "id": "total_linear_mm",
+          "label": "Total Linear (mm)",
+          "type": "Numeric"
+        },
+        {
           "id": "unit",
           "label": "Unit",
           "type": "Text"

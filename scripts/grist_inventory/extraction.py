@@ -354,20 +354,21 @@ def build_cut_list_rows(parameters: dict[str, Any] | None = None) -> list[dict[s
         notes="Shelf panels are not modeled directly; this cut size is inferred from the batten span and depth-rail length.",
     )
 
+    back_panel_piece_height = math.ceil(parameters["back_height"] / 2)
     add_row(
-        cut_id="back_panel_hardboard",
+        cut_id="back_panel_plywood",
         category="sheet_good",
-        material_type="hardboard",
+        material_type="plywood_exterior",
         section_key=f"{parameters['hardboard_t']}_sheet",
         length_mm=parameters["total_width"],
-        width_mm=parameters["back_height"],
+        width_mm=back_panel_piece_height,
         thickness_mm=parameters["hardboard_t"],
-        qty_required=1,
-        unit="sheet",
+        qty_required=2,
+        unit="piece",
         source_kind="module_derived",
         source_ref="cladding.back_wall_panel",
         phase="weekend_3",
-        notes="Code currently models the hardboard panel on the back wall.",
+        notes="Back wall panel split into two stacked pieces so a standard 2440x1220 plywood sheet can be used (a single 1647mm-tall piece would not fit).",
     )
 
     featheredge_cover = parameters["featheredge_cover"]

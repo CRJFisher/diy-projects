@@ -43,7 +43,7 @@ python3 scripts/compute_shopping_list.py
 
 Reads `data/cut_list.json` (incomplete rows only) and `data/inventory.json`, runs a greedy per-cut fit with 3 mm kerf and 150 mm minimum usable offcut, and writes:
 
-- `data/shopping_list.json` — one row per unmet cut, with a stable `shopping_id`, dimensions, `qty_needed`, and empty `supplier`/`notes`/`status: "needs_product"`.
+- `data/shopping_list.json` — one row per purchasable SKU (`{material_type}-{canonical_section_key}`), aggregating every unmet cut that shares the same material and section. Fields: `cuts_summary` (e.g. `"17x822, 18x750, 17x429"`, longest first), `min_stock_length_mm` (longest single cut — stock must be ≥ this), `total_linear_mm` (sum of `(length + kerf) × qty` across all cuts), plus `length_mm`/`qty_required`/`qty_needed` all at `0` for the shopping agent to fill in once it picks a product. `supplier`/`url`/`notes` start empty; `status` is `"needs_product"`.
 - `data/substitution_candidates.json` — for each unmet cut, any inventory in the same `material_type` whose section dims are within ±10 mm on every dimension. Empty `substitutions` list means nothing close is in stock; tolerance is `--tolerance-mm` if you need to widen it.
 
 Read the shopping list and report how many outstanding rows there are and the unique `section_key` values. If zero rows, stop — nothing to buy — and tell the user.
@@ -92,19 +92,23 @@ If every candidate in the file maps to a forbidden parameter, tell the user the 
 
 For each row in `data/shopping_list.json` where `status == "needs_product"`:
 
-1. Build a search query from `material_type` + `section_key` + the required length (e.g. `"CLS timber 50x47 2.4m"`, `"featheredge cladding 125mm"`, `"plywood exterior 18mm"`). Prefer slightly longer stock lengths — B&Q sells common sizes like 2.4 m, 3.0 m, 3.6 m.
+1. Build a search query from `material_type` + `section_key` (e.g. `"CLS timber 50x47"`, `"featheredge cladding 125mm"`, `"plywood exterior 18mm"`). Stock length must be ≥ `min_stock_length_mm` — prefer the shortest standard stock that clears it (B&Q stocks 2.4 m, 3.0 m, 3.6 m etc.).
 2. Search B&Q (`https://www.diy.com`) using the browser tool. If multiple matches, prefer: in-stock → lowest price per metre → exact or nearest section size.
-3. Capture the product URL.
+3. Capture the product URL and the stock length of the product you chose.
+4. Size the purchase: the pack/stick covers `stock_length - kerf` of cut, so `qty_needed = ceil(total_linear_mm / effective_stock_mm)` where `effective_stock_mm = stock_length - kerf`, adjusted up if a pack contains multiple sticks.
 
 ### Step 4 — Update the local shopping list
 
 For each row you found a product for, use `Edit` on `data/shopping_list.json` to set:
 
 - `supplier`: `"B&Q"`
-- `notes`: the product URL (and a short product name if it fits on one line)
+- `length_mm`: stock length (mm) of one stick/sheet/pack unit of the product
+- `qty_required` and `qty_needed`: number of stock units to buy (packs or sticks, whichever the product is sold as)
+- `url`: the product URL
+- `notes`: short product name and any notes on stock-length choice / offcut (one line preferred)
 - `status`: `"ready"` if a good match was found, `"ambiguous"` if the best candidate is uncertain and the user should review, `"unavailable"` if no suitable product exists.
 
-Do not change any other fields — they were computed from the cut list and must stay in sync with the source of truth.
+Do not change `category`, `material_type`, `section_key`, `cuts_summary`, `min_stock_length_mm`, or `total_linear_mm` — those are derived from the cut list and must stay in sync with the source of truth.
 
 ### Step 5 — Push shopping_list back to Grist
 

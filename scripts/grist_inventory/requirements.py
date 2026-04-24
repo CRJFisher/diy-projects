@@ -261,7 +261,7 @@ def find_substitution_candidates(
                             }
                             for r in bucket["rows"]
                         ],
-                        key=lambda r: (-r["length_mm"], r["inventory_id"]),
+                        key=lambda r: (-float(r["length_mm"]), str(r["inventory_id"])),
                     ),
                 }
             )
@@ -276,48 +276,101 @@ def find_substitution_candidates(
     return substitutions
 
 
-def _make_shopping_id(material_type: str, canonical_key: str, length_mm: float) -> str:
-    """Content-derived id built on the **canonical** section key so that
-    reversing a key in the raw data (e.g. ``50x22`` vs ``22x50``) does not
-    change the id. Positional index is deliberately omitted: adding or removing
-    shortfall rows must not renumber every surviving row (which would
-    invalidate product URLs already pushed to Grist).
+def _make_shopping_id(material_type: str, canonical_key: str) -> str:
+    """Content-derived id at the **purchasable-SKU** granularity:
+    ``{material}-{canonical_section}``. The canonical section key means
+    reversed raw keys (``50x22`` vs ``22x50``) don't split the row; dropping
+    the cut length means all cuts of the same stock collapse into a single
+    shopping row, which is what the user actually orders.
     """
     material = material_type.replace(" ", "_") or "unknown_material"
     section = canonical_key.replace(" ", "_") or "unknown_section"
-    length = int(round(length_mm))
-    return f"{material}-{section}-{length}"
+    return f"{material}-{section}"
 
 
-def build_shopping_rows(shortfall: list[dict[str, Any]]) -> list[dict[str, Any]]:
-    """Convert a shortfall list into shopping_list table rows with stable shopping_ids.
-
-    The emitted ``section_key`` preserves the form used in the cut list (e.g.
-    ``50x22``) so the Grist shopping table reads naturally; the ``shopping_id``
-    is built from the canonical form so reversed keys don't split rows.
-
-    Leaves ``supplier``, ``url``, ``status``, and ``notes`` as placeholders for
-    the shopping agent to populate with the product link it finds on the
-    supplier's site. The ``acquired`` flag is authored by the user in Grist —
-    it starts unchecked.
+def _format_cuts_summary(cuts: list[tuple[float, int]]) -> str:
+    """Render a list of ``(length_mm, qty)`` pairs as ``"17x822, 18x750, 17x429"``
+    — longest cut first so the minimum stock length is visible at a glance.
     """
-    rows: list[dict[str, Any]] = []
+    def _fmt_length(value: float) -> str:
+        return str(int(value)) if float(value).is_integer() else str(value)
+
+    return ", ".join(
+        f"{qty}x{_fmt_length(length_mm)}"
+        for length_mm, qty in sorted(cuts, key=lambda c: -c[0])
+    )
+
+
+def build_shopping_rows(
+    shortfall: list[dict[str, Any]],
+    kerf_mm: float = DEFAULT_KERF_MM,
+) -> list[dict[str, Any]]:
+    """Aggregate shortfall rows into shopping_list rows at purchasable-SKU
+    granularity: one row per ``(category, material_type, section_key)``.
+
+    The cut list splits by length because each length is a distinct piece to
+    produce; the shopping list must not, because the user buys stock by
+    section and cuts to length. Each row's ``cuts_summary`` preserves the
+    per-length breakdown so the shopping agent can pick a stock length that
+    fits the longest cut and size the purchase accordingly.
+
+    ``length_mm`` and ``qty_*`` start at ``0`` — they describe the *purchased
+    stock* (length of one stick/sheet, number of sticks/sheets), which depends
+    on the product the agent chooses in Step 3. The minimum stock length is
+    implicit in ``cuts_summary`` (first entry is the longest cut).
+
+    ``supplier``, ``url``, ``status``, and ``notes`` are placeholders for the
+    shopping agent. The ``acquired`` flag is authored by the user in Grist.
+    """
+    aggregated: dict[
+        tuple[str, str, str],
+        dict[str, Any],
+    ] = {}
     for item in shortfall:
-        qty = int(item.get("qty") or 1)
+        qty = int(item.get("qty") or 0)
         length_mm = float(item.get("length_mm") or 0)
+        if qty <= 0 or length_mm <= 0:
+            continue
+        category = _normalize_string(item.get("category"))
         material_type = _normalize_string(item.get("material_type"))
         display_section_key = _normalize_string(item.get("section_key"))
         canonical_key = canonical_section_key(display_section_key)
-        rows.append(
+        group_key = (category, material_type, canonical_key)
+        entry = aggregated.setdefault(
+            group_key,
             {
-                "shopping_id": _make_shopping_id(material_type, canonical_key, length_mm),
-                "category": _normalize_string(item.get("category")),
+                "category": category,
                 "material_type": material_type,
                 "section_key": display_section_key,
-                "length_mm": length_mm,
-                "qty_required": qty,
+                "canonical_key": canonical_key,
+                "cuts": {},
+            },
+        )
+        entry["cuts"][length_mm] = entry["cuts"].get(length_mm, 0) + qty
+
+    rows: list[dict[str, Any]] = []
+    for entry in aggregated.values():
+        cuts_dict: dict[float, int] = entry["cuts"]
+        cuts_pairs: list[tuple[float, int]] = list(cuts_dict.items())
+        max_cut_length = max(length for length, _ in cuts_pairs)
+        total_linear_mm = sum(
+            (length + kerf_mm) * qty for length, qty in cuts_pairs
+        )
+        rows.append(
+            {
+                "shopping_id": _make_shopping_id(
+                    entry["material_type"], entry["canonical_key"]
+                ),
+                "category": entry["category"],
+                "material_type": entry["material_type"],
+                "section_key": entry["section_key"],
+                "length_mm": 0.0,
+                "qty_required": 0,
                 "qty_available": 0,
-                "qty_needed": qty,
+                "qty_needed": 0,
+                "cuts_summary": _format_cuts_summary(cuts_pairs),
+                "min_stock_length_mm": max_cut_length,
+                "total_linear_mm": round(total_linear_mm, 3),
                 "supplier": "",
                 "status": "needs_product",
                 "url": "",
