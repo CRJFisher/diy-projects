@@ -85,6 +85,23 @@
       "unit": "piece",
       "url": "https://www.diy.com/departments/metsa-wood-rough-sawn-treated-whitewood-spruce-stick-timber-l-2-4m-w-50mm-t-47mm/1798315_BQ.prd",
       "width_mm": 50
+    },
+    {
+      "category": "timber",
+      "condition": "",
+      "inventory_id": "wk1_softwood_pt_50x47_2400_b_q_offcut",
+      "length_mm": 593,
+      "location": "",
+      "material_type": "softwood_pt",
+      "notes": "",
+      "qty_on_hand": 3,
+      "section_key": "47x50",
+      "status": "on_hand",
+      "supplier": "",
+      "thickness_mm": 47,
+      "unit": "piece",
+      "url": "",
+      "width_mm": 50
     }
   ],
   "table_name": "inventory"

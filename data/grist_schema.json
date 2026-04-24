@@ -237,6 +237,16 @@
           "type": "Text"
         },
         {
+          "id": "url",
+          "label": "URL",
+          "type": "Text"
+        },
+        {
+          "id": "acquired",
+          "label": "Acquired",
+          "type": "Bool"
+        },
+        {
           "id": "notes",
           "label": "Notes",
           "type": "Text"

@@ -53,7 +53,7 @@ TABLE_SPEC: dict[str, dict[str, Any]] = {
         "direction": "push",
         "path": SHOPPING_LIST_PATH,
         "primary_key": "shopping_id",
-        "preserve_fields": [],
+        "preserve_fields": ["acquired"],
         "reset_preserve_on_change": [],
     },
     "inventory": {
@@ -182,8 +182,12 @@ def main() -> int:
 
     client = build_client(args)
     try:
+        # Always run schema bootstrap first. It's idempotent (creates missing
+        # tables and columns, leaves existing ones alone), so a schema change
+        # in data/grist_schema.json is automatically reflected on the next
+        # sync without the user needing to remember --bootstrap-schema.
+        bootstrap_schema(client, SCHEMA_PATH)
         if args.bootstrap_schema:
-            bootstrap_schema(client, SCHEMA_PATH)
             return 0
 
         tables_to_sync = args.table if args.table else list(TABLE_SPEC.keys())

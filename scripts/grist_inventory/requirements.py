@@ -296,9 +296,10 @@ def build_shopping_rows(shortfall: list[dict[str, Any]]) -> list[dict[str, Any]]
     ``50x22``) so the Grist shopping table reads naturally; the ``shopping_id``
     is built from the canonical form so reversed keys don't split rows.
 
-    Leaves ``supplier``, ``status``, and ``notes`` as placeholders for the
-    shopping agent to populate with the product link it finds on the supplier's
-    site.
+    Leaves ``supplier``, ``url``, ``status``, and ``notes`` as placeholders for
+    the shopping agent to populate with the product link it finds on the
+    supplier's site. The ``acquired`` flag is authored by the user in Grist —
+    it starts unchecked.
     """
     rows: list[dict[str, Any]] = []
     for item in shortfall:
@@ -319,6 +320,8 @@ def build_shopping_rows(shortfall: list[dict[str, Any]]) -> list[dict[str, Any]]
                 "qty_needed": qty,
                 "supplier": "",
                 "status": "needs_product",
+                "url": "",
+                "acquired": False,
                 "notes": "",
             }
         )
