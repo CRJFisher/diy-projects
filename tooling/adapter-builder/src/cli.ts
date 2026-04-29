@@ -4,19 +4,33 @@ import { join, resolve } from "node:path";
 import { record } from "./recorder.js";
 import type { Recording } from "./types.js";
 
-const DEFAULT_MODEL = "moonshotai/kimi-k2.6";
+const DEFAULT_MODEL = "openrouter/qwen/qwen3-235b-a22b-2507";
 
-const STRING_FLAGS = new Set(["site", "queries", "out", "model"]);
+const STRING_FLAGS = new Set([
+  "site",
+  "queries",
+  "out",
+  "model",
+  "search-url-template",
+]);
 
 function usage(exit_code = 1): never {
   console.error(
-    "Usage: adapter-builder record --site <url> --queries <json-array> --out <dir> [--model <slug>]",
+    "Usage: adapter-builder record --site <url> --queries <json-array> --out <dir> [--model <slug>] [--search-url-template <template>]",
   );
   console.error("");
-  console.error("  --site     Target site URL");
-  console.error("  --queries  JSON array of search queries");
-  console.error("  --out      Output directory (recordings.json is written here)");
-  console.error(`  --model    OpenRouter model slug (default: ${DEFAULT_MODEL})`);
+  console.error("  --site                 Target site URL");
+  console.error("  --queries              JSON array of search queries");
+  console.error("  --out                  Output directory (recordings.json is written here)");
+  console.error(
+    `  --model                Model slug, must start with "openrouter/" (default: ${DEFAULT_MODEL})`,
+  );
+  console.error(
+    "  --search-url-template  Optional URL template with `{query}` placeholder (e.g. https://www.diy.com/search?term={query}).",
+  );
+  console.error(
+    "                         When set, the recorder navigates directly to the substituted URL and skips form-based search.",
+  );
   process.exit(exit_code);
 }
 
@@ -54,8 +68,19 @@ async function main(): Promise<void> {
   const queries_json = flags["queries"];
   const out = flags["out"];
   const model_name = flags["model"] ?? DEFAULT_MODEL;
+  const search_url_template = flags["search-url-template"];
 
   if (!site || !queries_json || !out) usage();
+
+  if (
+    search_url_template !== undefined &&
+    !search_url_template.includes("{query}")
+  ) {
+    console.error(
+      `--search-url-template must contain the literal string "{query}" (got "${search_url_template}")`,
+    );
+    process.exit(1);
+  }
 
   let queries: string[];
   try {
@@ -88,6 +113,9 @@ async function main(): Promise<void> {
   console.error(`[recorder] model: ${model_name}`);
   console.error(`[recorder] queries: ${queries.length}`);
   console.error(`[recorder] out: ${out_dir}`);
+  if (search_url_template) {
+    console.error(`[recorder] search-url-template: ${search_url_template}`);
+  }
 
   const persist = (recording: Recording): void => {
     mkdirSync(out_dir, { recursive: true });
@@ -99,6 +127,7 @@ async function main(): Promise<void> {
     queries,
     model_name,
     api_key,
+    search_url_template,
     on_progress: persist,
   });
   persist(recording);

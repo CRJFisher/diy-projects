@@ -1,0 +1,44 @@
+{
+  "site": "https://www.diy.com",
+  "slug": "diy_com",
+  "method": "html_embedded_json",
+  "endpoint": {
+    "url_template": "https://www.diy.com/search?term={query}",
+    "method": "GET",
+    "required_headers": {
+      "accept": "text/html,application/xhtml+xml"
+    },
+    "body_template": null,
+    "query_param": "term",
+    "dom_selector": null
+  },
+  "results_path": "itemListElement",
+  "field_map": [
+    { "field": "title", "source_path": "name", "type": "string" },
+    { "field": "url", "source_path": "url", "type": "string" },
+    { "field": "sku", "source_path": "sku", "type": "string" },
+    { "field": "image_url", "source_path": "image", "type": "string" },
+    { "field": "description", "source_path": "description", "type": "string" },
+    { "field": "price", "source_path": "offers.price", "type": "number" },
+    { "field": "price_currency", "source_path": "offers.priceCurrency", "type": "string" },
+    { "field": "position", "source_path": "position", "type": "number" }
+  ],
+  "sample_queries": [
+    "CLS timber 50x47 2.4m",
+    "plywood exterior 18mm",
+    "galvanised hinge 400mm",
+    "roofing felt",
+    "wood screws 4x40"
+  ],
+  "validation": {
+    "passed": true,
+    "per_query_overlap": [
+      { "query": "CLS timber 50x47 2.4m", "overlap": 1.0 },
+      { "query": "plywood exterior 18mm", "overlap": 1.0 },
+      { "query": "galvanised hinge 400mm", "overlap": 1.0 }
+    ],
+    "min_overlap_threshold": 0.5
+  },
+  "generated_at": "2026-04-29T15:30:00.000Z",
+  "generator_notes": "diy.com is a React Router SPA. None of the captured XHR/fetch responses carry the search results: the only diy.com API hit during a search was /browse-mfe/api/gds-social-proofing, which returns {\"products\": {}} (just a shell for review counts) and never includes titles. However, the SSR HTML at https://www.diy.com/search?term={query} embeds a complete schema.org ItemList in a <script type=\"application/ld+json\"> tag with @type=ItemList, including each product's name, url, sku, image, description, and offers.price. Adapter fetches that page, extracts the first ld+json script whose @type is ItemList, and projects items. name fields contain HTML entities (&amp;, &quot;, &#x27;); the adapter decodes them. No auth, cookies, or rotation headers are required for the public search page. No headers needed to be stripped from a captured XHR (we are not replaying any). Title-overlap with ground truth is 1.0 across all 3 non-errored sample queries (CLS timber, plywood exterior, galvanised hinge). The two errored queries (roofing felt, wood screws 4x40) failed during recording with deadline timeouts and are skipped per spec."
+}

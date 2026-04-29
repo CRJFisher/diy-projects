@@ -1,4 +1,5 @@
-import { Stagehand } from "@browserbasehq/stagehand";
+import { AISdkClient, Stagehand } from "@browserbasehq/stagehand";
+import { createOpenRouter } from "@openrouter/ai-sdk-provider";
 import {
   chromium,
   type BrowserContext,
@@ -9,6 +10,7 @@ import {
 import {
   ExtractionSchema,
   type FailedRequest,
+  type GroundTruthProduct,
   type NetworkCandidate,
   type QueryRecording,
   type Recording,
@@ -18,10 +20,10 @@ const MAX_BODY_BYTES = 4 * 1024 * 1024;
 const BODY_TEXT_SAMPLE_BYTES = 16 * 1024;
 const NETWORKIDLE_TIMEOUT_MS = 15_000;
 const PAGE_LOAD_TIMEOUT_MS = 30_000;
-const QUERY_DEADLINE_MS = 120_000;
+const QUERY_DEADLINE_MS = 240_000;
 const STAGEHAND_RETRY_ATTEMPTS = 3;
 const STAGEHAND_CLOSE_TIMEOUT_MS = 10_000;
-const OPENROUTER_BASE_URL = "https://openrouter.ai/api/v1";
+const OPENROUTER_PREFIX = "openrouter/";
 
 const STEALTH_LAUNCH_ARGS = ["--disable-blink-features=AutomationControlled"];
 
@@ -30,20 +32,31 @@ export type RecordOptions = {
   queries: string[];
   model_name: string;
   api_key: string;
+  search_url_template?: string;
   on_progress: (recording: Recording) => void;
 };
 
 export async function record(opts: RecordOptions): Promise<Recording> {
-  const { site, queries, model_name, api_key, on_progress } = opts;
+  const {
+    site,
+    queries,
+    model_name,
+    api_key,
+    search_url_template,
+    on_progress,
+  } = opts;
+
+  if (!model_name.startsWith(OPENROUTER_PREFIX)) {
+    throw new Error(
+      `model_name must start with "${OPENROUTER_PREFIX}" (got "${model_name}")`,
+    );
+  }
+  const openrouter_slug = model_name.slice(OPENROUTER_PREFIX.length);
+  const openrouter = createOpenRouter({ apiKey: api_key });
 
   const stagehand = new Stagehand({
     env: "LOCAL",
-    model: {
-      modelName: model_name,
-      provider: "openai",
-      baseURL: OPENROUTER_BASE_URL,
-      apiKey: api_key,
-    },
+    llmClient: new AISdkClient({ model: openrouter(openrouter_slug) }),
     localBrowserLaunchOptions: {
       args: STEALTH_LAUNCH_ARGS,
     },
@@ -70,6 +83,7 @@ export async function record(opts: RecordOptions): Promise<Recording> {
         page,
         site,
         query,
+        search_url_template,
       });
       recording.queries.push(query_recording);
       on_progress(recording);
@@ -111,36 +125,8 @@ async function run_query_with_deadline(args: {
   page: Page;
   site: string;
   query: string;
+  search_url_template?: string;
 }): Promise<QueryRecording> {
-  const deadline = new Promise<QueryRecording>((_, reject) => {
-    setTimeout(
-      () => reject(new Error(`query exceeded ${QUERY_DEADLINE_MS}ms deadline`)),
-      QUERY_DEADLINE_MS,
-    );
-  });
-  try {
-    return await Promise.race([run_query(args), deadline]);
-  } catch (err) {
-    return {
-      query: args.query,
-      final_url: args.page.url(),
-      network_candidates: [],
-      failed_requests: [],
-      ground_truth_products: [],
-      error: (err as Error).message,
-    };
-  }
-}
-
-async function run_query(args: {
-  stagehand: Stagehand;
-  context: BrowserContext;
-  page: Page;
-  site: string;
-  query: string;
-}): Promise<QueryRecording> {
-  const { stagehand, context, page, site, query } = args;
-
   const candidates: NetworkCandidate[] = [];
   const failed_requests: FailedRequest[] = [];
   const in_flight: Promise<void>[] = [];
@@ -161,13 +147,67 @@ async function run_query(args: {
     new_page.on("requestfailed", on_failed);
   };
 
-  context.on("page", on_new_page);
-  for (const existing_page of context.pages()) {
+  args.context.on("page", on_new_page);
+  for (const existing_page of args.context.pages()) {
     existing_page.on("response", on_response);
     existing_page.on("requestfailed", on_failed);
   }
 
+  const deadline = new Promise<"timeout">((resolve) => {
+    setTimeout(() => resolve("timeout"), QUERY_DEADLINE_MS);
+  });
+  let products: GroundTruthProduct[] = [];
+  let error: string | undefined;
   try {
+    const outcome = await Promise.race([run_query(args), deadline]);
+    if (outcome === "timeout") {
+      error = `query exceeded ${QUERY_DEADLINE_MS}ms deadline`;
+    } else {
+      products = outcome.products;
+    }
+  } catch (err) {
+    error = (err as Error).message;
+  } finally {
+    args.context.off("page", on_new_page);
+    for (const p of args.context.pages()) {
+      p.off("response", on_response);
+      p.off("requestfailed", on_failed);
+    }
+  }
+
+  await Promise.allSettled(in_flight);
+
+  const result: QueryRecording = {
+    query: args.query,
+    final_url: args.page.url(),
+    network_candidates: candidates,
+    failed_requests,
+    ground_truth_products: products,
+  };
+  if (error !== undefined) result.error = error;
+  return result;
+}
+
+async function run_query(args: {
+  stagehand: Stagehand;
+  context: BrowserContext;
+  page: Page;
+  site: string;
+  query: string;
+  search_url_template?: string;
+}): Promise<{ products: GroundTruthProduct[] }> {
+  const { stagehand, page, site, query, search_url_template } = args;
+
+  if (search_url_template) {
+    const target_url = search_url_template.replaceAll(
+      "{query}",
+      encodeURIComponent(query),
+    );
+    await page.goto(target_url, {
+      waitUntil: "domcontentloaded",
+      timeout: PAGE_LOAD_TIMEOUT_MS,
+    });
+  } else {
     await page.goto(site, {
       waitUntil: "domcontentloaded",
       timeout: PAGE_LOAD_TIMEOUT_MS,
@@ -190,43 +230,29 @@ async function run_query(args: {
         `Type "${query}" into the focused search input, then submit the search by pressing Enter or clicking the submit button.`,
       ),
     );
-
-    await page
-      .waitForLoadState("networkidle", { timeout: NETWORKIDLE_TIMEOUT_MS })
-      .catch(() => {});
-
-    const extract_result = await retry_stagehand(() =>
-      stagehand.extract(
-        "Extract every visible product card on this search results page. For each card, capture: title (the product name), price (the visible price text including currency, if shown), url (the link to the product page), in_stock (any stock or availability indicator visible on the card), image_url (the product image src). Skip any 'sponsored' or advert blocks if they are clearly distinct from organic results.",
-        ExtractionSchema,
-      ),
-    );
-
-    const products = extract_result.products ?? [];
-
-    if (products.length === 0) {
-      const html_snippet = (await page.content().catch(() => "")).slice(0, 400);
-      throw new Error(
-        `search for "${query}" produced no visible product cards on ${page.url()}. Page snippet: ${html_snippet.replace(/\s+/g, " ")}`,
-      );
-    }
-
-    await Promise.allSettled(in_flight);
-
-    return {
-      query,
-      final_url: page.url(),
-      network_candidates: candidates,
-      failed_requests,
-      ground_truth_products: products,
-    };
-  } finally {
-    context.off("page", on_new_page);
-    for (const p of context.pages()) {
-      p.off("response", on_response);
-      p.off("requestfailed", on_failed);
-    }
   }
+
+  await page
+    .waitForLoadState("networkidle", { timeout: NETWORKIDLE_TIMEOUT_MS })
+    .catch(() => {});
+
+  const extract_result = await retry_stagehand(() =>
+    stagehand.extract(
+      "Extract every visible product card on this search results page. For each card, capture: title (the product name), price (the visible price text including currency, if shown), url (the link to the product page), in_stock (any stock or availability indicator visible on the card), image_url (the product image src). Skip any 'sponsored' or advert blocks if they are clearly distinct from organic results.",
+      ExtractionSchema,
+    ),
+  );
+
+  const products = extract_result.products ?? [];
+
+  if (products.length === 0) {
+    const html_snippet = (await page.content().catch(() => "")).slice(0, 400);
+    throw new Error(
+      `search for "${query}" produced no visible product cards on ${page.url()}. Page snippet: ${html_snippet.replace(/\s+/g, " ")}`,
+    );
+  }
+
+  return { products };
 }
 
 async function capture_response(
