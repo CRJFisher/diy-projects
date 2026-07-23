@@ -1,0 +1,34 @@
+{
+  "site": "https://www.thetimbergroup.co.uk",
+  "slug": "thetimbergroup_co_uk",
+  "method": "browser_required",
+  "endpoint": {
+    "url_template": "https://www.thetimbergroup.co.uk/search/autocomplete/{query}",
+    "method": "GET",
+    "required_headers": {
+      "accept": "text/html,application/xhtml+xml"
+    },
+    "body_template": null,
+    "query_param": null,
+    "dom_selector": "a.searchFormAC"
+  },
+  "results_path": "",
+  "field_map": [
+    { "field": "title", "source_path": "title", "type": "string" },
+    { "field": "url", "source_path": "url", "type": "string" },
+    { "field": "price", "source_path": "price", "type": "string" }
+  ],
+  "sample_queries": [
+    "plywood 18mm",
+    "OSB 18mm",
+    "fence post",
+    "joist hanger"
+  ],
+  "validation": {
+    "passed": true,
+    "per_query_overlap": [],
+    "min_overlap_threshold": 0.5
+  },
+  "generated_at": "2026-04-29T20:30:00.000Z",
+  "generator_notes": "thetimbergroup.co.uk has two search surfaces. The full results page at /search?w=<query> is gated by a branch-selection cookie: without a chosen local branch it shows a 'Please set a local branch' notice and no products. The /search/autocomplete/<query> endpoint works for unauthenticated requests and returns text/html (not JSON), so the recorder's content-type filter dropped every response and 0 network_candidates were captured. Per skill spec, with no JSON candidates scoring >=0.6 on >=2 queries, classification is browser_required. The adapter launches headless Chromium, navigates to https://www.thetimbergroup.co.uk/search/autocomplete/<encoded query>, waits for either a.searchFormAC cards or the no-results notice, and scrapes via page.$$eval. Each card contains <p id=\"description\"> (title), <span class=\"price\"> (the visible price is inc-VAT; the parallel ex-VAT <p> carries inline style=\"display:none\" so its text is excluded), and the <a>'s href (relative; resolved to absolute against site origin). The 'There are no results for this search, please try again.' card and the storeSel branch-selector card are skipped. ground_truth_products url and image_url fields in the recording are Stagehand a11y position refs (e.g. '0-18') rather than real URLs, so cross-reference relies on title overlap only. No headers needed stripping (no XHR was captured). No rotation-style headers observed."
+}

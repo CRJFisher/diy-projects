@@ -1,16 +1,9 @@
 from __future__ import annotations
 
-import sys
 import unittest
-from pathlib import Path
 
-
-ROOT_DIR = Path(__file__).resolve().parents[1]
-SCRIPTS_DIR = ROOT_DIR / "scripts"
-if str(SCRIPTS_DIR) not in sys.path:
-    sys.path.insert(0, str(SCRIPTS_DIR))
-
-from grist_inventory.extraction import build_cut_list_rows, parse_parameters  # noqa: E402
+from grist_inventory.common import preserve_fields_by_key
+from grist_inventory.extraction import build_cut_list_rows, parse_parameters
 
 
 class InventoryWorkflowTests(unittest.TestCase):
@@ -20,9 +13,9 @@ class InventoryWorkflowTests(unittest.TestCase):
 
         self.assertIn("frame_post_back", cut_ids)
         self.assertIn("roof_deck_panel", cut_ids)
-        self.assertIn("shelf_panel_inferred", cut_ids)
+        self.assertIn("shelf_batten", cut_ids)
         self.assertIn("door_featheredge", cut_ids)
-        self.assertEqual(len(rows), 20)
+        self.assertEqual(len(rows), 19)
 
     def test_cut_list_rows_keep_inventory_matching_fields(self) -> None:
         rows = build_cut_list_rows(parse_parameters())
@@ -43,8 +36,6 @@ class InventoryWorkflowTests(unittest.TestCase):
                 "completed": True,
             }
         ]
-
-        from grist_inventory.common import preserve_fields_by_key  # noqa: E402
 
         merged_rows = preserve_fields_by_key(
             rows=generated_rows,

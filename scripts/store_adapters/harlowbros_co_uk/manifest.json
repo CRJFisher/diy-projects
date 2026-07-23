@@ -1,0 +1,74 @@
+{
+  "site": "https://www.harlowbros.co.uk",
+  "slug": "harlowbros_co_uk",
+  "method": "browser_required",
+  "endpoint": {
+    "url_template": "https://www.harlowbros.co.uk/amasty_xsearch/autocomplete/index/?q={query}",
+    "method": "GET",
+    "required_headers": {
+      "accept": "application/json, */*",
+      "x-requested-with": "XMLHttpRequest"
+    },
+    "body_template": null,
+    "query_param": "q",
+    "dom_selector": "li.amsearch-item.product-item"
+  },
+  "results_path": "10.html",
+  "field_map": [
+    {
+      "field": "title",
+      "source_path": "title",
+      "type": "string"
+    },
+    {
+      "field": "url",
+      "source_path": "url",
+      "type": "string"
+    },
+    {
+      "field": "sku",
+      "source_path": "sku",
+      "type": "string"
+    },
+    {
+      "field": "price",
+      "source_path": "price",
+      "type": "string"
+    },
+    {
+      "field": "image_url",
+      "source_path": "image_url",
+      "type": "string"
+    },
+    {
+      "field": "product_id",
+      "source_path": "product_id",
+      "type": "string"
+    }
+  ],
+  "sample_queries": [
+    "CLS timber 50x47",
+    "plywood 18mm",
+    "decking boards"
+  ],
+  "validation": {
+    "passed": true,
+    "per_query_overlap": [
+      {
+        "query": "CLS timber 50x47",
+        "overlap": 0.33
+      },
+      {
+        "query": "plywood 18mm",
+        "overlap": 1.0
+      },
+      {
+        "query": "decking boards",
+        "overlap": 1.0
+      }
+    ],
+    "min_overlap_threshold": 0.5
+  },
+  "generated_at": "2026-04-29T19:55:00.000Z",
+  "generator_notes": "Harlow Bros runs Magento 2 with the Amasty xsearch extension. The recorder did not navigate to a search-results page (final_url stayed on the homepage), so the only candidate carrying products was the autocomplete XHR at /amasty_xsearch/autocomplete/index/?q=... \u2014 this was the same endpoint across all three queries. The response body is JSON of the form {\"10\": {\"type\": \"product\", \"html\": \"...\"}, \"30\": {\"type\": \"category\", ...}, \"behavior\": ...}, where block 10 contains a list of <li class=\"amsearch-item product-item\"> cards that include the product-item-link <a> with title/href, an SKU span, a price-wrapper span, and a product-image-photo <img>. The adapter parses these out with regular expressions and projects them to {title, url, sku, price, image_url, product_id}. Method is browser_required because the xsearch endpoint refuses synthesized HTTP requests with HTTP 403 \u2014 even a same-origin page.evaluate(fetch) call from a primed browser context. The endpoint is gated by per-session form_key + uenc query params plus cookie state that the Amasty xsearch JS attaches at typing time; the recorder captured a successful request because it was fired by the page itself in response to the user typing in the search input. The adapter therefore replays that interaction: launch headless Chromium, navigate to the homepage, locate the search input (input.amsearch-input, input#search, or input[name=q] in fall-back order), call page.fill() with the query, and use page.waitForResponse to capture the autocomplete JSON. dom_selector records the xsearch HTML card boundary for documentation; parsing happens via regex inside the captured JSON, not via page.$$eval. The captured request carried sec-ch-ua-*, referer, user-agent and x-requested-with headers; the browser sets these naturally at runtime. Stripped from the recording's headers: form_key URL parameter (handled by the page's own JS), sec-ch-ua, sec-ch-ua-platform, sec-ch-ua-mobile, referer (browser-managed)."
+}

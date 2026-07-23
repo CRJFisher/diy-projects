@@ -314,10 +314,11 @@ def build_shopping_rows(
     per-length breakdown so the shopping agent can pick a stock length that
     fits the longest cut and size the purchase accordingly.
 
-    ``length_mm`` and ``qty_*`` start at ``0`` — they describe the *purchased
-    stock* (length of one stick/sheet, number of sticks/sheets), which depends
-    on the product the agent chooses in Step 3. The minimum stock length is
-    implicit in ``cuts_summary`` (first entry is the longest cut).
+    ``stock_length_mm``, ``individual_units``, ``pack_size``, and
+    ``purchase_units`` start at ``0`` — they describe the chosen *product*
+    (one stick/sheet/pack at the supplier) and depend on the SKU the shopping
+    agent picks in Step 3. The minimum stock length is implicit in
+    ``cuts_summary`` (first entry is the longest cut).
 
     ``supplier``, ``url``, ``status``, and ``notes`` are placeholders for the
     shopping agent. The ``acquired`` flag is authored by the user in Grist.
@@ -364,10 +365,10 @@ def build_shopping_rows(
                 "category": entry["category"],
                 "material_type": entry["material_type"],
                 "section_key": entry["section_key"],
-                "length_mm": 0.0,
-                "qty_required": 0,
-                "qty_available": 0,
-                "qty_needed": 0,
+                "stock_length_mm": 0.0,
+                "individual_units": 0,
+                "pack_size": 0,
+                "purchase_units": 0,
                 "cuts_summary": _format_cuts_summary(cuts_pairs),
                 "min_stock_length_mm": max_cut_length,
                 "total_linear_mm": round(total_linear_mm, 3),

@@ -187,33 +187,23 @@
           "type": "Text"
         },
         {
-          "id": "length_mm",
-          "label": "Length (mm)",
+          "id": "stock_length_mm",
+          "label": "Stock Length (mm)",
           "type": "Numeric"
         },
         {
-          "id": "width_mm",
-          "label": "Width (mm)",
-          "type": "Numeric"
-        },
-        {
-          "id": "thickness_mm",
-          "label": "Thickness (mm)",
-          "type": "Numeric"
-        },
-        {
-          "id": "qty_required",
-          "label": "Qty Required",
+          "id": "individual_units",
+          "label": "Individual Units",
           "type": "Int"
         },
         {
-          "id": "qty_available",
-          "label": "Qty Available",
+          "id": "pack_size",
+          "label": "Pack Size",
           "type": "Int"
         },
         {
-          "id": "qty_needed",
-          "label": "Qty Needed",
+          "id": "purchase_units",
+          "label": "Purchase Units",
           "type": "Int"
         },
         {
@@ -230,16 +220,6 @@
           "id": "total_linear_mm",
           "label": "Total Linear (mm)",
           "type": "Numeric"
-        },
-        {
-          "id": "unit",
-          "label": "Unit",
-          "type": "Text"
-        },
-        {
-          "id": "purchase_unit",
-          "label": "Purchase Unit",
-          "type": "Text"
         },
         {
           "id": "supplier",
@@ -267,7 +247,7 @@
           "type": "Text"
         }
       ],
-      "description": "Agent-owned shopping table. Pushed from the repo by the bin-store-shopping skill.",
+      "description": "Agent-owned shopping table. Pushed from the repo by the bin-store-shopping skill. individual_units counts physical items to acquire (sticks, sheets, hinges, tins) — independent of multi-pack packaging. pack_size is physical items per SKU. purchase_units = ceil(individual_units / pack_size) — the basket count.",
       "id": "shopping_list",
       "primary_key": "shopping_id"
     }

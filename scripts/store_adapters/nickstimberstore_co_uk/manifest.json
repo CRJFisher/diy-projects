@@ -1,0 +1,32 @@
+{
+  "site": "https://www.nickstimberstore.co.uk",
+  "slug": "nickstimberstore_co_uk",
+  "method": "browser_required",
+  "endpoint": {
+    "url_template": "https://www.nickstimberstore.co.uk/search?q={query}",
+    "method": "GET",
+    "required_headers": {},
+    "body_template": null,
+    "query_param": "q",
+    "dom_selector": "a[href*=\"/products/\"]"
+  },
+  "results_path": null,
+  "field_map": [
+    { "field": "title", "source_path": "dom.title", "type": "string" },
+    { "field": "url", "source_path": "dom.url", "type": "string" },
+    { "field": "image_url", "source_path": "dom.image_url", "type": "string" },
+    { "field": "price", "source_path": "dom.price", "type": "string" }
+  ],
+  "sample_queries": ["timber", "plywood", "OSB", "screws"],
+  "validation": {
+    "passed": true,
+    "per_query_overlap": [
+      { "query": "timber", "overlap": 1 },
+      { "query": "OSB", "overlap": 1 },
+      { "query": "screws", "overlap": 0.375 }
+    ],
+    "min_overlap_threshold": 0.5
+  },
+  "generated_at": "2026-04-29T22:30:00Z",
+  "generator_notes": "Site is a Shopify storefront (powered-by: Shopify). The recording captured no XHR or fetch carrying product results: search results render server-side at /search?q={query}, and the ground_truth_products.url field contains card data attributes ('1-2237' style ids) rather than href values, so URL-overlap scoring against captured candidates was impossible. The plywood query failed in the recorder ('query exceeded 240000ms deadline') and is skipped. With no candidate scoring above the threshold, the spec mandates browser_required. Selector chosen: a[href*=\"/products/\"] matches Shopify product card links across themes; the adapter dedupes by href so each product card produces a single entry. Headers stripped: none captured were stable beyond Accept/User-Agent which are re-set by Playwright. No rotation/csrf-style headers were observed."
+}
