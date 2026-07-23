@@ -33,6 +33,15 @@ front_panel_post_overlap = post_side;
 // Roof overhang
 roof_overhang = 25;   // overhang on front, back, and sides
 
+// Roof locating blocks (gravity-rested roof)
+// The roof is not fixed down: it sits on top of the frame under its own weight.
+// Four blocks fixed under the deck drop into the frame's top internal corners,
+// each bearing against the side rail (locks X) and the front/back rail (locks Y).
+// Opposing corner blocks trap the roof so it cannot slide in either direction.
+roof_block_len   = 70;          // footprint along X (left-right)
+roof_block_width = post_side;   // footprint along Y (front-back) = 50
+roof_block_drop  = rail_h;      // projection below deck = 47
+
 // Overall envelope
 total_width  = 1300;
 total_depth  = 750;

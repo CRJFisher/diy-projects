@@ -292,6 +292,22 @@
     {
       "category": "timber",
       "completed": false,
+      "cut_id": "roof_locating_block",
+      "length_mm": 70,
+      "material_type": "softwood_pt",
+      "notes": "Corner blocks fixed under the deck for the gravity-rested roof. Each drops into a top internal corner, bearing on the side rail (locks left-right) and the front/back rail (locks front-back). Cut from 47x50 PT offcuts.",
+      "phase": "weekend_2",
+      "qty_required": 4,
+      "section_key": "47x50",
+      "source_kind": "module_derived",
+      "source_ref": "roof.roof_locating_blocks",
+      "thickness_mm": 47,
+      "unit": "piece",
+      "width_mm": 50
+    },
+    {
+      "category": "timber",
+      "completed": false,
       "cut_id": "shelf_batten",
       "length_mm": 426,
       "material_type": "batten_softwood",

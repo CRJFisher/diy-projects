@@ -51,6 +51,34 @@ module roof_deck() {
         roof_deck_panel();
 }
 
+// ── Locating blocks ─────────────────────────────────────
+// The roof is gravity-rested. Four blocks fixed under the deck drop into the
+// frame's top internal corners: each bears against the side rail (locks X) and
+// the front/back rail (locks Y). Opposing corners trap the roof both ways.
+
+module roof_locating_block() {
+    color(brace_colour) cube([roof_block_len, roof_block_width, roof_block_drop]);
+}
+
+module roof_locating_blocks() {
+    inner_x_left  = rail_d;                                      // 50
+    inner_x_right = total_width - rail_d - roof_block_len;       // 1180
+    inner_y_front = rail_d;                                      // 50
+    inner_y_back  = total_depth - post_side - roof_block_width;  // 650
+    corners = [
+        [inner_x_left,  inner_y_front],
+        [inner_x_right, inner_y_front],
+        [inner_x_left,  inner_y_back],
+        [inner_x_right, inner_y_back],
+    ];
+    for (c = corners) {
+        // Deck underside follows the slope, so the block top rises with Y
+        z_top = batten_h + (c[1] / total_depth) * roof_slope;
+        translate([c[0], c[1], z_top - roof_block_drop])
+            roof_locating_block();
+    }
+}
+
 // ── Complete Roof ───────────────────────────────────────
 
 module roof() {
@@ -59,5 +87,6 @@ module roof() {
     {
         roof_battens();
         roof_deck();
+        roof_locating_blocks();
     }
 }

@@ -308,6 +308,26 @@ def build_cut_list_rows(parameters: dict[str, Any] | None = None) -> list[dict[s
         thickness_mm=batten_thickness_mm,
     )
     add_row(
+        cut_id="roof_locating_block",
+        category="timber",
+        material_type="softwood_pt",
+        section_key=post_section,
+        length_mm=parameters["roof_block_len"],
+        qty_required=4,
+        unit="piece",
+        source_kind="module_derived",
+        source_ref="roof.roof_locating_blocks",
+        phase="weekend_2",
+        notes=(
+            "Corner blocks fixed under the deck for the gravity-rested roof. "
+            "Each drops into a top internal corner, bearing on the side rail (locks "
+            "left-right) and the front/back rail (locks front-back). Cut from 47x50 "
+            "PT offcuts."
+        ),
+        width_mm=parameters["roof_block_width"],
+        thickness_mm=parameters["roof_block_drop"],
+    )
+    add_row(
         cut_id="roof_deck_panel",
         category="sheet_good",
         material_type="plywood_exterior",
