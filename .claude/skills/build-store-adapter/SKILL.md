@@ -1,18 +1,18 @@
 ---
 name: build-store-adapter
-description: Reverse-engineer an ecommerce site's search and emit a deterministic adapter script under scripts/store_adapters/<slug>/.
+description: Reverse-engineer an ecommerce site's search and emit a deterministic adapter script under shared/store_adapters/<slug>/.
 disable-model-invocation: true
 argument-hint: "[site-url]"
 allowed-tools:
   [
     Bash(cd tooling/adapter-builder && npm install*),
     Bash(cd tooling/adapter-builder && npm run record*),
-    Bash(cd scripts/store_adapters/* && npm install*),
-    Bash(cd scripts/store_adapters/* && npm test*),
-    Bash(cd scripts/store_adapters/* && npm run typecheck*),
-    Bash(cd scripts/store_adapters/* && npx playwright install*),
-    Bash(npx --prefix scripts/store_adapters/* tsx*),
-    Bash(find scripts/store_adapters/*),
+    Bash(cd shared/store_adapters/* && npm install*),
+    Bash(cd shared/store_adapters/* && npm test*),
+    Bash(cd shared/store_adapters/* && npm run typecheck*),
+    Bash(cd shared/store_adapters/* && npx playwright install*),
+    Bash(npx --prefix shared/store_adapters/* tsx*),
+    Bash(find shared/store_adapters/*),
     Read,
     Write,
     Edit,
@@ -30,12 +30,12 @@ Builds a per-site ecommerce search adapter. The runtime adapter does not call an
 Three locations, one per role:
 
 - `tooling/adapter-builder/` — bootstrap recorder. One copy, hand-authored. Drives Stagehand + Playwright, writes `recordings.json`.
-- `scripts/store_adapters/<slug>/` — one generated adapter per site. Contains `search.ts`, `search.test.ts`, `manifest.json`, `recordings.json`, `package.json`, `tsconfig.json`.
+- `shared/store_adapters/<slug>/` — one generated adapter per site. Contains `search.ts`, `search.test.ts`, `manifest.json`, `recordings.json`, `package.json`, `tsconfig.json`.
 - `.claude/skills/build-store-adapter/` — this skill, orchestrating the two.
 
 ## Preconditions
 
-- **Working directory:** repo root (`/Users/chuck/workspace/diy-projects`).
+- **Working directory:** the diy-projects repo root (directory containing `projects/` and `shared/`).
 - **Env var:** `OPENROUTER_API_KEY` must be set. The recorder loads it via `node --env-file-if-exists=../../.env`, so the canonical place is the repo-root `.env` (alongside the existing Grist keys; see `.env.sample`). A shell-exported variable also works. If neither source provides it, stop and name the variable.
 - **Node toolchain:** `node` ≥ 20.12 and `npm` on PATH (the recorder's npm script uses `--env-file-if-exists`, added in 20.12).
 - **Bootstrap workspace:** `tooling/adapter-builder/`. The skill installs deps on first use.
@@ -58,11 +58,11 @@ Then ask via a single `AskUserQuestion` call (omit the URL question when supplie
 
 1. **Target site URL** (only if not provided as `$ARGUMENTS`) — e.g. `https://www.diy.com`.
 2. **Sample search queries** — 3 to 5 strings that each return non-empty results on the target site. These drive both the analysis and the golden test.
-3. **Output slug** — directory name under `scripts/store_adapters/`. Default rule: lowercase the host, replace dots with underscores, strip a leading `www_`. Examples: `www.diy.com` → `diy_com`; `shop.acme.co.uk` → `shop_acme_co_uk`.
+3. **Output slug** — directory name under `shared/store_adapters/`. Default rule: lowercase the host, replace dots with underscores, strip a leading `www_`. Examples: `www.diy.com` → `diy_com`; `shop.acme.co.uk` → `shop_acme_co_uk`.
 
 Verify `OPENROUTER_API_KEY` is set. Stop with the variable name if not.
 
-If `scripts/store_adapters/<slug>/` already exists, ask the user via a second `AskUserQuestion`:
+If `shared/store_adapters/<slug>/` already exists, ask the user via a second `AskUserQuestion`:
 
 - **Overwrite** — refresh the adapter, keep the slug. Continue.
 - **Bump suffix** — auto-suffix `_v2`, `_v3` etc. Continue with the new slug.
@@ -82,7 +82,7 @@ Run the recorder for all queries. Pass `--out` as an absolute path so it lands d
 cd tooling/adapter-builder && npm run record -- \
   --site "https://www.diy.com" \
   --queries '["CLS timber 50x47","plywood exterior 18mm"]' \
-  --out "/Users/chuck/workspace/diy-projects/scripts/store_adapters/diy_com"
+  --out "$(pwd)/shared/store_adapters/diy_com"
 ```
 
 Substitute the user-supplied site URL, the JSON-encoded queries array, and the slug from Phase 1.
@@ -108,7 +108,7 @@ The agent's full system prompt and output contract live in its definition file; 
 
 ```text
 RECORDING_PATH: <absolute path to recordings.json from Phase 2>
-OUTPUT_DIR: <absolute path to scripts/store_adapters/<slug>/>
+OUTPUT_DIR: <absolute path to shared/store_adapters/<slug>/>
 ```
 
 The agent returns a single JSON object on stdout:
@@ -138,20 +138,20 @@ Before running anything, confirm the subagent wrote what it claimed:
 Run in sequence; stop on first failure:
 
 ```bash
-cd scripts/store_adapters/<slug> && npm install
-cd scripts/store_adapters/<slug> && npm run typecheck
+cd shared/store_adapters/<slug> && npm install
+cd shared/store_adapters/<slug> && npm run typecheck
 ```
 
 If `method == "browser_required"`, install Chromium for the adapter's `node_modules`:
 
 ```bash
-cd scripts/store_adapters/<slug> && npx playwright install chromium
+cd shared/store_adapters/<slug> && npx playwright install chromium
 ```
 
 Then:
 
 ```bash
-cd scripts/store_adapters/<slug> && npm test
+cd shared/store_adapters/<slug> && npm test
 ```
 
 **On typecheck or test failure**, retry the subagent **at most once**. Build the retry prompt by appending this block to the original Phase 3 prompt:
@@ -171,7 +171,7 @@ If still failing after one retry, stop and ask the user via `AskUserQuestion`:
 **On all tests passing**, edit `manifest.json` to set `validation.passed: true`, then run a final smoke test:
 
 ```bash
-cd scripts/store_adapters/<slug> && npx tsx search.ts "<first sample query>" --max 5
+cd shared/store_adapters/<slug> && npx tsx search.ts "<first sample query>" --max 5
 ```
 
 Confirm stdout is a JSON object with a non-empty `products` array, each with at least `title` and `url`.
@@ -184,8 +184,8 @@ Render this template literally, filling in the bracketed values:
 Built {method} adapter for {site}.
 Endpoint: {endpoint_url or "n/a (browser_required)"}
 Validation: {N}/{M} queries passed at ≥0.5 title overlap (per-query: q1=0.83, q2=0.71, ...).
-Path: scripts/store_adapters/{slug}/
-Usage: npx tsx scripts/store_adapters/{slug}/search.ts "<query>" --max 10
+Path: shared/store_adapters/{slug}/
+Usage: npx tsx shared/store_adapters/{slug}/search.ts "<query>" --max 10
 ```
 
 Then a single trailing sentence: "Wiring callers to this adapter is a separate task."
@@ -207,5 +207,5 @@ This skill is interactive — Phase 1 uses `AskUserQuestion` and Phase 2 opens a
 - Pagination beyond the first results page. The adapter returns the first page; if the user needs more, that's a follow-up.
 - Login-gated search. The recorder runs an unauthenticated session; sites that hide search behind a login are out of scope.
 - Region/postcode gates. If the site requires a postcode prompt, prices and stock state will be missing from the recording. The user can supply a postcode via the search query or work with what's captured.
-- Auto-rewiring callers (e.g. `bin-store-shopping`) to use the generated adapter — separate task.
+- Auto-rewiring callers (e.g. `diy-shopping`) to use the generated adapter — separate task.
 - Generating adapters in any language other than TypeScript.

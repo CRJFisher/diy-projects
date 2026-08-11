@@ -54,10 +54,12 @@ Full constraint derivations are in [CLAUDE.md](CLAUDE.md).
 
 - `overview.md` -- this file
 - `CLAUDE.md` -- key constraints for AI-assisted design
+- `model/` -- OpenSCAD parametric model
+- `extraction.py` -- OpenSCAD parameters → cut_list rows
 - `validate-measurements.py` -- validates all dimensions against constraints
-- `scripts/` -- Grist inventory workflow scripts and shared extraction/sync helpers
-- `data/` -- repo-backed snapshots for `cut_list`, `inventory`, and Grist schema
-- `docs/grist_inventory_workflow.md` -- operator guide for the Grist-based inventory workflow
+- `data/` -- project snapshots for `cut_list`, `shopping_list`, substitutions
+- Shared inventory / Grist helpers live under repo `shared/` and `scripts/`
+- `../../docs/grist_inventory_workflow.md` -- operator guide
 - `week-1/` -- Weekend 1 build guide, shopping list, and helper script
 - `diagrams/` -- SVG/PNG diagrams referenced by the build guides
 
@@ -67,7 +69,7 @@ The inventory workflow uses Grist as the day-to-day UI, but keeps durable histor
 
 - `cut_list` is generated from the OpenSCAD/code layer and treated as read-only in Grist
 - the one editable cut-list field is `completed`, which marks cuts that have already been processed
-- `inventory` is edited in Grist, then pulled back into `data/inventory.json`
-- a separate AI agent process is responsible for turning required-minus-available inventory into purchase candidates and populating `shopping_list`
+- shared `inventory` is edited in Grist, then pulled back into `shared/inventory/inventory.json`
+- `diy-shopping` turns required-minus-available inventory into purchase candidates and populates `shopping_list`
 
-See `docs/grist_inventory_workflow.md` for the exact commands and sync process.
+See `../../docs/grist_inventory_workflow.md` for the exact commands and sync process.

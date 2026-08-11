@@ -6,6 +6,34 @@ import re
 from pathlib import Path
 from typing import Any
 
+from grist.project import (
+    INVENTORY_PATH,
+    ROOT_DIR,
+    SCHEMA_PATH,
+    load_project,
+)
+
+# Re-export shared paths so callers can `from grist.common import ROOT_DIR`.
+__all__ = [
+    "INVENTORY_PATH",
+    "ROOT_DIR",
+    "SCHEMA_PATH",
+    "canonical_section_key",
+    "clean_number",
+    "compact_row",
+    "load_project",
+    "load_snapshot",
+    "make_match_key",
+    "number_text",
+    "preserve_fields_by_key",
+    "read_json",
+    "row_dimensions",
+    "sorted_rows",
+    "stable_json_dumps",
+    "write_json",
+    "write_snapshot",
+]
+
 
 _SECTION_AXB_RE = re.compile(r"^\s*(\d+(?:\.\d+)?)\s*x\s*(\d+(?:\.\d+)?)\s*$")
 
@@ -29,23 +57,6 @@ def canonical_section_key(section_key: Any) -> str:
         return str(int(value)) if value.is_integer() else str(value)
 
     return f"{_fmt(lo)}x{_fmt(hi)}"
-
-
-ROOT_DIR = Path(__file__).resolve().parents[2]
-DATA_DIR = ROOT_DIR / "data"
-BIN_STORE_DIR = ROOT_DIR / "bin-store-model"
-PARAMETERS_PATH = BIN_STORE_DIR / "parameters.scad"
-SCHEMA_PATH = DATA_DIR / "grist_schema.json"
-CUT_LIST_PATH = DATA_DIR / "cut_list.json"
-INVENTORY_PATH = DATA_DIR / "inventory.json"
-SHOPPING_LIST_PATH = DATA_DIR / "shopping_list.json"
-SUBSTITUTION_CANDIDATES_PATH = DATA_DIR / "substitution_candidates.json"
-
-SNAPSHOT_PATHS = {
-    "cut_list": CUT_LIST_PATH,
-    "inventory": INVENTORY_PATH,
-    "shopping_list": SHOPPING_LIST_PATH,
-}
 
 
 def clean_number(value: Any) -> Any:

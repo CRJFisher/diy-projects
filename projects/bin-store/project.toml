@@ -1,0 +1,5 @@
+slug = "bin-store"
+name = "Bin Store"
+parameters = "model/parameters.scad"
+data_dir = "data"
+extraction = "extraction.py"

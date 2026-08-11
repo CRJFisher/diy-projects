@@ -8,6 +8,11 @@
           "type": "Text"
         },
         {
+          "id": "project_id",
+          "label": "Project ID",
+          "type": "Text"
+        },
+        {
           "id": "category",
           "label": "Category",
           "type": "Text"
@@ -73,7 +78,7 @@
           "type": "Text"
         }
       ],
-      "description": "Generated from OpenSCAD/code. Treat all fields as read-only except the editable completed flag.",
+      "description": "Generated from OpenSCAD/code per project. cut_id is namespaced as {project_id}__{local_id} in Grist. Treat all fields as read-only except the editable completed flag.",
       "id": "cut_list",
       "primary_key": "cut_id"
     },
@@ -167,6 +172,11 @@
           "type": "Text"
         },
         {
+          "id": "project_id",
+          "label": "Project ID",
+          "type": "Text"
+        },
+        {
           "id": "cut_key",
           "label": "Cut Key",
           "type": "Text"
@@ -247,7 +257,7 @@
           "type": "Text"
         }
       ],
-      "description": "Agent-owned shopping table. Pushed from the repo by the bin-store-shopping skill. individual_units counts physical items to acquire (sticks, sheets, hinges, tins) — independent of multi-pack packaging. pack_size is physical items per SKU. purchase_units = ceil(individual_units / pack_size) — the basket count.",
+      "description": "Agent-owned shopping table, scoped by project_id. shopping_id is namespaced as {project_id}__{local_id} in Grist. individual_units counts physical items to acquire (sticks, sheets, hinges, tins) — independent of multi-pack packaging. pack_size is physical items per SKU. purchase_units = ceil(individual_units / pack_size) — the basket count.",
       "id": "shopping_list",
       "primary_key": "shopping_id"
     }

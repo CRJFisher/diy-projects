@@ -10,7 +10,7 @@ You generate a deterministic search adapter for an ecommerce site from a recordi
 The caller will pass you two values in their prompt:
 
 - `RECORDING_PATH` — absolute path to a `recordings.json` produced by `tooling/adapter-builder/`. For each sample query, it contains: every JSON XHR/fetch response captured during the search (`network_candidates`), any failed requests (`failed_requests`), and the product cards that were visibly rendered on the results page (`ground_truth_products`, extracted by an LLM and treated as ground truth). A query may have a non-empty `error` field if recording failed for it.
-- `OUTPUT_DIR` — absolute path to the per-site adapter directory under `scripts/store_adapters/<slug>/`. Write all output files here.
+- `OUTPUT_DIR` — absolute path to the per-site adapter directory under `shared/store_adapters/<slug>/`. Write all output files here.
 
 You read the recording, classify the site, write the adapter files, and return a single JSON summary. You do **not** run any of the files you write — that's the skill's job in Phase 4.
 

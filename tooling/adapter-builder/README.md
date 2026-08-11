@@ -26,10 +26,10 @@ Requires Node ≥ 20.12 (for `--env-file-if-exists`).
 OPENROUTER_API_KEY=sk-or-... npm run record -- \
   --site "https://www.diy.com" \
   --queries '["CLS timber 50x47","featheredge cladding 125mm","plywood exterior 18mm"]' \
-  --out /Users/chuck/workspace/diy-projects/scripts/store_adapters/diy_com
+  --out /Users/chuck/workspace/diy-projects/shared/store_adapters/diy_com
 ```
 
-Pass `--out` as an absolute path. When invoked by the `build-store-adapter` skill, `--out` points directly at `scripts/store_adapters/<slug>/` so the analyzer subagent finds the recording without a copy step.
+Pass `--out` as an absolute path. When invoked by the `build-store-adapter` skill, `--out` points directly at `shared/store_adapters/<slug>/` so the analyzer subagent finds the recording without a copy step.
 
 Output: `<out>/recordings.json`:
 
@@ -41,15 +41,9 @@ Output: `<out>/recordings.json`:
     {
       "query": "CLS timber 50x47",
       "final_url": "https://www.diy.com/...",
-      "network_candidates": [
-        /* JSON xhr/fetch responses */
-      ],
-      "failed_requests": [
-        /* xhr/fetch that errored */
-      ],
-      "ground_truth_products": [
-        /* visible product cards */
-      ],
+      "network_candidates": [/* JSON xhr/fetch responses */],
+      "failed_requests": [/* xhr/fetch that errored */],
+      "ground_truth_products": [/* visible product cards */],
     },
   ],
 }

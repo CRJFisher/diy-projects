@@ -11,3 +11,5 @@ dist/
 # Adapter recordings may contain captured request headers including session
 # cookies and short-lived tokens. Review before committing.
 scripts/store_adapters/*/recordings.json
+shared/store_adapters/*/recordings.json
+

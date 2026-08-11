@@ -1,4 +1,3 @@
 {
-  "extraPaths": ["scripts"],
-  "include": ["scripts", "tests"]
+  "extraPaths": ["shared", "projects/bin-store"]
 }

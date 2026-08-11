@@ -5,8 +5,7 @@ from collections import defaultdict
 from dataclasses import dataclass
 from typing import Any
 
-from grist_inventory.common import canonical_section_key
-
+from grist.common import canonical_section_key
 
 DEFAULT_KERF_MM = 3.0
 DEFAULT_MIN_OFFCUT_MM = 150.0
@@ -135,6 +134,95 @@ def compute_shortfall(
         )
     )
     return shortfall_rows
+
+
+def remaining_inventory_after_cuts(
+    cut_list_rows: list[dict[str, Any]],
+    inventory_rows: list[dict[str, Any]],
+    kerf_mm: float = DEFAULT_KERF_MM,
+    min_offcut_mm: float = DEFAULT_MIN_OFFCUT_MM,
+) -> list[dict[str, Any]]:
+    """Return inventory-like rows after greedily reserving stock for ``cut_list_rows``.
+
+    Same fit rules as ``compute_shortfall``, but emits the leftover sticks as
+    synthetic inventory rows (one row per remaining stick length / qty bucket)
+    so a later shortfall pass can treat other projects' claims as already spent.
+    Cuts that cannot be satisfied simply leave inventory untouched for that cut.
+    """
+    incomplete_cuts = [row for row in cut_list_rows if not _is_completed(row)]
+    cuts_by_group = _expand_rows(incomplete_cuts, "qty_required")
+    sticks_by_group = _expand_rows(inventory_rows, "qty_on_hand")
+
+    # Preserve a template row per group so emitted leftovers keep category/material.
+    template_by_group: dict[SectionGroupKey, dict[str, Any]] = {}
+    for row in inventory_rows:
+        key = _group_key(row)
+        template_by_group.setdefault(key, row)
+
+    for group_key, cuts in cuts_by_group.items():
+        sticks = sorted(sticks_by_group.get(group_key, []))
+        cuts_sorted = sorted(cuts, reverse=True)
+        for cut_length in cuts_sorted:
+            needed = cut_length + kerf_mm
+            chosen_index: int | None = None
+            for index, stick_length in enumerate(sticks):
+                if stick_length >= needed:
+                    chosen_index = index
+                    break
+            if chosen_index is None:
+                continue
+            stick_length = sticks.pop(chosen_index)
+            offcut = stick_length - cut_length - kerf_mm
+            if offcut >= min_offcut_mm:
+                sticks.append(offcut)
+                sticks.sort()
+        sticks_by_group[group_key] = sticks
+
+    # Also keep groups that were never touched (no matching cuts).
+    remaining_rows: list[dict[str, Any]] = []
+    for group_key, sticks in sticks_by_group.items():
+        if not sticks:
+            continue
+        template = template_by_group.get(group_key, {})
+        # Collapse identical lengths into qty buckets for a compact inventory shape.
+        length_counts: dict[float, int] = defaultdict(int)
+        for length in sticks:
+            length_counts[length] += 1
+        for length_mm, qty in sorted(length_counts.items(), reverse=True):
+            remaining_rows.append(
+                {
+                    "inventory_id": (
+                        f"remaining|{group_key.material_type}|"
+                        f"{group_key.section_key}|{length_mm}"
+                    ),
+                    "category": group_key.category
+                    or _normalize_string(template.get("category")),
+                    "material_type": group_key.material_type,
+                    "section_key": _normalize_string(template.get("section_key"))
+                    or group_key.section_key,
+                    "length_mm": length_mm,
+                    "width_mm": template.get("width_mm"),
+                    "thickness_mm": template.get("thickness_mm"),
+                    "qty_on_hand": qty,
+                    "unit": template.get("unit") or "each",
+                }
+            )
+    return remaining_rows
+
+
+def reserve_inventory_for_other_projects(
+    inventory_rows: list[dict[str, Any]],
+    other_cut_lists: list[list[dict[str, Any]]],
+    kerf_mm: float = DEFAULT_KERF_MM,
+    min_offcut_mm: float = DEFAULT_MIN_OFFCUT_MM,
+) -> list[dict[str, Any]]:
+    """Apply other projects' incomplete cuts as inventory reservations, in order."""
+    remaining = inventory_rows
+    for cut_rows in other_cut_lists:
+        remaining = remaining_inventory_after_cuts(
+            cut_rows, remaining, kerf_mm=kerf_mm, min_offcut_mm=min_offcut_mm
+        )
+    return remaining
 
 
 def _parse_section_dims(section_key: str) -> tuple[float, ...]:

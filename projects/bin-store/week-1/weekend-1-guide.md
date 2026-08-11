@@ -2,16 +2,16 @@
 
 This weekend you build the freestanding timber frame -- six posts, all rails, cross-bracing, and a centre divider. No cladding, roof, or door yet.
 
-| Measurement | Value |
-|---|---|
-| Total width | 1300 mm |
-| Total depth | 750 mm |
-| Internal depth | 650 mm (food caddy clearance) |
-| Front height | 1597 mm |
-| Back height | 1647 mm |
-| Roof slope (back-to-front) | 50 mm fall |
-| Left section width | ~860 mm (enclosed, with door) |
-| Right section width | ~440 mm (open, with shelves) |
+| Measurement                | Value                         |
+| -------------------------- | ----------------------------- |
+| Total width                | 1300 mm                       |
+| Total depth                | 750 mm                        |
+| Internal depth             | 650 mm (food caddy clearance) |
+| Front height               | 1597 mm                       |
+| Back height                | 1647 mm                       |
+| Roof slope (back-to-front) | 50 mm fall                    |
+| Left section width         | ~860 mm (enclosed, with door) |
+| Right section width        | ~440 mm (open, with shelves)  |
 
 ---
 
@@ -19,17 +19,17 @@ This weekend you build the freestanding timber frame -- six posts, all rails, cr
 
 All frame cuts use **50 x 47 mm pressure-treated softwood** (from B&Q). Posts from 2.4 m stock; rails from 1.8 m stock. X-braces use **15 x 38 mm timber** (user-supplied, 2400 mm lengths).
 
-| Qty | Length | Description |
-|-----|--------|-------------|
-| 3 | 1647 mm `[CUT:POST_BL,POST_BR,POST_BC]` | Back posts (2 corners + 1 right-section back) |
-| 2 | 1597 mm `[CUT:POST_FL,POST_FR]` | Front corner posts (left + right) |
-| 1 | 1503 mm `[CUT:POST_FC]` | Front centre post (sits between top & bottom rails; 1597 - 2 x 47) |
-| 4 | 1206 mm `[CUT:RAIL_BACK_TOP,RAIL_BACK_BOT,RAIL_BACK_MID,RAIL_FRONT_TOP]` | Full-width rails (2 top, 1 back bottom, 1 back mid-rail at 775 mm; 1300 minus 2 x 47 mm posts) |
-| 1 | 393 mm `[CUT:RAIL_FRONT_BOT_R]` | Front bottom rail -- right section only (centre post outside face to right corner post inside face; 440 section minus 47 right post) |
-| 5 | 650 mm `[CUT:RAIL_DEPTH_TL,RAIL_DEPTH_TR,RAIL_DEPTH_BL,RAIL_DEPTH_BR,RAIL_DEPTH_TC]` | Depth rails (4 corner connections + 1 centre divider top) |
-| 2 | 650 mm `[CUT:RAIL_MID_LEFT,RAIL_DEPTH_MC]` | Mid-rails (left wall + centre divider, at 775 mm) |
-| 2 | ~1100 mm `[CUT:BRACE_BACK_1,BRACE_BACK_2]` | Back panel X-braces -- **15x38mm user-supplied** (45° both ends) |
-| 2 | ~1000 mm `[CUT:BRACE_LEFT_1,BRACE_LEFT_2]` | Left panel X-braces -- **15x38mm user-supplied** (45° both ends; ~980 + ~1010, avg ~1000) |
+| Qty | Length                                                                               | Description                                                                                                                          |
+| --- | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------ |
+| 3   | 1647 mm `[CUT:POST_BL,POST_BR,POST_BC]`                                              | Back posts (2 corners + 1 right-section back)                                                                                        |
+| 2   | 1597 mm `[CUT:POST_FL,POST_FR]`                                                      | Front corner posts (left + right)                                                                                                    |
+| 1   | 1503 mm `[CUT:POST_FC]`                                                              | Front centre post (sits between top & bottom rails; 1597 - 2 x 47)                                                                   |
+| 4   | 1206 mm `[CUT:RAIL_BACK_TOP,RAIL_BACK_BOT,RAIL_BACK_MID,RAIL_FRONT_TOP]`             | Full-width rails (2 top, 1 back bottom, 1 back mid-rail at 775 mm; 1300 minus 2 x 47 mm posts)                                       |
+| 1   | 393 mm `[CUT:RAIL_FRONT_BOT_R]`                                                      | Front bottom rail -- right section only (centre post outside face to right corner post inside face; 440 section minus 47 right post) |
+| 5   | 650 mm `[CUT:RAIL_DEPTH_TL,RAIL_DEPTH_TR,RAIL_DEPTH_BL,RAIL_DEPTH_BR,RAIL_DEPTH_TC]` | Depth rails (4 corner connections + 1 centre divider top)                                                                            |
+| 2   | 650 mm `[CUT:RAIL_MID_LEFT,RAIL_DEPTH_MC]`                                           | Mid-rails (left wall + centre divider, at 775 mm)                                                                                    |
+| 2   | ~1100 mm `[CUT:BRACE_BACK_1,BRACE_BACK_2]`                                           | Back panel X-braces -- **15x38mm user-supplied** (45° both ends)                                                                     |
+| 2   | ~1000 mm `[CUT:BRACE_LEFT_1,BRACE_LEFT_2]`                                           | Left panel X-braces -- **15x38mm user-supplied** (45° both ends; ~980 + ~1010, avg ~1000)                                            |
 
 **Fixings:** ~40x 75 mm galv screws (joints), ~16x 65 mm (braces). Roughly 56 total.
 
@@ -152,9 +152,9 @@ The centre divider splits the bin store into **left** (~860 mm, enclosed with do
 
 Mid-height rails at 775 mm stiffen the frame and provide cladding fixing points. Two are already in place from earlier steps (back wall and centre divider). One more to add now:
 
-| Qty | Component | Length | Location |
-|-----|-----------|--------|----------|
-| 1 | Left wall mid-rail | 650 mm | Left-front to left-back post, 775 mm height |
+| Qty | Component          | Length | Location                                    |
+| --- | ------------------ | ------ | ------------------------------------------- |
+| 1   | Left wall mid-rail | 650 mm | Left-front to left-back post, 775 mm height |
 
 Fix each rail with 2x 75 mm screws at each end. The right side wall does **not** get a mid-rail -- the shelves (Weekend 4) will act as lateral bracing instead. The right section of the front face (~440 mm wide) has no mid-rail either -- the cladding is nailed directly to the centre post and right corner post, which is sufficient for such a narrow span. Check all mid-rails are level with a spirit level before fully tightening.
 
@@ -214,34 +214,34 @@ See the Cut List above for all timber pieces and dimensions. Posts and rails are
 
 ### Timber (user-supplied)
 
-| Material | Qty | Length | Use |
-|----------|-----|--------|-----|
+| Material       | Qty              | Length  | Use                                          |
+| -------------- | ---------------- | ------- | -------------------------------------------- |
 | 15x38mm timber | 2 of 8 available | 2400 mm | X-braces (2x ~1100mm back + 2x ~1000mm left) |
 
 The remaining 6 pieces of 15x38mm are spare.
 
 ### Fixings
 
-| Fixing | Size | Qty |
-|--------|------|-----|
+| Fixing            | Size  | Qty |
+| ----------------- | ----- | --- |
 | Galvanised screws | 75 mm | ~40 |
 | Galvanised screws | 65 mm | ~16 |
 
 ### Tools
 
-| Tool | Essential? |
-|------|-----------|
-| Cordless drill/driver (18V+) | Yes |
-| Pilot drill bits (3 mm, 5 mm) | Yes |
-| Tape measure (5 m) | Yes |
-| Spirit level (600 mm+) | Yes |
-| Framing square | Yes |
-| Handsaw or mitre saw | Yes |
-| Clamps (x2-4) | Yes |
-| Sawhorses or workbench | Yes |
-| Pencil | Yes |
-| Safety glasses | Yes |
-| Work gloves | Yes |
+| Tool                          | Essential? |
+| ----------------------------- | ---------- |
+| Cordless drill/driver (18V+)  | Yes        |
+| Pilot drill bits (3 mm, 5 mm) | Yes        |
+| Tape measure (5 m)            | Yes        |
+| Spirit level (600 mm+)        | Yes        |
+| Framing square                | Yes        |
+| Handsaw or mitre saw          | Yes        |
+| Clamps (x2-4)                 | Yes        |
+| Sawhorses or workbench        | Yes        |
+| Pencil                        | Yes        |
+| Safety glasses                | Yes        |
+| Work gloves                   | Yes        |
 
 ### NOT Needed This Weekend
 

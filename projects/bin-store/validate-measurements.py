@@ -15,8 +15,6 @@ import math
 import re
 import sys
 from dataclasses import dataclass
-from typing import Optional
-
 
 # ─────────────────────────────────────────────────────────
 # TIMBER CROSS-SECTION  (50 x 47 mm pressure-treated softwood)
@@ -78,7 +76,7 @@ class Cut:
     description: str
     length: float           # mm, as stated in the guide
     qty: int = 1
-    corrected: Optional[float] = None
+    corrected: float | None = None
     notes: str = ""
 
     @property
@@ -319,7 +317,7 @@ def build_constraints() -> list:
 
     # Front centre post expected value
     add(Constraint("FRONT_CENTRE_POST_CALC",
-        f"Front centre post = front_post - 2 x rail_height",
+        "Front centre post = front_post - 2 x rail_height",
         [("POST_FC", L("POST_FC"))],
         L("POST_FL") - 2 * RAIL_HEIGHT))
 
@@ -637,7 +635,7 @@ def update_prose_dimensions(content: str) -> str:
 
         # Step 1 assembly: "1600 mm" back posts (already handled by markers,
         # but also in other prose)
-        (f"three 1600 mm back posts",   # handled by markers, but backup
+        ("three 1600 mm back posts",   # handled by markers, but backup
          f"three {new_back} mm back posts") if old_back != new_back else ("", ""),
 
         # Step 2: front posts are 1550
@@ -749,12 +747,12 @@ def report_sloped_rail_geometry():
     # it is tilted from vertical by the slope angle.  The gap created at the
     # post face = sin(slope) * rail_height.
     gap = math.sin(slope_angle_rad) * RAIL_HEIGHT
-    print(f"\n  End-cut analysis:")
-    print(f"    If cut square to the rail (perpendicular to rail length):")
+    print("\n  End-cut analysis:")
+    print("    If cut square to the rail (perpendicular to rail length):")
     print(f"      End face tilt from vertical: {slope_angle_deg:.2f} deg")
     print(f"      Gap at post face: sin({slope_angle_deg:.2f}) x {RAIL_HEIGHT} = {gap:.1f} mm")
-    print(f"    RECOMMENDATION: Cut ends VERTICAL (square to the post).")
-    print(f"    This gives a flush fit against the vertical post face.")
+    print("    RECOMMENDATION: Cut ends VERTICAL (square to the post).")
+    print("    This gives a flush fit against the vertical post face.")
     print(f"    Measure and cut to the horizontal distance ({horiz_dist} mm).")
 
     # 4. Left side X-braces in sloped upper zone (trapezoidal)
@@ -774,7 +772,7 @@ def report_sloped_rail_geometry():
     front_upper = (front_post_ht - RAIL_HEIGHT) - (MID_RAIL_HEIGHT + RAIL_HEIGHT)
     back_upper = (back_post_ht - RAIL_HEIGHT) - (MID_RAIL_HEIGHT + RAIL_HEIGHT)
 
-    print(f"\n  Left-side X-braces (trapezoidal upper zone):")
+    print("\n  Left-side X-braces (trapezoidal upper zone):")
     print(f"    Front upper zone height: {front_upper:.0f} mm")
     print(f"    Back upper zone height:  {back_upper:.0f} mm")
     print(f"    Horizontal span:         {horiz_dist} mm")

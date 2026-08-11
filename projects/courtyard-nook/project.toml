@@ -1,0 +1,5 @@
+slug = "courtyard-nook"
+name = "Courtyard Nook"
+parameters = "model/parameters.scad"
+data_dir = "data"
+extraction = "extraction.py"

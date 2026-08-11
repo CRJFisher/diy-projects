@@ -1,44 +1,41 @@
-# Bin Store
+# DIY Projects
 
-## Basic design (from face on)
+Multi-project workshop repo. Each build lives under `projects/<slug>/`; shared inventory, Grist helpers, and store adapters live under `shared/`.
 
-- Left section contains wheelie bin and food caddy. This has a door opening outwards to the front.
-- Right section contains recycling boxes on three shelves. This has a hard board on the front and is left open for access on the right side of the bin store.
+## Projects
 
-## Key Constraints
-
-These are the key constraints that need to be met in order to design a successful bin store. Everything else flows from these and the design.
-
-- _Total_ width must be 1300mm in order to fit in the space. This is possible based on the line (going left to right at the front face):
-  - 47mm (left post width)
-  - 490mm (wheelie bin width)
-  - 323mm (food caddy width)
-  - 440mm (recycling bin width plus 10mm clearance)
-  - Total: 440 + 323 + 490 + 47 = 1300mm
-  - Note: the front and back centre posts are at different X positions. The front centre post (at X=874mm) sits on top of the front bottom right rail and overlaps 47mm into the recycling bin space in the width dimension; this is intentional and acceptable as the depth clearance ensures the recycling boxes fit without obstruction. The back centre post (at X=827mm) is inside the frame, one post_side (50mm) in front of the back wall, and does not reduce the recycling section width.
-- _Internal_ height must allow for the wheelie bin lid to be open, requiring a clearance of 1550mm
-  - 1060mm (wheelie bin height)
-  - 490mm (clearance above the wheelie bin lid)
-  - Total: 1060 + 490 = 1550mm
-- Depth should be depth of wheelie bin and recycling boxes - 750mm. This consists of:
-  - 50mm (post width)
-  - 40mm (clearance)
-  - 570mm (recycling box depth)
-  - 40mm (clearance)
-  - 50mm (post width)
-  - Total: 50 + 40 + 570 + 40 + 50 = 750mm
+| Slug             | Path                                                 | Notes                                                     |
+| ---------------- | ---------------------------------------------------- | --------------------------------------------------------- |
+| `bin-store`      | [projects/bin-store/](projects/bin-store/)           | Outdoor bin store — design constraints in its `CLAUDE.md` |
+| `courtyard-nook` | [projects/courtyard-nook/](projects/courtyard-nook/) | Courtyard nook roofing — constraints TBD                  |
 
 ## OpenSCAD
 
-We're using OpenSCAD to design the bin store. It is installed locally.
-
-There's a cheat sheet for OpenSCAD here: [OpenSCAD CheatSheet.htm](OpenSCAD CheatSheet.htm)
+OpenSCAD is installed locally. Cheat sheet: [shared/openscad/OpenSCAD CheatSheet.htm](shared/openscad/OpenSCAD%20CheatSheet.htm).
 
 **Tip:** After opening a `.scad` file, press **F5** to preview, then use **View > View All** (or the toolbar button) to zoom the camera to fit the entire model. Without this, the viewport may appear blank.
 
+## Shared inventory and Grist
+
+One Grist document holds:
+
+- `inventory` — workshop-wide stock (snapshot: `shared/inventory/inventory.json`)
+- `cut_list` / `shopping_list` — scoped by `project_id`; primary keys are `{project_id}__{local_id}` in Grist
+
+When computing a shopping list for project P, incomplete cuts from other projects reserve stock first so two projects cannot both claim the same stick.
+
+```bash
+python3 scripts/extract_cut_list.py --project bin-store
+python3 scripts/sync_grist_tables.py --project bin-store
+python3 scripts/compute_shopping_list.py --project bin-store
+```
+
+Env: `GRIST_API_KEY`, `GRIST_DOC_ID` (optional `GRIST_BASE_URL`). See [docs/grist_inventory_workflow.md](docs/grist_inventory_workflow.md).
+
 ## Tooling
 
-The project is primarily Python (OpenSCAD model + Grist sync scripts). Two TypeScript locations exist for the ecommerce-search adapter pipeline:
+- `shared/grist/` — Python package (`grist`) for snapshots, sync, shortfall / reservation
+- `tooling/adapter-builder/` — Stagehand + Playwright recorder for `build-store-adapter`
+- `shared/store_adapters/<slug>/` — generated per-site search adapters
 
-- `tooling/adapter-builder/` — Node bootstrap workspace. Stagehand + Playwright recorder used by the `build-store-adapter` skill to capture sample searches on a target site. One copy, hand-authored.
-- `scripts/store_adapters/<slug>/` — one generated per-site adapter. Each has its own `package.json` and is independent. Built and tested by the `build-store-adapter` skill; called as a deterministic CLI / function by future shopping skills.
+Skills: `diy-sync`, `diy-shopping`, `build-store-adapter`.

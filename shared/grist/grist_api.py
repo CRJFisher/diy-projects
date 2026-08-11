@@ -4,6 +4,7 @@ import json
 import urllib.error
 import urllib.parse
 import urllib.request
+from collections.abc import Callable
 from typing import Any
 
 
@@ -171,19 +172,31 @@ class GristClient:
         table_id: str,
         primary_key: str,
         rows: list[dict[str, Any]],
+        *,
+        delete_predicate: Callable[[dict[str, Any]], bool] | None = None,
     ) -> dict[str, int]:
+        """Upsert ``rows`` and delete stale existing records.
+
+        If ``delete_predicate`` is provided, it is called with each existing
+        record's fields dict and should return True when that record is in
+        scope for deletion (e.g. belongs to the active project). Records
+        outside the predicate are left untouched so other projects' rows
+        survive a project-scoped sync.
+        """
         existing_records = self.fetch_records(table_id)
-        existing_by_key = {
-            record.get("fields", {}).get(primary_key): record.get("id")
-            for record in existing_records
-            if record.get("fields", {}).get(primary_key) not in (None, "")
-        }
         local_keys = {row[primary_key] for row in rows}
-        delete_ids = [
-            row_id
-            for key, row_id in existing_by_key.items()
-            if key not in local_keys and row_id is not None
-        ]
+        delete_ids: list[int] = []
+        for record in existing_records:
+            fields = record.get("fields", {})
+            key = fields.get(primary_key)
+            row_id = record.get("id")
+            if key in (None, "") or row_id is None:
+                continue
+            if key in local_keys:
+                continue
+            if delete_predicate is not None and not delete_predicate(fields):
+                continue
+            delete_ids.append(row_id)
 
         self.upsert_records(table_id, primary_key, rows)
         self.delete_records(table_id, delete_ids)

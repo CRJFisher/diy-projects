@@ -6,26 +6,43 @@ import re
 from pathlib import Path
 from typing import Any
 
-from grist_inventory.common import PARAMETERS_PATH, compact_row
+from grist.common import compact_row
+
+ASSIGNMENT_RE = re.compile(r"^([A-Za-z_][A-Za-z0-9_]*)\s*=\s*(.+)$")
 
 
-ASSIGNMENT_RE = re.compile(r"^([A-Za-z_][A-Za-z0-9_]*)\s*=\s*(.+?);$")
-
-
-def parse_parameters(path: Path = PARAMETERS_PATH) -> dict[str, Any]:
-    values: dict[str, Any] = {}
+def parse_parameters(path: Path) -> dict[str, Any]:
+    assignments: list[tuple[str, str]] = []
     for raw_line in path.read_text().splitlines():
         line = raw_line.split("//", 1)[0].strip()
         if not line:
             continue
-        match = ASSIGNMENT_RE.match(line)
-        if not match:
-            continue
-        name, expr = match.groups()
-        try:
-            values[name] = _eval_expression(expr.strip(), values)
-        except Exception:
-            continue
+        for statement in line.split(";"):
+            statement = statement.strip()
+            if not statement:
+                continue
+            match = ASSIGNMENT_RE.match(statement)
+            if not match:
+                continue
+            name, expr = match.groups()
+            assignments.append((name, expr.strip()))
+
+    values: dict[str, Any] = {}
+    pending = assignments
+    while pending:
+        next_pending: list[tuple[str, str]] = []
+        progressed = False
+        for name, expr in pending:
+            try:
+                values[name] = _eval_expression(expr, values)
+            except (KeyError, ValueError, TypeError, SyntaxError, ZeroDivisionError):
+                next_pending.append((name, expr))
+            else:
+                progressed = True
+        if not progressed:
+            unresolved = ", ".join(f"{name}={expr}" for name, expr in next_pending)
+            raise ValueError(f"Unable to evaluate OpenSCAD parameters: {unresolved}")
+        pending = next_pending
     return values
 
 
@@ -68,8 +85,7 @@ def _eval_node(node: ast.AST, values: dict[str, Any]) -> Any:
     raise ValueError(f"Unsupported expression: {ast.dump(node)}")
 
 
-def build_cut_list_rows(parameters: dict[str, Any] | None = None) -> list[dict[str, Any]]:
-    parameters = parameters or parse_parameters()
+def build_cut_list_rows(parameters: dict[str, Any]) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
 
     def add_row(
