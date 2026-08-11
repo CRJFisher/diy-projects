@@ -1,11 +1,15 @@
 # Courtyard Nook
 
-Roofing / enclosure for a courtyard nook. Design constraints and OpenSCAD model are TBD.
+Roofing / enclosure for a courtyard nook.
+
+## Site envelope (looking into the nook from the courtyard)
+
+All notes were in cm; OpenSCAD uses mm (`×10`). Source of truth: `model/parameters.scad`.
 
 ## Layout
 
-- `model/` — OpenSCAD parametric model (to be added)
-- `extraction.py` — cut-list mapping from parameters (to be added)
+- `model/` — OpenSCAD parametric model (`parameters.scad`, `walls.scad`, `courtyard_nook.scad`)
+- `extraction.py` — cut-list mapping from parameters (to be added when the build is designed)
 - `data/` — `cut_list.json`, `shopping_list.json`, `substitution_candidates.json`
 
 Shared workshop inventory: `../../shared/inventory/inventory.json`.
