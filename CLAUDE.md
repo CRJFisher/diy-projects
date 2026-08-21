@@ -4,10 +4,10 @@ Multi-project workshop repo. Each build lives under `projects/<slug>/`; shared i
 
 ## Projects
 
-| Slug             | Path                                                 | Notes                                                     |
-| ---------------- | ---------------------------------------------------- | --------------------------------------------------------- |
-| `bin-store`      | [projects/bin-store/](projects/bin-store/)           | Outdoor bin store — design constraints in its `CLAUDE.md` |
-| `courtyard-nook` | [projects/courtyard-nook/](projects/courtyard-nook/) | Courtyard nook roofing — constraints TBD                  |
+| Slug             | Path                                                 | Notes                                                      |
+| ---------------- | ---------------------------------------------------- | ---------------------------------------------------------- |
+| `bin-store`      | [projects/bin-store/](projects/bin-store/)           | Outdoor bin store — design constraints in its `CLAUDE.md`  |
+| `courtyard-nook` | [projects/courtyard-nook/](projects/courtyard-nook/) | Courtyard nook roofing — site measured, build not designed |
 
 ## OpenSCAD
 

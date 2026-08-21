@@ -1,8 +1,10 @@
 // ─────────────────────────────────────────────────────────
 // Courtyard Nook — Walls & site envelope
+// Geometry of what is already there. Driven by `site.scad` only —
+// nothing here may depend on the shed's own dimensions.
 // ─────────────────────────────────────────────────────────
 
-include <parameters.scad>
+include <site.scad>
 
 // Left brick wall (interior at X=0), thickness outward (−X)
 module nook_left_wall() {
@@ -11,11 +13,45 @@ module nook_left_wall() {
             cube([wall_t, nook_depth, brick_wall_height]);
 }
 
-// Back brick wall (interior at Y=nook_depth), straight across; thickness outward (+Y)
+// Back brick wall (interior at Y=nook_depth), thickness outward (+Y).
+// Runs only `back_brick_run` from the left corner — beyond that the
+// neighbour's house wall takes over.
 module nook_back_wall() {
     color(brick_colour)
         translate([0, nook_depth, 0])
-            cube([nook_width, wall_t, brick_wall_height]);
+            cube([back_brick_run, wall_t, brick_wall_height]);
+}
+
+// Neighbour's house wall — completes the back of the nook from
+// `back_brick_run` across to the house wall, rising past the brick to the
+// eaves. Assumed flush with the brick back face (Y=nook_depth); not measured.
+module neighbour_house_wall() {
+    color(neighbour_colour)
+        translate([back_brick_run, nook_depth, 0])
+            cube([neighbour_wall_run, wall_t, neighbour_eaves_z]);
+}
+
+// Neighbour's gutter — runs along their eaves away from us (+Y), so almost
+// all of it is over their property. Only its near end reaches back over our
+// nook, by `gutter_projection`, and that end is what our roof must clear.
+module neighbour_gutter() {
+    color(gutter_colour)
+        translate([
+            gutter_centre_x,
+            nook_depth - gutter_projection,
+            gutter_underside_z + gutter_dia / 2
+        ])
+            rotate([-90, 0, 0])
+                cylinder(h = gutter_run, d = gutter_dia, $fn = curve_fn);
+}
+
+// Neighbour's roof above the gutter, sloping up to the right. Schematic
+// context only — pitch, run and depth are all unmeasured.
+module neighbour_roof() {
+    color(neighbour_roof_col)
+        translate([gutter_centre_x, nook_depth - gutter_projection, neighbour_eaves_z])
+            rotate([0, -neighbour_roof_pitch, 0])
+                cube([neighbour_roof_run, neighbour_roof_depth, neighbour_roof_t]);
 }
 
 // Right house wall (interior at X=nook_width), thickness outward (+X)
@@ -27,8 +63,8 @@ module nook_right_wall() {
 
 // Floor ghost of the rectangular nook footprint
 module nook_floor() {
-    color(floor_colour, 0.45)
-        cube([nook_width, nook_depth, 2]);
+    color(floor_colour, floor_ghost_alpha)
+        cube([nook_width, nook_depth, floor_ghost_t]);
 }
 
 // Bathroom extractor on the house (right) wall, projecting into the nook
@@ -62,5 +98,7 @@ module courtyard_stubs() {
 module nook_walls() {
     nook_left_wall();
     nook_back_wall();
+    neighbour_house_wall();
+    neighbour_gutter();
     nook_right_wall();
 }
