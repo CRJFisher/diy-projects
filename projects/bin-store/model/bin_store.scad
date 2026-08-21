@@ -14,9 +14,9 @@ use <shelves.scad>
 use <cladding.scad>
 use <door.scad>
 
-if (show_frame)  frame();
+//if (show_frame)  frame();
 if (show_roof)   roof();
-if (show_cladding) cladding();
-if (show_door)   door_assembly();
-if (show_shelves) shelves();
-if (show_bins)   bins();
+//if (show_cladding) cladding();
+//if (show_door)   door_assembly();
+//if (show_shelves) shelves();
+//if (show_bins)   bins();
